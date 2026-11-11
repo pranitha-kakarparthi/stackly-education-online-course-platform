@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple, transparent pricing for Stackly Education. Choose from Starter, Monthly, Lifetime All-Access, or Enterprise learning plans with zero hidden fees.">
+  <meta name="keywords" content="Stackly pricing, online course membership, coding bootcamp cost, lifetime access courses, tech learning subscription, developer certification">
+  <meta property="og:title" content="Pricing & Learning Plans | Stackly Education Platform">
+  <meta property="og:description" content="Invest in your future with flexible, transparent learning plans. Free trial, 14-day money-back guarantee, and verified career credentials.">
+  <meta property="og:type" content="website">
+  <title>Pricing Plans & Membership | Stackly Education Platform</title>
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <!-- Dedicated Pricing Page Custom Enhancements -->
+  <style>
+    /* ==========================================================================
+       PRICING PAGE CUSTOM ENHANCEMENTS & MICRO-INTERACTIONS
+       ========================================================================== */
+    
+    /* Breadcrumb styling */
+    .breadcrumb-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .breadcrumb-nav a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+    .breadcrumb-nav a:hover {
+      color: var(--color-primary);
+    }
+    .breadcrumb-nav .separator {
+      color: var(--color-text-subtle);
+    }
+    .breadcrumb-nav .current {
+      color: var(--color-text-main);
+      font-weight: 600;
+    }
+
+    /* Hero Header */
+    .pricing-hero {
+      text-align: center;
+      max-width: 840px;
+      margin: 0 auto;
+      padding-top: clamp(2rem, 4vw, 3.5rem);
+      padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    }
+    .pricing-hero h1 {
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+      margin-bottom: 1.25rem;
+    }
+    .pricing-hero p.hero-subtitle {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--color-text-body);
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0 auto 2.25rem;
+    }
+
+    /* Billing Toggle Switch */
+    .billing-toggle-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      background-color: #FFFFFF;
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-full);
+      border: 1.5px solid var(--border-color-medium);
+      box-shadow: var(--shadow-sm);
+      margin: 0 auto;
+    }
+    .toggle-label {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      user-select: none;
+      transition: color var(--transition-fast);
+    }
+    .toggle-label.active {
+      color: var(--color-text-main);
+    }
+    .toggle-switch-btn {
+      position: relative;
+      width: 58px;
+      height: 32px;
+      background-color: var(--color-primary);
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      outline: none;
+      padding: 3px;
+      transition: background-color var(--transition-normal);
+    }
+    .toggle-switch-btn:focus-visible {
+      outline: 2px solid var(--color-primary-dark);
+      outline-offset: 3px;
+    }
+    .toggle-slider {
+      display: block;
+      width: 26px;
+      height: 26px;
+      background-color: #FFFFFF;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      transition: transform var(--transition-smooth);
+      transform: translateX(0);
+    }
+    .toggle-switch-btn.annual .toggle-slider {
+      transform: translateX(26px);
+    }
+    .savings-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background-color: var(--color-pastel-yellow);
+      color: var(--color-pastel-yellow-dark);
+      font-size: 0.775rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(234, 179, 8, 0.35);
+      animation: badgeBounce 3s ease-in-out infinite;
+    }
+    @keyframes badgeBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    /* Pricing Tier Grid */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      align-items: stretch;
+      margin-top: 3rem;
+    }
+    .pricing-card {
+      background-color: var(--color-bg-surface);
+      border: 1.5px solid var(--border-color-subtle);
+      border-radius: var(--radius-2xl);
+      padding: 2.25rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+      box-shadow: var(--shadow-sm);
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--border-color-medium);
+    }
+
+    /* Featured / Popular Card Styling */
+    .pricing-card.featured {
+      border: 2.5px solid var(--color-primary);
+      background: linear-gradient(180deg, #FFFFFF 0%, #F0FDFA 100%);
+      box-shadow: 0 16px 36px -6px rgba(13, 148, 136, 0.16);
+      transform: translateY(-4px);
+    }
+    .pricing-card.featured:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 44px -8px rgba(13, 148, 136, 0.24);
+    }
+
+    /* Lifetime Value Card Styling */
+    .pricing-card.lifetime {
+      border: 2px solid #854D0E;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FEFCE8 100%);
+    }
+
+    /* Card Ribbons / Badges */
+    .card-ribbon {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.15rem;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.35);
+      white-space: nowrap;
+      z-index: 10;
+    }
+    .card-ribbon.amber {
+      background: linear-gradient(135deg, #D97706 0%, #B45309 100%);
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
+    }
+
+    /* Tier Header */
+    .tier-header {
+      margin-bottom: 1.5rem;
+    }
+    .tier-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin-bottom: 0.4rem;
+    }
+    .tier-description {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      line-height: 1.45;
+      min-height: 2.75rem;
+    }
+
+    /* Price Display */
+    .price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      margin-bottom: 0.5rem;
+    }
+    .price-currency {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+    }
+    .price-amount {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--color-text-main);
+      transition: all var(--transition-fast);
+    }
+    .price-period {
+      font-size: 0.925rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+    .billing-subtext {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--color-primary-dark);
+      margin-bottom: 1.75rem;
+      min-height: 1.25rem;
+    }
+
+    /* Feature List */
+    .tier-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      flex-grow: 1;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--color-text-body);
+      line-height: 1.4;
+    }
+    .feature-icon-check {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: var(--color-primary);
+      margin-top: 2px;
+    }
+    .feature-icon-check.amber {
+      color: #D97706;
+    }
+    .feature-item.muted {
+      color: var(--color-text-subtle);
+      text-decoration: line-through;
+    }
+    .feature-item.muted .feature-icon-check {
+      color: var(--color-text-subtle);
+    }
+
+    /* Card CTA Button */
+    .tier-cta {
+      width: 100%;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    /* Feature Comparison Matrix Table */
+    .comparison-section {
+      margin-top: 5rem;
+    }
+    .section-header-centered {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 3rem;
+    }
+    .section-header-centered h2 {
+      font-size: clamp(1.85rem, 3.5vw, 2.65rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+    .comparison-table-wrapper {
+      background-color: var(--color-bg-surface);
+      border-radius: var(--radius-2xl);
+      border: 1.5px solid var(--border-color-subtle);
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+      position: relative;
+    }
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      min-width: 760px;
+    }
+    .comparison-table th,
+    .comparison-table td {
+      padding: 1.15rem 1.25rem;
+      border-bottom: 1px solid var(--border-color-subtle);
+      vertical-align: middle;
+      font-size: 0.925rem;
+    }
+    .comparison-table thead th {
+      background-color: #F8FAFC;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--color-text-main);
+      position: sticky;
+      top: var(--header-height);
+      z-index: 5;
+    }
+    .comparison-table thead th:first-child {
+      width: 36%;
+    }
+    .comparison-table thead th:not(:first-child) {
+      width: 16%;
+      text-align: center;
+    }
+    .comparison-table tbody td:not(:first-child) {
+      text-align: center;
+    }
+    .table-category-row td {
+      background-color: #F1F5F9;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-main);
+      padding: 0.75rem 1.25rem;
+    }
+    .comparison-table tbody tr:hover td {
+      background-color: #F9FAFB;
+    }
+    .table-check-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--color-primary);
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .table-cross-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--color-text-subtle);
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* What's Included & Guarantee Section */
+    .guarantee-wrapper {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      border-radius: var(--radius-2xl);
+      color: #FFFFFF;
+      padding: clamp(2.5rem, 5vw, 4rem);
+      margin-top: 5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+    }
+    .guarantee-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .guarantee-badge-visual {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      backdrop-filter: blur(8px);
+    }
+    .guarantee-heading {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      color: #FFFFFF;
+    }
+    .guarantee-text {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #E2E8F0;
+      margin-bottom: 2rem;
+    }
+    .guarantee-pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .guarantee-pillar-item {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+    .pillar-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background-color: var(--color-pastel-yellow);
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .pillar-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 0.4rem;
+    }
+    .pillar-desc {
+      font-size: 0.85rem;
+      color: #CBD5E1;
+      line-height: 1.45;
+    }
+
+    /* ROI & Student Testimonials */
+    .roi-section {
+      margin-top: 5rem;
+    }
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .stat-ribbon-card {
+      background-color: var(--color-bg-surface);
+      border: 1.5px solid var(--border-color-subtle);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-ribbon-value {
+      font-family: var(--font-heading);
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 0.25rem;
+    }
+    .stat-ribbon-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background-color: var(--color-bg-surface);
+      border: 1.5px solid var(--border-color-subtle);
+      border-radius: var(--radius-2xl);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-normal);
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 3px;
+      color: #EAB308;
+      margin-bottom: 1.25rem;
+    }
+    .testimonial-quote {
+      font-size: 0.975rem;
+      color: var(--color-text-body);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+      flex-grow: 1;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-top: 1px solid var(--border-color-subtle);
+      padding-top: 1.25rem;
+    }
+    .author-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--color-primary-light);
+    }
+    .author-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+    }
+    .author-role {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+    .salary-chip {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background-color: var(--color-pastel-mint);
+      color: var(--color-pastel-mint-dark);
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+
+    /* FAQ Accordion Section */
+    .faq-section {
+      margin-top: 5rem;
+      max-width: 860px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .faq-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .faq-item {
+      background-color: var(--color-bg-surface);
+      border: 1.5px solid var(--border-color-subtle);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+    .faq-item.active {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .faq-question-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      cursor: pointer;
+    }
+    .faq-question-btn:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
+    }
+    .faq-toggle-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--color-bg-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition-normal), background-color var(--transition-fast);
+    }
+    .faq-item.active .faq-toggle-icon {
+      transform: rotate(180deg);
+      background-color: var(--color-primary-light);
+      color: var(--color-primary-dark);
+    }
+    .faq-answer-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .faq-answer-content {
+      padding: 0 1.5rem 1.25rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--color-text-body);
+      line-height: 1.6;
+    }
+
+    /* Enterprise CTA Banner */
+    .enterprise-banner {
+      margin-top: 5rem;
+      background-color: var(--color-pastel-yellow);
+      border-radius: var(--radius-2xl);
+      padding: clamp(2.5rem, 4vw, 3.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      border: 1.5px solid rgba(234, 179, 8, 0.3);
+      box-shadow: var(--shadow-sm);
+    }
+    .enterprise-content h3 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+    .enterprise-content p {
+      color: #4B5563;
+      font-size: 1rem;
+      max-width: 600px;
+    }
+    .enterprise-actions {
+      display: flex;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* Global Footer Styles */
+    .site-footer {
+      background-color: #111827;
+      color: #F3F4F6;
+      padding: 5rem 0 2rem;
+      margin-top: 6rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+    .footer-brand p {
+      color: #9CA3AF;
+      font-size: 0.925rem;
+      line-height: 1.6;
+      margin-top: 1rem;
+      max-width: 320px;
+    }
+    .footer-col-title {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .footer-links a {
+      color: #9CA3AF;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .footer-links a:hover {
+      color: var(--color-pastel-yellow);
+    }
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .newsletter-input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .newsletter-input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-full);
+      border: 1px solid #374151;
+      background-color: #1F2937;
+      color: #FFFFFF;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+    .newsletter-input:focus {
+      border-color: var(--color-primary);
+    }
+    .newsletter-note {
+      font-size: 0.775rem;
+      color: #6B7280;
+    }
+    .footer-bottom {
+      border-top: 1px solid #1F2937;
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: #9CA3AF;
+    }
+    .social-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .social-link-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #9CA3AF;
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      background-color: #1F2937;
+      transition: all var(--transition-fast);
+    }
+    .social-link-item:hover {
+      color: #FFFFFF;
+      background-color: var(--color-primary);
+    }
+
+    /* Responsive Adaptations */
+    @media (max-width: 1180px) {
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stats-ribbon {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+      }
+      .guarantee-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+    @media (max-width: 768px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+      .guarantee-pillars {
+        grid-template-columns: 1fr;
+      }
+      .enterprise-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. PURE CSS LOADER WITH LOGOSTACKLY.WEBP
+       ======================================================================== -->
+  <!-- =========================================================================
+       GLOBAL UNIFIED PRELOADER (Consistent centered viewport loading spinner)
+       ========================================================================= -->
+  <div id="app-loader" class="global-page-loader" role="status" aria-live="polite" aria-label="Loading Stackly Education">
+    <div class="loader-centered-content">
+      <div class="loader-spinner-wrapper">
+        <div class="loader-ring-spinner" aria-hidden="true"></div>
+        <div class="loader-brand-badge">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly" class="loader-brand-img" width="32" height="32">
+        </div>
+      </div>
+
+  <!-- =========================================================================
+       SITE HEADER & PRIMARY NAVIGATION
+       ========================================================================= -->
+  <header class="site-header" role="banner" id="siteHeader">
+    <div class="container">
+      <nav class="nav-wrapper" aria-label="Primary Navigation">
+        <!-- Brand Logo -->
+        <a href="../index.html" class="brand-logo-link" aria-label="Stackly Learn Home">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly Learn Logo" class="brand-logo-img" width="130" height="38">
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <ul class="nav-menu" role="menubar">
+          <li class="nav-item" role="none">
+            <a href="../index.html" class="nav-link" role="menuitem">Home</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="about.html" class="nav-link" role="menuitem">About us</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="courses.html" class="nav-link" role="menuitem">Courses</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="pricing.html" class="nav-link active" aria-current="page" role="menuitem">Pricing</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="contact.html" class="nav-link" role="menuitem">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Action CTAs -->
+        <div class="nav-actions">
+          <a href="sign-in.html" class="btn btn-secondary">Sign In</a>
+          <a href="sign-up.html" class="btn btn-primary">Get Started</a>
+
+          <!-- Mobile Hamburger Button -->
+          <button type="button" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNavOverlay" id="mobileMenuToggle">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true">
+    <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+      <div class="mobile-nav-header">
+        <a href="../index.html" class="brand-logo-link" aria-label="Stackly Homepage">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly Learn Logo" class="brand-logo-img" width="120" height="35">
+        </a>
+        <button type="button" class="mobile-nav-close" id="mobileNavClose" aria-label="Collapse side menu bar" title="Collapse menu">&times;</button>
+      </div>
+      <ul class="mobile-nav-links">
+        <li><a href="../index.html" class="mobile-nav-link">Home</a></li>
+        <li><a href="about.html" class="mobile-nav-link">About us</a></li>
+        <li><a href="courses.html" class="mobile-nav-link">Courses</a></li>
+        <li><a href="pricing.html" class="mobile-nav-link active">Pricing</a></li>
+        <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+      </ul>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto;">
+        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Sign In</a>
+        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+      <p class="loader-status-text">Loading Stackly Education...</p>
+    </div>
+  </div>
+
+    <!-- =============================================================
+       STICKY NAVBAR (Unified across all pages)
+       ============================================================= -->
+  
+
+  <!-- Mobile Fullscreen / Drawer Overlay Menu -->
+  
+  </div>
+
+  <main id="main-content">
+    <div class="container section-spacing">
+
+      <!-- ====================================================================
+           3. HERO SECTION WITH BREADCRUMB, HEADLINE & BILLING TOGGLE
+           ==================================================================== -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="404.html">Home</a>
+        <span class="separator" aria-hidden="true">/</span>
+        <span class="current" aria-current="page">Pricing</span>
+      </nav>
+
+      <section class="pricing-hero-wrap hero-animated-wrap" style="position: relative; overflow: hidden; padding: clamp(2.5rem, 5vw, 4rem) 0 3rem;">
+      <!-- High Visibility Background Image with Ken Burns & Parallax -->
+      <div class="hero-bg-container" aria-hidden="true">
+        <div class="hero-bg-anim-wrapper">
+          <img src="../assets/images/about-collaborative-study.webp" alt="Stackly Plans Background" class="hero-bg-image hero-parallax-bg" loading="eager" width="1920" height="1080">
+        </div>
+        <div class="hero-bg-overlay centered-overlay"></div>
+      </div>
+
+      <div class="container hero-content-relative">
+        <div class="pricing-hero" aria-labelledby="pricing-title">
+        <div class="badge badge-yellow" style="margin-bottom: 1.25rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          Flexible Career-Focused Investment
+        </div>
+
+        <h1 id="pricing-title">Simple, Transparent Investment in Your Future.</h1>
+        <p class="hero-subtitle">
+          Choose the learning plan that fits your career goals. Cancel or upgrade anytime with zero hidden fees.
+        </p>
+
+        <!-- Billing Cycle Toggle Switch -->
+        <div class="billing-toggle-wrap" role="region" aria-label="Billing cycle selector">
+          <span class="toggle-label active" id="monthly-label">Monthly Billing</span>
+          
+          <button class="toggle-switch-btn" id="billing-toggle" type="button" role="switch" aria-checked="false" aria-labelledby="annual-label">
+            <span class="toggle-slider"></span>
+          </button>
+          
+          <span class="toggle-label" id="annual-label">
+            Annual Billing
+          </span>
+          <span class="savings-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Save 25%
+          </span>
+        </div>
+      </div>
+      </div>
+    </section>
+
+      <!-- ====================================================================
+           4. PRICING TIERS CARDS (4 TIERS)
+           ==================================================================== -->
+      <section class="pricing-grid" aria-label="Pricing Plans">
+
+        <!-- Tier 1: Free Starter -->
+        <article class="pricing-card">
+          <div class="tier-header">
+            <h3 class="tier-name">Free Starter</h3>
+            <p class="tier-description">Explore fundamentals and test-drive the Stackly experience without risk.</p>
+          </div>
+
+          <div class="price-box">
+            <span class="price-currency">€</span>
+            <span class="price-amount" data-monthly="0" data-annual="0">0</span>
+            <span class="price-period">/month</span>
+          </div>
+          <div class="billing-subtext">Free forever • No credit card required</div>
+
+          <ul class="tier-features" aria-label="Free Starter features">
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>12 introductory foundation modules</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Community forum & discussion boards</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Basic browser coding sandboxes</span>
+            </li>
+            <li class="feature-item muted">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+              <span>Verified certificates of completion</span>
+            </li>
+            <li class="feature-item muted">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+              <span>Weekly live mentor Q&A sessions</span>
+            </li>
+          </ul>
+
+          <div class="tier-cta">
+            <a href="404.html" class="btn btn-outline" style="width: 100%;">Get Started Free</a>
+          </div>
+        </article>
+
+        <!-- Tier 2: Monthly Member (Popular) -->
+        <article class="pricing-card featured">
+          <div class="card-ribbon">Most Popular</div>
+
+          <div class="tier-header">
+            <h3 class="tier-name">Monthly Member</h3>
+            <p class="tier-description">Unlimited course access, live workshops, and verifiable credentials for active career builders.</p>
+          </div>
+
+          <div class="price-box">
+            <span class="price-currency">€</span>
+            <span class="price-amount" id="monthly-member-price" data-monthly="19" data-annual="15">19</span>
+            <span class="price-period" id="monthly-member-period">/month</span>
+          </div>
+          <div class="billing-subtext" id="monthly-member-subtext">Billed monthly • Cancel anytime</div>
+
+          <ul class="tier-features" aria-label="Monthly Member features">
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span><strong>180+ full courses</strong> across Tech, Design & AI</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Weekly live coding labs & mentor Q&A</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Verifiable digital certificates (LinkedIn ready)</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Downloadable exercises & starter kits</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Priority response student support (under 4h)</span>
+            </li>
+          </ul>
+
+          <div class="tier-cta">
+            <a href="404.html" class="btn btn-emerald" style="width: 100%;">Start 14-Day Free Trial</a>
+          </div>
+        </article>
+
+        <!-- Tier 3: Lifetime All-Access (Recommended) -->
+        <article class="pricing-card lifetime">
+          <div class="card-ribbon amber">Recommended • Lifetime</div>
+
+          <div class="tier-header">
+            <h3 class="tier-name">Lifetime All-Access</h3>
+            <p class="tier-description">One-time payment for perpetual access to every current and future curriculum plus 1-on-1 strategy.</p>
+          </div>
+
+          <div class="price-box">
+            <span class="price-currency">€</span>
+            <span class="price-amount">199</span>
+            <span class="price-period">one-time</span>
+          </div>
+          <div class="billing-subtext">Pay once, own forever • No recurring fees</div>
+
+          <ul class="tier-features" aria-label="Lifetime All-Access features">
+            <li class="feature-item">
+              <svg class="feature-icon-check amber" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span><strong>Perpetual access</strong> to all present & future courses</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check amber" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span><strong>1-on-1 mentor strategy session</strong> (60 mins)</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check amber" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Verified Blockchain certificate credentials</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check amber" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span><strong>Direct job referral network</strong> & resume audit</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check amber" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>VIP early access to beta modules & AI sandboxes</span>
+            </li>
+          </ul>
+
+          <div class="tier-cta">
+            <a href="404.html" class="btn btn-primary" style="width: 100%;">Claim Lifetime Access</a>
+          </div>
+        </article>
+
+        <!-- Tier 4: Teams & Enterprise -->
+        <article class="pricing-card">
+          <div class="tier-header">
+            <h3 class="tier-name">Teams & Enterprise</h3>
+            <p class="tier-description">Custom skill pathways, team analytics, and corporate mentorship for modern engineering teams.</p>
+          </div>
+
+          <div class="price-box">
+            <span class="price-currency">€</span>
+            <span class="price-amount" id="enterprise-price" data-monthly="49" data-annual="39">49</span>
+            <span class="price-period">/seat/mo</span>
+          </div>
+          <div class="billing-subtext" id="enterprise-subtext">5+ seats • Invoicing & LMS integration</div>
+
+          <ul class="tier-features" aria-label="Teams & Enterprise features">
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>All 180+ courses for your whole team</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Dedicated Enterprise learning success manager</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Admin dashboard with skill tracking & analytics</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>Custom corporate curricula & private sandboxes</span>
+            </li>
+            <li class="feature-item">
+              <svg class="feature-icon-check" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>SSO (SAML, Okta) & custom billing terms</span>
+            </li>
+          </ul>
+
+          <div class="tier-cta">
+            <a href="404.html" class="btn btn-outline" style="width: 100%;">Contact Enterprise Sales</a>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- ====================================================================
+           5. COMPREHENSIVE FEATURE COMPARISON MATRIX TABLE
+           ==================================================================== -->
+      <section class="comparison-section" aria-labelledby="matrix-title">
+        <div class="section-header-centered">
+          <div class="badge badge-mint" style="margin-bottom: 0.75rem;">Feature Deep Dive</div>
+          <h2 id="matrix-title">Compare All Features Side-by-Side</h2>
+          <p style="color: var(--color-text-body); font-size: 1.05rem;">
+            Whether you are picking up your first coding syntax or upskilling an entire tech organization, see exactly what is included.
+          </p>
+        </div>
+
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th scope="col">Capabilities & Benefits</th>
+                <th scope="col">Free Starter</th>
+                <th scope="col">Monthly Member</th>
+                <th scope="col">Lifetime Pass</th>
+                <th scope="col">Teams & Enterprise</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- Category 1: Curriculum & Course Access -->
+              <tr class="table-category-row">
+                <td colspan="5">1. Curriculum & Learning Content</td>
+              </tr>
+              <tr>
+                <td>Course Catalog Access</td>
+                <td>12 Foundations</td>
+                <td>180+ Courses</td>
+                <td>180+ Courses + Future</td>
+                <td>Full Enterprise Library</td>
+              </tr>
+              <tr>
+                <td>Hands-on Coding Sandboxes</td>
+                <td>Basic Web Sandbox</td>
+                <td>Unlimited Cloud IDE</td>
+                <td>Unlimited Cloud IDE</td>
+                <td>Custom Private Sandboxes</td>
+              </tr>
+              <tr>
+                <td>Interactive Quizzes & Challenges</td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td>Downloadable Exercise Files & Source Code</td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td>Offline Video Download (Mobile App)</td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+              </tr>
+
+              <!-- Category 2: Mentorship & Human Feedback -->
+              <tr class="table-category-row">
+                <td colspan="5">2. Mentorship & Human Feedback</td>
+              </tr>
+              <tr>
+                <td>Community Forum & Peer Discussions</td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>Private Team Channel</td>
+              </tr>
+              <tr>
+                <td>Weekly Live Coding & Mentor Labs</td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>Dedicated Masterclasses</td>
+              </tr>
+              <tr>
+                <td>Personal Code Review</td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>Monthly (1 project)</td>
+                <td>Priority (Unlimited Capstones)</td>
+                <td>Team Architecture Audits</td>
+              </tr>
+              <tr>
+                <td>1-on-1 Dedicated Strategy Call</td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>Available as Add-on</td>
+                <td>1x 60-min Included</td>
+                <td>Quarterly Team Review</td>
+              </tr>
+
+              <!-- Category 3: Accreditation & Career Outcomes -->
+              <tr class="table-category-row">
+                <td colspan="5">3. Accreditation & Career Acceleration</td>
+              </tr>
+              <tr>
+                <td>Digital Completion Badges</td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr>
+                <td>Verified LinkedIn Certificate Pass</td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-check-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>Custom Enterprise Badging</td>
+              </tr>
+              <tr>
+                <td>Exclusive Job Board Access</td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>Standard Access</td>
+                <td>Direct Recruiter Introductions</td>
+                <td>Employer Talent Pool</td>
+              </tr>
+
+              <!-- Category 4: Team Administration & Support -->
+              <tr class="table-category-row">
+                <td colspan="5">4. Team Governance & Support SLAs</td>
+              </tr>
+              <tr>
+                <td>Manager Analytics & Progress Heatmaps</td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>
+                  <svg class="table-cross-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                  </svg>
+                </td>
+                <td>Full Executive Reporting</td>
+              </tr>
+              <tr>
+                <td>Support Response Guarantee</td>
+                <td>Community forum</td>
+                <td>&lt; 4 Hours</td>
+                <td>&lt; 2 Hours (Priority)</td>
+                <td>1-Hour SLA + Slack Sync</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           6. WHAT'S INCLUDED / GUARANTEE SECTION
+           ==================================================================== -->
+      <section class="guarantee-wrapper" aria-labelledby="guarantee-title">
+        <div class="guarantee-grid">
+          <div>
+            <div class="guarantee-badge-visual">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              100% Risk-Free Guarantee
+            </div>
+            <h2 class="guarantee-heading" id="guarantee-title">
+              14 Days to Learn. <br>Full Refund if You're Not Thrilled.
+            </h2>
+            <p class="guarantee-text">
+              We stand firmly behind the caliber of our industry instructors and interactive curriculums. If Stackly does not exceed your learning expectations within 14 days, send our student care team a one-line email and receive a full, prompt 100% refund. No awkward questions, no fine print.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <a href="404.html" class="btn btn-accent btn-lg">Try Stackly Risk-Free</a>
+              <a href="404.html" class="btn btn-white btn-lg">Questions? Talk to an Advisor</a>
+            </div>
+          </div>
+
+          <div class="guarantee-pillars">
+            <div class="guarantee-pillar-item">
+              <div class="pillar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                </svg>
+              </div>
+              <h4 class="pillar-title">1-Click Instant Cancellation</h4>
+              <p class="pillar-desc">No complicated phone calls or retention tricks. Manage your subscription directly from your account settings anytime.</p>
+            </div>
+
+            <div class="guarantee-pillar-item">
+              <div class="pillar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                </svg>
+              </div>
+              <h4 class="pillar-title">Blockchain Credentials</h4>
+              <p class="pillar-desc">Earn cryptographically verified certificate tokens that can be shared instantly on LinkedIn and validated by global tech employers.</p>
+            </div>
+
+            <div class="guarantee-pillar-item">
+              <div class="pillar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </div>
+              <h4 class="pillar-title">Production Sandboxes</h4>
+              <p class="pillar-desc">Code in zero-setup browser containers replicating Docker, PostgreSQL, React, and Python environments without local hurdles.</p>
+            </div>
+
+            <div class="guarantee-pillar-item">
+              <div class="pillar-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <h4 class="pillar-title">24/7 Human Mentors</h4>
+              <p class="pillar-desc">Get unblocked swiftly. Real senior engineers and design leads review code commits and reply to curriculum hurdles 24/7.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           7. CUSTOMER TESTIMONIALS & PROVEN ROI
+           ==================================================================== -->
+      <section class="roi-section" aria-labelledby="roi-title">
+        <div class="section-header-centered">
+          <div class="badge badge-lilac" style="margin-bottom: 0.75rem;">Proven Learner ROI</div>
+          <h2 id="roi-title">Real Careers Accelerated. Real Numbers.</h2>
+          <p style="color: var(--color-text-body); font-size: 1.05rem;">
+            Over 42,000 students have transformed their career trajectory through Stackly. Here is the tangible return on their investment.
+          </p>
+        </div>
+
+        <!-- Measurable ROI Statistics Ribbon -->
+        <div class="stats-ribbon" aria-label="Key Career Statistics">
+          <div class="stat-ribbon-card">
+            <div class="stat-ribbon-value">9.4x</div>
+            <div class="stat-ribbon-label">Average 1st-Year Salary ROI</div>
+          </div>
+          <div class="stat-ribbon-card">
+            <div class="stat-ribbon-value">+€34,200</div>
+            <div class="stat-ribbon-label">Mean Annual Compensation Lift</div>
+          </div>
+          <div class="stat-ribbon-card">
+            <div class="stat-ribbon-value">94.8%</div>
+            <div class="stat-ribbon-label">Career Transition in &lt; 6 Months</div>
+          </div>
+          <div class="stat-ribbon-card">
+            <div class="stat-ribbon-value">4.92 / 5</div>
+            <div class="stat-ribbon-label">From 18,500+ Verified Reviews</div>
+          </div>
+        </div>
+
+        <!-- Student Testimonial Cards -->
+        <div class="testimonials-grid">
+          
+          <!-- Testimonial 1: Elena Rostova -->
+          <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="testimonial-quote">
+              "The Lifetime Pass was the highest-ROI investment of my life. The microservices & full-stack track helped me transition from a dead-end QA role to a Senior React/Node engineer at a high-growth Berlin fintech. Stackly's code reviews were like having a staff engineer by my side."
+            </p>
+            <div class="testimonial-author">
+              <img src="../assets/images/student-elena-rostova.webp" alt="Elena Rostova portrait" class="author-avatar" width="52" height="52">
+              <div>
+                <div class="author-name">Elena Rostova</div>
+                <div class="author-role">Senior Full-Stack Engineer, N26</div>
+              </div>
+              <span class="salary-chip">+140% Pay Bump</span>
+            </div>
+          </article>
+
+          <!-- Testimonial 2: David Kim -->
+          <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="testimonial-quote">
+              "I subscribed to the Monthly Member tier while working full-time in logistics. 5 months later, I completed the Machine Learning specialization and passed technical interviews at two tier-1 data firms. The curriculum is updated continuously, which traditional universities simply cannot match."
+            </p>
+            <div class="testimonial-author">
+              <img src="../assets/images/student-david-kim.webp" alt="David Kim portrait" class="author-avatar" width="52" height="52">
+              <div>
+                <div class="author-name">David Kim</div>
+                <div class="author-role">AI / Data Scientist, Databricks</div>
+              </div>
+              <span class="salary-chip">Hired in 5 Mos</span>
+            </div>
+          </article>
+
+          <!-- Testimonial 3: Amara Okafor -->
+          <article class="testimonial-card">
+            <div class="testimonial-stars" aria-label="5 out of 5 stars">
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            </div>
+            <p class="testimonial-quote">
+              "Our engineering department purchased the Teams & Enterprise plan for 35 engineers. Not only did cross-functional velocity increase by 28%, but our junior developers accelerated their onboarding time from 90 days down to 21 days."
+            </p>
+            <div class="testimonial-author">
+              <img src="../assets/images/student-amara-okafor.webp" alt="Amara Okafor portrait" class="author-avatar" width="52" height="52">
+              <div>
+                <div class="author-name">Amara Okafor</div>
+                <div class="author-role">VP of Engineering, Paystack</div>
+              </div>
+              <span class="salary-chip">35 Team Seats</span>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           8. FREQUENTLY ASKED QUESTIONS (FAQ ACCORDION)
+           ==================================================================== -->
+      <section class="faq-section" aria-labelledby="faq-title">
+        <div class="section-header-centered">
+          <div class="badge badge-yellow" style="margin-bottom: 0.75rem;">Clear Answers</div>
+          <h2 id="faq-title">Frequently Asked Questions</h2>
+          <p style="color: var(--color-text-body); font-size: 1.05rem;">
+            Everything you need to know about memberships, billing terms, enterprise seats, and guarantees.
+          </p>
+        </div>
+
+        <div class="faq-accordion" role="region" aria-label="FAQ Accordion">
+
+          <!-- FAQ Item 1 -->
+          <div class="faq-item active">
+            <button class="faq-question-btn" type="button" aria-expanded="true">
+              <span>Can I switch between monthly and annual billing at any time?</span>
+              <span class="faq-toggle-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-panel" style="max-height: 250px;">
+              <div class="faq-answer-content">
+                Yes, absolutely. You can upgrade from monthly to annual billing at any moment from your account billing portal to lock in the 25% discount. Any unused days remaining in your current monthly cycle will be prorated automatically and credited to your new annual invoice.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button" aria-expanded="false">
+              <span>How does the 14-day 100% money-back guarantee work?</span>
+              <span class="faq-toggle-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-panel">
+              <div class="faq-answer-content">
+                We offer a zero-friction, 14-day money-back guarantee on all Monthly Member and Lifetime All-Access purchases. If our courses, sandboxes, or mentor feedback do not meet your expectations, simply email support@stacklyedu.com within 14 days of purchase and we will refund 100% of your fee within 24-48 business hours.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button" aria-expanded="false">
+              <span>Do you offer student discounts or non-profit subsidies?</span>
+              <span class="faq-toggle-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-panel">
+              <div class="faq-answer-content">
+                Yes! We are committed to democratizing high-quality technical education. Verified college or high school students receive a 40% discount on all monthly and annual memberships. We also provide full educational grants for registered 501(c)(3) nonprofits and underrepresented youth coding programs. Contact support to verify your .edu email.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button" aria-expanded="false">
+              <span>What exactly does the "Lifetime All-Access" pass include?</span>
+              <span class="faq-toggle-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-panel">
+              <div class="faq-answer-content">
+                Lifetime All-Access grants you perpetual, non-expiring access to all 180+ existing courses, plus every new track and curriculum we release in the future. It also includes an exclusive 60-minute 1-on-1 strategy call with a lead mentor, priority capstone code reviews, and direct introductions to hiring partners in our network.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 5 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button" aria-expanded="false">
+              <span>Can I get an official corporate invoice or VAT receipt?</span>
+              <span class="faq-toggle-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-panel">
+              <div class="faq-answer-content">
+                Yes. Every transaction generates an automated PDF invoice complete with your company name, tax ID / VAT number, and billing address suitable for expense reimbursement or corporate training budgets. You can update billing details anytime from the billing dashboard.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 6 -->
+          <div class="faq-item">
+            <button class="faq-question-btn" type="button" aria-expanded="false">
+              <span>How do Teams & Enterprise seat licenses work?</span>
+              <span class="faq-toggle-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer-panel">
+              <div class="faq-answer-content">
+                Team plans support centralized administrative control. As an organization manager, you can reassign seats whenever employees change roles or rotate onto new projects. You will also have access to team analytics dashboards, showing completion percentages, active sandbox hours, and skill assessments across departments.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           ENTERPRISE / ADVISOR CONTACT CALLOUT
+           ==================================================================== -->
+      <section class="enterprise-banner" aria-labelledby="enterprise-callout-title">
+        <div class="enterprise-content">
+          <h3 id="enterprise-callout-title">Need a Custom Team Curriculum or University Licensing?</h3>
+          <p>
+            Talk directly with our curriculum directors. We build tailor-made enterprise learning programs, private mentor cohorts, and SSO-integrated LMS packages.
+          </p>
+        </div>
+        <div class="enterprise-actions">
+          <a href="404.html" class="btn btn-primary btn-lg">Schedule Consultation</a>
+          <a href="404.html" class="btn btn-outline btn-lg">Explore Courses</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       9. CONSISTENT GLOBAL FOOTER
+       ======================================================================== -->
+    <!-- ======================================================================
+       UNIFIED GLOBAL FOOTER (Consistent across all pages)
+       ====================================================================== -->
+    <!-- ======================================================================
+       UNIFIED GLOBAL FOOTER (Consistent across all pages)
+       ====================================================================== -->
+  <footer class="unified-footer" role="contentinfo">
+    <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;">
+      <div class="unified-footer-grid">
+        <!-- Col 1: Brand & Bio -->
+        <div class="footer-brand-col">
+          <a href="../index.html" class="brand-logo" aria-label="Stackly Homepage" style="margin-bottom: 1.25rem;">
+            <img src="../assets/images/logoStackly.webp" alt="Stackly Logo" width="125" height="32">
+          </a>
+          <p style="font-size: 0.925rem; line-height: 1.65; color: #94A3B8; margin-bottom: 1.5rem; max-width: 340px;">
+            Stackly Learn is an advanced education and online course platform empowering ambitious learners, designers, and engineers worldwide with hands-on, mentor-led curriculums.
+          </p>
+          <div class="app-badges-group" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="404.html" class="app-badge-btn" aria-label="Download on App Store" style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 0.85rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #FFF; text-decoration: none; font-size: 0.8rem;">
+              <span style="font-size: 1.1rem;" aria-hidden="true">&#63743;</span>
+              <span><span style="font-size: 0.65rem; display: block; opacity: 0.75;">Download on</span><strong>App Store</strong></span>
+            </a>
+            <a href="404.html" class="app-badge-btn" aria-label="Get it on Google Play" style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 0.85rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #FFF; text-decoration: none; font-size: 0.8rem;">
+              <span style="font-size: 1.1rem;" aria-hidden="true">&#9654;</span>
+              <span><span style="font-size: 0.65rem; display: block; opacity: 0.75;">GET IT ON</span><strong>Google Play</strong></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links (Operating Site Navigation) -->
+        <div>
+          <h4 class="unified-footer-heading">Quick Links</h4>
+          <ul class="unified-footer-list">
+            <li><a href="../index.html">Home Overview</a></li>
+            <li><a href="about.html">About Stackly</a></li>
+            <li><a href="courses.html">Browse All Courses</a></li>
+            <li><a href="pricing.html">Tuition &amp; Plans</a></li>
+            <li><a href="contact.html">Admissions &amp; Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Academic Programs (Redirect to 404 per rules) -->
+        <div>
+          <h4 class="unified-footer-heading">Academic Tracks</h4>
+          <ul class="unified-footer-list">
+            <li><a href="404.html">UI/UX Design Systems</a></li>
+            <li><a href="404.html">Full-Stack Web Engineering</a></li>
+            <li><a href="404.html">Applied AI &amp; Machine Learning</a></li>
+            <li><a href="404.html">Cloud Architecture &amp; DevOps</a></li>
+            <li><a href="404.html">Growth &amp; Digital Strategy</a></li>
+            <li><a href="404.html">Verified Certificate Pass</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Campus HQ Details -->
+        <div>
+          <h4 class="unified-footer-heading">Salem Campus HQ</h4>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0.85rem; line-height: 1.55;">
+            MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu 636008
+          </p>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0.5rem; line-height: 1.55;">
+            <strong style="color: #F8FAFC;">Phone:</strong> <a href="404.html" style="color: #94A3B8; text-decoration: none;">+91 9876543210</a>
+          </p>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0; line-height: 1.55;">
+            <strong style="color: #F8FAFC;">Email:</strong> <a href="404.html" style="color: #94A3B8; text-decoration: none;">hello@thestackly.com</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Unified Footer Bottom -->
+      <div class="unified-footer-bottom" style="display: flex; flex-direction: column; gap: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; width: 100%;">
+          <p style="margin: 0; font-size: 0.875rem; color: #94A3B8;">&copy; 2026 Stackly Edu. All Rights Reserved.</p>
+
+          <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+              <span>Facebook</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              <span>Instagram</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span>Twitter/X</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Screenshot Policy Links Displayed Strictly Below Copyright Section -->
+        <div class="footer-legal-sub-bar" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1rem; display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap;">
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Privacy Policy</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Terms &amp; Conditions</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Honor Code &amp; Conduct</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Academic Accreditation</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Floating Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Scroll to top">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
+
+  <!-- ========================================================================
+       PAGE INTERACTION JAVASCRIPT
+       ======================================================================== -->
+  <script>
+    // 1. Pure CSS Loader Dismissal
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('app-loader');
+      if (loader) {
+        setTimeout(function() {
+          loader.classList.add('loaded');
+        }, 250);
+      }
+    });
+
+    // 2. Sticky Navbar Scroll Effect
+    const siteHeader = document.getElementById('site-header');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        siteHeader.classList.add('scrolled');
+      } else {
+        siteHeader.classList.remove('scrolled');
+      }
+    });
+
+    // 3. Mobile Navigation Menu Toggle
+    const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
+    const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
+
+    if (mobileToggleBtn && mobileNavOverlay) {
+      mobileToggleBtn.addEventListener('click', function() {
+        const isExpanded = mobileToggleBtn.getAttribute('aria-expanded') === 'true';
+        mobileToggleBtn.setAttribute('aria-expanded', !isExpanded);
+        mobileToggleBtn.classList.toggle('active');
+        mobileNavOverlay.classList.toggle('open');
+        mobileNavOverlay.setAttribute('aria-hidden', isExpanded);
+        document.body.style.overflow = isExpanded ? '' : 'hidden';
+      });
+
+      // Close mobile menu when a nav link is clicked
+      mobileNavOverlay.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          mobileToggleBtn.classList.remove('active');
+          mobileNavOverlay.classList.remove('open');
+          mobileToggleBtn.setAttribute('aria-expanded', 'false');
+          mobileNavOverlay.setAttribute('aria-hidden', 'true');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
+    // 4. Billing Cycle Switch (Monthly vs Annual - Save 25%)
+    const billingToggle = document.getElementById('billing-toggle');
+    const monthlyLabel = document.getElementById('monthly-label');
+    const annualLabel = document.getElementById('annual-label');
+
+    const monthlyMemberPrice = document.getElementById('monthly-member-price');
+    const monthlyMemberPeriod = document.getElementById('monthly-member-period');
+    const monthlyMemberSubtext = document.getElementById('monthly-member-subtext');
+
+    const enterprisePrice = document.getElementById('enterprise-price');
+    const enterpriseSubtext = document.getElementById('enterprise-subtext');
+
+    let isAnnual = false;
+
+    function updateBillingCycle(annual) {
+      isAnnual = annual;
+      billingToggle.classList.toggle('annual', isAnnual);
+      billingToggle.setAttribute('aria-checked', isAnnual);
+
+      if (isAnnual) {
+        monthlyLabel.classList.remove('active');
+        annualLabel.classList.add('active');
+
+        // Update Monthly Member: €15/mo billed annually (€180/yr)
+        if (monthlyMemberPrice) monthlyMemberPrice.textContent = '15';
+        if (monthlyMemberPeriod) monthlyMemberPeriod.textContent = '/month';
+        if (monthlyMemberSubtext) monthlyMemberSubtext.textContent = 'Billed €180 annually • You save €48/year';
+
+        // Update Teams & Enterprise: €39/seat/mo billed annually
+        if (enterprisePrice) enterprisePrice.textContent = '39';
+        if (enterpriseSubtext) enterpriseSubtext.textContent = 'Billed annually • Save 25% across your team';
+      } else {
+        monthlyLabel.classList.add('active');
+        annualLabel.classList.remove('active');
+
+        // Revert Monthly Member: €19/mo
+        if (monthlyMemberPrice) monthlyMemberPrice.textContent = '19';
+        if (monthlyMemberPeriod) monthlyMemberPeriod.textContent = '/month';
+        if (monthlyMemberSubtext) monthlyMemberSubtext.textContent = 'Billed monthly • Cancel anytime';
+
+        // Revert Teams & Enterprise: €49/seat/mo
+        if (enterprisePrice) enterprisePrice.textContent = '49';
+        if (enterpriseSubtext) enterpriseSubtext.textContent = '5+ seats • Invoicing & LMS integration';
+      }
+    }
+
+    if (billingToggle) {
+      billingToggle.addEventListener('click', function() {
+        updateBillingCycle(!isAnnual);
+      });
+
+      // Keyboard Accessible Enter / Space
+      billingToggle.addEventListener('keydown', function(e) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          updateBillingCycle(!isAnnual);
+        }
+      });
+    }
+
+    if (monthlyLabel) {
+      monthlyLabel.addEventListener('click', function() {
+        updateBillingCycle(false);
+      });
+    }
+
+    if (annualLabel) {
+      annualLabel.addEventListener('click', function() {
+        updateBillingCycle(true);
+      });
+    }
+
+    // 5. Accessible FAQ Accordion Toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(function(item) {
+      const btn = item.querySelector('.faq-question-btn');
+      const panel = item.querySelector('.faq-answer-panel');
+
+      if (btn && panel) {
+        btn.addEventListener('click', function() {
+          const isActive = item.classList.contains('active');
+
+          // Optional: close other items for clean single-accordion behavior
+          faqItems.forEach(function(otherItem) {
+            if (otherItem !== item) {
+              otherItem.classList.remove('active');
+              const otherBtn = otherItem.querySelector('.faq-question-btn');
+              const otherPanel = otherItem.querySelector('.faq-answer-panel');
+              if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+              if (otherPanel) otherPanel.style.maxHeight = null;
+            }
+          });
+
+          // Toggle current item
+          if (isActive) {
+            item.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+            panel.style.maxHeight = null;
+          } else {
+            item.classList.add('active');
+            btn.setAttribute('aria-expanded', 'true');
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+      }
+    });
+
+    // 6. Newsletter Subscription Handler
+    function handleNewsletter() {
+      const emailInput = document.getElementById('newsletter-email');
+      const feedback = document.getElementById('newsletter-feedback');
+      if (emailInput && feedback) {
+        const email = emailInput.value.trim();
+        if (email) {
+          feedback.style.display = 'block';
+          feedback.textContent = '🎉 Thank you! Check your inbox to confirm your subscription.';
+          emailInput.value = '';
+          setTimeout(function() {
+            feedback.style.display = 'none';
+          }, 6000);
+        }
+      }
+    }
+  </script>
+  <!-- Global Application Scripts -->
+    <!-- GSAP & ScrollTrigger Core Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

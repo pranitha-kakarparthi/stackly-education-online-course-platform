@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>404 - Page Not Found | Stackly Education Platform</title>
+    <meta
+      name="description"
+      content="The curriculum page or learning resource you are looking for has been relocated or archived. Return to the Stackly homepage to continue your studies."
+    />
+    <link rel="icon" type="image/webp" href="../assets/images/logoStackly.webp" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+
+    <style>
+      /* ==========================================================================
+         FIXED VIEWPORT 404 EXPERIENCE (STRICTLY NON-SCROLLABLE ON ALL SCREENS)
+         ========================================================================== */
+      
+      /* Instant Suppression of blocking preloader */
+      #app-loader,
+      .global-page-loader,
+      .page-loader,
+      .loader-wrapper {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+
+      :root {
+        --color-404-bg: #070B14;
+        --color-404-card: rgba(15, 23, 42, 0.75);
+        --color-404-border: rgba(255, 255, 255, 0.08);
+        --color-gold-accent: #F59E0B;
+        --color-parchment: #FEF3C7;
+        --font-404-handwriting: 'Caveat', cursive, sans-serif;
+      }
+
+      /* Locked Viewport on All Screen Widths and Heights */
+      html,
+      body.error-page-body {
+        height: 100vh !important;
+        height: 100dvh !important;
+        max-height: 100vh !important;
+        max-height: 100dvh !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        position: fixed !important;
+        inset: 0 !important;
+        box-sizing: border-box !important;
+        touch-action: none;
+      }
+
+      body.error-page-body {
+        background-color: var(--color-404-bg);
+        background-image: 
+          radial-gradient(ellipse 80% 50% at 50% -10%, rgba(56, 189, 248, 0.16), transparent 70%),
+          radial-gradient(ellipse 60% 50% at 85% 85%, rgba(99, 102, 241, 0.12), transparent 60%),
+          radial-gradient(ellipse 50% 40% at 15% 75%, rgba(245, 158, 11, 0.09), transparent 50%),
+          linear-gradient(180deg, #070B14 0%, #0B132B 50%, #070B14 100%);
+        background-attachment: fixed;
+        color: #F8FAFC;
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      /* 404 Central Stage */
+      .error-stage-container {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(0.75rem, 2vh, 1.5rem);
+        position: relative;
+        z-index: 10;
+        overflow: hidden;
+      }
+
+      /* Animated 404 Experience Card - Prominent Sizing */
+      .error-content-card {
+        max-width: clamp(480px, 92vw, 760px);
+        width: 100%;
+        margin: 0 auto;
+        padding: clamp(1.6rem, 3.5vh, 2.75rem) clamp(1.5rem, 4vw, 3rem);
+        background: rgba(15, 23, 42, 0.76);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 
+          0 28px 65px -15px rgba(0, 0, 0, 0.8),
+          0 0 45px rgba(245, 158, 11, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        border-radius: clamp(24px, 3.5vh, 32px);
+        text-align: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, cardHoverGlow 6s ease-in-out 0.8s infinite alternate;
+      }
+
+      @keyframes cardEntrance {
+        0% {
+          opacity: 0;
+          transform: scale(0.92) translateY(24px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      @keyframes cardHoverGlow {
+        0% {
+          transform: translateY(0);
+          box-shadow: 
+            0 28px 65px -15px rgba(0, 0, 0, 0.8),
+            0 0 40px rgba(245, 158, 11, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.14);
+          border-color: rgba(255, 255, 255, 0.12);
+        }
+        100% {
+          transform: translateY(-6px);
+          box-shadow: 
+            0 36px 75px -15px rgba(0, 0, 0, 0.88),
+            0 0 60px rgba(245, 158, 11, 0.22),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          border-color: rgba(245, 158, 11, 0.34);
+        }
+      }
+
+      /* Educational Badge */
+      .error-meta-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: clamp(0.35rem, 1vh, 0.45rem) clamp(0.9rem, 2vw, 1.25rem);
+        background: rgba(245, 158, 11, 0.14);
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        border-radius: 9999px;
+        font-size: clamp(0.8rem, 1.4vh, 0.88rem);
+        font-weight: 700;
+        color: #FBBF24;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: clamp(0.6rem, 1.6vh, 1rem);
+        box-shadow: 0 4px 20px rgba(245, 158, 11, 0.18);
+      }
+
+      .error-meta-pill svg {
+        animation: pulsePill 2s ease-in-out infinite;
+      }
+
+      @keyframes pulsePill {
+        0%, 100% { transform: scale(1); opacity: 0.9; }
+        50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 6px #F59E0B); }
+      }
+
+      /* ==========================================================================
+         ILLUSTRATION: THE UNWINDING SCROLL & DROPPED PAPERS FORMING "404"
+         ========================================================================== */
+      .stage-illustration-wrap {
+        position: relative;
+        width: 100%;
+        max-width: clamp(350px, 65vw, 520px);
+        margin: 0 auto clamp(0.6rem, 1.5vh, 1.15rem);
+        height: clamp(145px, 23vh, 210px);
+        perspective: 1000px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      /* Ambient Glow Behind Artwork */
+      .stage-ambient-glow {
+        position: absolute;
+        width: clamp(240px, 45vw, 340px);
+        height: clamp(130px, 20vh, 180px);
+        background: radial-gradient(circle, rgba(56, 189, 248, 0.24) 0%, rgba(99, 102, 241, 0.16) 40%, transparent 75%);
+        filter: blur(35px);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Tumbling Graduation Cap suspended in mid-air */
+      .floating-grad-cap {
+        position: absolute;
+        top: clamp(-10px, -1.2vh, -4px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 8;
+        animation: tumbleCap 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
+        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.5));
+      }
+
+      .floating-grad-cap svg {
+        width: clamp(58px, 9vh, 76px);
+        height: auto;
+      }
+
+      @keyframes tumbleCap {
+        0% {
+          transform: translateX(-50%) translateY(0px) rotate(-8deg);
+        }
+        50% {
+          transform: translateX(-48%) translateY(-10px) rotate(6deg);
+        }
+        100% {
+          transform: translateX(-52%) translateY(3px) rotate(-12deg);
+        }
+      }
+
+      .cap-tassel {
+        transform-origin: 32px 14px;
+        animation: swingTassel 2.8s ease-in-out infinite alternate;
+      }
+
+      @keyframes swingTassel {
+        0% { transform: rotate(-24deg); }
+        100% { transform: rotate(26deg); }
+      }
+
+      /* The Dropped Papers and Parchment Arrangement */
+      .paper-scene-composition {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 4;
+      }
+
+      .dropped-paper-card {
+        position: absolute;
+        border-radius: clamp(9px, 1.5vh, 14px);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.48), 0 2px 6px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+      }
+
+      /* PAPER 1 (Left - Homework Draft with "4") */
+      .paper-left {
+        width: clamp(90px, 15vw, 118px);
+        height: clamp(108px, 17vh, 142px);
+        background: #FDFBF7;
+        border: 1.5px solid #E2E8F0;
+        left: 8%;
+        bottom: clamp(8px, 1.8vh, 16px);
+        z-index: 5;
+        transform: rotate(-10deg);
+        animation: floatPaperLeft 4.8s ease-in-out infinite alternate;
+        padding: 8px;
+        background-image: repeating-linear-gradient(transparent, transparent 15px, #E2E8F0 16px);
+      }
+
+      @keyframes floatPaperLeft {
+        0% { transform: rotate(-10deg) translateY(0px); }
+        100% { transform: rotate(-6deg) translateY(-10px); }
+      }
+
+      .paper-dogear {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 18px 18px 0;
+        border-color: transparent #CBD5E1 transparent transparent;
+        border-top-right-radius: 8px;
+        box-shadow: -2px 2px 3px rgba(0,0,0,0.1);
+      }
+
+      .grade-stamp {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        color: #DC2626;
+        font-family: var(--font-404-handwriting);
+        font-size: clamp(0.95rem, 1.8vh, 1.15rem);
+        font-weight: 700;
+        border: 1.5px solid #DC2626;
+        border-radius: 4px;
+        padding: 0 3px;
+        transform: rotate(-12deg);
+        opacity: 0.85;
+      }
+
+      .digit-left-4, .digit-right-4 {
+        font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+        font-size: clamp(3.2rem, 6vh, 4.4rem);
+        font-weight: 900;
+        color: #0F172A;
+        line-height: 1;
+        margin-top: clamp(10px, 1.8vh, 16px);
+        letter-spacing: -0.05em;
+        text-shadow: 2px 2px 0 rgba(245, 158, 11, 0.4);
+      }
+
+      /* PAPER 2 (Center - Unwinding Parchment Scroll forming "0") */
+      .unwinding-parchment-scroll {
+        position: absolute;
+        width: clamp(120px, 20vw, 155px);
+        height: clamp(125px, 19vh, 162px);
+        background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 50%, #FDE68A 100%);
+        border: 2px solid #F59E0B;
+        border-radius: clamp(9px, 1.5vh, 14px);
+        left: 50%;
+        bottom: clamp(8px, 1.8vh, 16px);
+        transform: translateX(-50%) rotate(2deg);
+        z-index: 7;
+        animation: floatParchmentCenter 5.2s ease-in-out infinite alternate;
+        box-shadow: 0 18px 40px rgba(245, 158, 11, 0.24), 0 4px 10px rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 6px;
+      }
+
+      @keyframes floatParchmentCenter {
+        0% { transform: translateX(-50%) rotate(2deg) translateY(0); }
+        100% { transform: translateX(-50%) rotate(-1deg) translateY(-12px); }
+      }
+
+      .scroll-curled-top, .scroll-curled-bottom {
+        position: absolute;
+        left: -10px;
+        right: -10px;
+        height: clamp(13px, 1.8vh, 17px);
+        background: linear-gradient(180deg, #D97706 0%, #B45309 60%, #78350F 100%);
+        border-radius: 8px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.35);
+        border: 1px solid #FDE68A;
+      }
+
+      .scroll-curled-top { top: -8px; }
+      .scroll-curled-bottom { bottom: -8px; }
+
+      .scroll-wax-seal {
+        position: absolute;
+        bottom: -18px;
+        width: clamp(24px, 3.5vh, 28px);
+        height: clamp(24px, 3.5vh, 28px);
+        background: radial-gradient(circle, #EF4444 30%, #B91C1C 80%);
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(185, 28, 28, 0.5);
+        border: 1.5px solid #FCA5A5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FEF3C7;
+        font-size: 0.8rem;
+        z-index: 10;
+        animation: pulseSeal 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes pulseSeal {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+      }
+
+      .digit-center-0 {
+        font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+        font-size: clamp(3.5rem, 6.8vh, 4.8rem);
+        font-weight: 900;
+        color: #78350F;
+        line-height: 1;
+        letter-spacing: -0.05em;
+        text-shadow: 0 2px 4px rgba(217, 119, 6, 0.3);
+        position: relative;
+      }
+
+      .digit-center-0::after {
+        content: "LOST";
+        position: absolute;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: clamp(0.55rem, 1vh, 0.65rem);
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        color: #B45309;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.9;
+      }
+
+      /* PAPER 3 (Right - Graph Blueprint Paper with second "4") */
+      .paper-right {
+        width: clamp(90px, 15vw, 118px);
+        height: clamp(108px, 17vh, 142px);
+        background: #F8FAFC;
+        border: 1.5px solid #CBD5E1;
+        right: 8%;
+        bottom: clamp(8px, 1.8vh, 16px);
+        z-index: 5;
+        transform: rotate(12deg);
+        animation: floatPaperRight 5.6s ease-in-out infinite alternate;
+        padding: 8px;
+        background-size: 14px 14px;
+        background-image: 
+          linear-gradient(to right, rgba(148, 163, 184, 0.25) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(148, 163, 184, 0.25) 1px, transparent 1px);
+      }
+
+      @keyframes floatPaperRight {
+        0% { transform: rotate(12deg) translateY(0px); }
+        100% { transform: rotate(8deg) translateY(-12px); }
+      }
+
+      .paper-clip-badge {
+        position: absolute;
+        top: -5px;
+        right: 18px;
+        width: 12px;
+        height: 22px;
+        border: 2px solid #94A3B8;
+        border-radius: 4px;
+        background: transparent;
+      }
+
+      .math-doodle {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        font-family: var(--font-404-handwriting);
+        font-size: clamp(0.85rem, 1.5vh, 1rem);
+        color: #0284C7;
+        font-weight: 700;
+        transform: rotate(4deg);
+      }
+
+      .flying-airplane {
+        position: absolute;
+        top: clamp(8px, 2vh, 16px);
+        right: 6%;
+        animation: flightPath 6s ease-in-out infinite alternate;
+        z-index: 8;
+        filter: drop-shadow(0 4px 8px rgba(56, 189, 248, 0.3));
+      }
+
+      .flying-airplane svg {
+        width: clamp(24px, 4vh, 32px);
+        height: auto;
+      }
+
+      @keyframes flightPath {
+        0% { transform: translate(0, 0) rotate(15deg); }
+        100% { transform: translate(-14px, -10px) rotate(24deg); }
+      }
+
+      .floating-pencil {
+        position: absolute;
+        bottom: clamp(4px, 1vh, 10px);
+        right: 5%;
+        animation: floatPencil 4s ease-in-out infinite alternate;
+        z-index: 9;
+        filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+      }
+
+      .floating-pencil svg {
+        width: clamp(20px, 3vh, 26px);
+        height: auto;
+      }
+
+      @keyframes floatPencil {
+        0% { transform: rotate(-35deg) translateY(0); }
+        100% { transform: rotate(-25deg) translateY(-8px); }
+      }
+
+      /* Headline & Copywriting */
+      .error-heading {
+        font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+        font-weight: 800;
+        color: #FFFFFF;
+        line-height: 1.2;
+        margin: 0 auto clamp(0.3rem, 0.8vh, 0.65rem);
+        letter-spacing: -0.025em;
+      }
+
+      .error-heading span {
+        background: linear-gradient(135deg, #F59E0B 0%, #38BDF8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .error-explanation {
+        font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+        color: #94A3B8;
+        line-height: 1.55;
+        max-width: 540px;
+        margin: 0 auto clamp(0.9rem, 2vh, 1.5rem);
+      }
+
+      /* Action Buttons */
+      .error-action-btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(0.6rem, 1.4vw, 1rem);
+        flex-wrap: wrap;
+      }
+
+      .btn-return-home {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        padding: clamp(0.7rem, 1.3vh, 0.9rem) clamp(1.3rem, 2.2vw, 1.75rem);
+        background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+        color: #FFFFFF;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 14px;
+        font-size: clamp(0.88rem, 1.3vw, 0.98rem);
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 10px 20px -4px rgba(37, 99, 235, 0.5);
+        transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      .btn-return-home:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 14px 26px -4px rgba(37, 99, 235, 0.65);
+        color: #FFFFFF;
+      }
+
+      .btn-go-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        padding: clamp(0.7rem, 1.3vh, 0.9rem) clamp(1.3rem, 2.2vw, 1.75rem);
+        background: rgba(255, 255, 255, 0.06);
+        color: #E2E8F0;
+        border: 1.5px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 14px;
+        font-size: clamp(0.88rem, 1.3vw, 0.98rem);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
+
+      .btn-go-back:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.25);
+        color: #FFFFFF;
+        transform: translateY(-2px);
+      }
+
+      /* Subtle Minimalist Bottom Note */
+      .error-minimal-footnote {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: clamp(0.35rem, 0.8vh, 0.65rem) 1.5rem;
+        text-align: center;
+        font-size: clamp(0.68rem, 1.1vh, 0.78rem);
+        color: #64748B;
+        z-index: 20;
+        pointer-events: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, ::before, ::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="error-page-body antialiased">
+    <!-- Suppressed Preloader (Prevents blocking) -->
+    <div id="app-loader" class="loaded is-hidden" style="display: none !important" aria-hidden="true"></div>
+
+    <!-- Central Fixed 404 Experience -->
+    <main class="error-stage-container" role="main">
+      <div class="error-content-card">
+        
+        <!-- Academic Pill Badge -->
+        <div class="error-meta-pill" role="status">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span>Lecture Archive • Status 404</span>
+        </div>
+
+        <!-- The Unwinding Scroll & Dropped Homework Papers Forming "404" -->
+        <div class="stage-illustration-wrap" aria-label="Animated 404 illustration formed from dropped homework papers and an unwound graduation parchment">
+          <div class="stage-ambient-glow" aria-hidden="true"></div>
+
+          <!-- Tumbling Graduation Cap suspended in mid-air -->
+          <div class="floating-grad-cap" aria-hidden="true">
+            <svg viewBox="0 0 84 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="42,4 80,18 42,32 4,18" fill="#1E293B" stroke="#F59E0B" stroke-width="2.5" />
+              <path d="M22,25 V36 C22,44 62,44 62,36 V25" fill="#0F172A" stroke="#334155" stroke-width="2" />
+              <circle cx="42" cy="18" r="3.5" fill="#FBBF24" />
+              <g class="cap-tassel">
+                <path d="M42,18 C38,24 30,30 28,42" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" />
+                <polygon points="25,42 31,42 29,54 27,54" fill="#FBBF24" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- The 3 Dropped Papers Forming "4 0 4" -->
+          <div class="paper-scene-composition">
+            
+            <!-- PAPER 1 (Left - Homework Paper with handwritten '4') -->
+            <div class="dropped-paper-card paper-left" title="Loose Homework Paper">
+              <div class="paper-dogear"></div>
+              <span class="grade-stamp">A+</span>
+              <div class="digit-left-4">4</div>
+            </div>
+
+            <!-- PAPER 2 (Center - Unspooling Ancient / Graduation Parchment with gold '0') -->
+            <div class="dropped-paper-card unwinding-parchment-scroll" title="Unspooling Curriculum Parchment">
+              <div class="scroll-curled-top"></div>
+              <div class="digit-center-0">0</div>
+              <div class="scroll-curled-bottom"></div>
+              <div class="scroll-wax-seal" title="Verified Stackly Academic Seal">★</div>
+            </div>
+
+            <!-- PAPER 3 (Right - Graph Blueprint Paper with second '4') -->
+            <div class="dropped-paper-card paper-right" title="Draft Lecture Grid">
+              <div class="paper-clip-badge"></div>
+              <span class="math-doodle">∫ dx</span>
+              <div class="digit-right-4">4</div>
+            </div>
+
+          </div>
+
+          <!-- Floating Paper Airplane -->
+          <div class="flying-airplane" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="#38BDF8">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+          </div>
+
+          <!-- Floating Educational Pencil -->
+          <div class="floating-pencil" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+            </svg>
+          </div>
+
+        </div>
+
+        <!-- Headline & Narrative Text -->
+        <h1 class="error-heading">
+          The Lecture Notes <span>Unspooled!</span>
+        </h1>
+
+        <p class="error-explanation">
+          The curriculum page or lesson module you were looking for rolled off the desk or has been relocated to another semester. Don't worry, your course progress is safe!
+        </p>
+
+        <!-- Clean, Focused Action Buttons -->
+        <div class="error-action-btns">
+          <a href="../index.html" class="btn-return-home" aria-label="Return to Stackly Homepage">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span>Back to Homepage</span>
+          </a>
+
+          <button type="button" onclick="window.history.back()" class="btn-go-back" aria-label="Go Back to Previous Page">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span>Go Back</span>
+          </button>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- 3. Minimal Footnote -->
+    <div class="error-minimal-footnote">
+      &copy; 2026 Stackly Education Platform. All rights reserved.
+    </div>
+
+    <!-- GSAP Animations for Interactive Parallax Depth -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const stage = document.querySelector('.stage-illustration-wrap');
+        const cap = document.querySelector('.floating-grad-cap');
+        const paperLeft = document.querySelector('.paper-left');
+        const scrollCenter = document.querySelector('.unwinding-parchment-scroll');
+        const paperRight = document.querySelector('.paper-right');
+
+        if (window.matchMedia('(pointer: fine)').matches && stage) {
+          window.addEventListener('mousemove', (e) => {
+            const { innerWidth, innerHeight } = window;
+            const x = (e.clientX / innerWidth - 0.5) * 16;
+            const y = (e.clientY / innerHeight - 0.5) * 12;
+
+            if (cap) gsap.to(cap, { xPercent: -50, x: x * 0.7, y: y * 0.7, duration: 1.2, ease: 'power2.out' });
+            if (paperLeft) gsap.to(paperLeft, { x: -x * 0.5, y: -y * 0.5, duration: 1.4, ease: 'power2.out' });
+            if (scrollCenter) gsap.to(scrollCenter, { xPercent: -50, x: x * 0.3, y: y * 0.3, duration: 1.5, ease: 'power2.out' });
+            if (paperRight) gsap.to(paperRight, { x: -x * 0.6, y: y * 0.4, duration: 1.3, ease: 'power2.out' });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

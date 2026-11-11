@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Stackly Education &amp; Online Course Platform</title>
+  <meta name="description" content="Discover Stackly's mission to empower next-generation builders, thinkers, and creators through project-first education, 1-on-1 industry mentorship, and verified portfolios.">
+  <meta name="keywords" content="Stackly Education, about online learning, project-based education, tech mentorship, coding bootcamp, career acceleration">
+  <link rel="icon" type="image/webp" href="../assets/images/logoStackly.webp">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Platform Master Stylesheet -->
+  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <!-- Scoped Styles for About Page Enhancement -->
+  <style>
+    /* ==========================================================================
+       ABOUT PAGE SPECIALIZED ENHANCEMENTS
+       ========================================================================== */
+    .about-hero-section {
+      padding: 3rem 0 5rem;
+      background: radial-gradient(circle at 10% 20%, rgba(209, 250, 229, 0.45) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 80%, rgba(254, 240, 138, 0.4) 0%, transparent 45%),
+                  var(--color-bg-body);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .breadcrumb-nav {
+      margin-bottom: 1.5rem;
+    }
+
+    .breadcrumb-list {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .breadcrumb-item a {
+      color: var(--color-text-muted);
+      transition: color var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .breadcrumb-item a:hover {
+      color: var(--color-primary);
+    }
+
+    .breadcrumb-separator {
+      color: var(--color-text-subtle);
+    }
+
+    .breadcrumb-item.active {
+      color: var(--color-primary-dark);
+      font-weight: 600;
+    }
+
+    /* Hero Grid & Layout */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .hero-text-col h1 {
+      font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--color-text-main);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-text-col p.hero-subtitle {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.6;
+      color: var(--color-text-body);
+      margin-bottom: 2rem;
+      max-width: 620px;
+    }
+
+    .hero-visual-col {
+      position: relative;
+    }
+
+    .hero-image-frame {
+      position: relative;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-xl);
+      border: 4px solid #FFFFFF;
+      background-color: #FFFFFF;
+    }
+
+    .hero-image-frame img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--transition-smooth);
+    }
+
+    .hero-image-frame:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Floating Badges on Hero */
+    .hero-floating-card {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      z-index: 2;
+      animation: floatBadge 4s ease-in-out infinite;
+    }
+
+    .hero-floating-card.card-bottom-left {
+      bottom: -1.5rem;
+      left: -1.5rem;
+    }
+
+    .hero-floating-card.card-top-right {
+      top: -1.25rem;
+      right: -1rem;
+      animation-delay: 2s;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .floating-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .floating-card-title {
+      font-family: var(--font-heading);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin: 0 0 2px 0;
+    }
+
+    .floating-card-desc {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    /* Section Headers */
+    .section-header-centered {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.95rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--color-text-main);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--color-text-body);
+      margin: 0;
+    }
+
+    /* Mission, Vision & Values Bento */
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+    }
+
+    .mv-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 2.25rem;
+      border: 1px solid var(--border-color-subtle);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+
+    .mv-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .mv-card.card-mission {
+      grid-column: span 6;
+      background: linear-gradient(135deg, #FFFFFF 0%, #F0FDF4 100%);
+      border-left: 5px solid var(--color-primary);
+    }
+
+    .mv-card.card-vision {
+      grid-column: span 6;
+      background: linear-gradient(135deg, #FFFFFF 0%, #FEF9C3 100%);
+      border-left: 5px solid #F59E0B;
+    }
+
+    .mv-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .mv-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .mv-card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin: 0;
+    }
+
+    .mv-card p {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: var(--color-text-body);
+      margin-bottom: 1.5rem;
+    }
+
+    .mv-card-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--color-primary-dark);
+    }
+
+    /* Core Values 4-Column Grid */
+    .values-grid {
+      grid-column: span 12;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .value-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.5rem;
+      transition: all var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .value-box:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .value-icon-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
+    }
+
+    .value-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 0.65rem;
+    }
+
+    .value-description {
+      font-size: 0.925rem;
+      line-height: 1.55;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    /* Journey & Milestones Section */
+    .journey-section {
+      background-color: #FFFFFF;
+      padding: 5.5rem 0;
+      position: relative;
+    }
+
+    .stats-highlight-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .stat-metric-card {
+      background: var(--color-bg-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.85rem;
+      text-align: center;
+      border: 1px solid var(--border-color-subtle);
+      transition: all var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--color-primary);
+      transform: scaleX(0);
+      transition: transform var(--transition-normal);
+    }
+
+    .stat-metric-card:hover {
+      background: #FFFFFF;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .stat-metric-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .stat-accent-teal { color: var(--color-primary); }
+    .stat-accent-yellow { color: #D97706; }
+    .stat-accent-emerald { color: #059669; }
+    .stat-accent-purple { color: #7C3AED; }
+
+    .stat-label {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-subtext {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    /* Interactive Timeline Track */
+    .timeline-track-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline-track-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: repeating-linear-gradient(to bottom, var(--color-primary) 0, var(--color-primary) 8px, transparent 8px, transparent 16px);
+      transform: translateX(-50%);
+    }
+
+    .timeline-node {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .timeline-node:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-node:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+
+    .timeline-content-box {
+      width: calc(50% - 2.5rem);
+      background: var(--color-bg-body);
+      border: 1px solid var(--border-color-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-normal);
+    }
+
+    .timeline-content-box:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+    }
+
+    .timeline-node-pin {
+      position: absolute;
+      left: 50%;
+      width: 44px;
+      height: 44px;
+      background: #FFFFFF;
+      border: 3px solid var(--color-primary);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--color-primary-dark);
+      box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
+      z-index: 2;
+    }
+
+    .timeline-year-tag {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-step-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-step-desc {
+      font-size: 0.925rem;
+      line-height: 1.55;
+      color: var(--color-text-body);
+      margin: 0;
+    }
+
+    /* Mentors & Faculty Section */
+    .mentors-section {
+      padding: 5.5rem 0;
+      background-color: var(--color-bg-body);
+    }
+
+    .mentors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.75rem;
+    }
+
+    .mentor-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--border-color-subtle);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-normal);
+    }
+
+    .mentor-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(13, 148, 136, 0.25);
+    }
+
+    .mentor-thumb-wrap {
+      position: relative;
+      height: 270px;
+      background-color: var(--color-bg-muted);
+      overflow: hidden;
+    }
+
+    .mentor-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      transition: transform var(--transition-smooth);
+    }
+
+    .mentor-card:hover .mentor-thumb-wrap img {
+      transform: scale(1.05);
+    }
+
+    .mentor-exp-chip {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      padding: 0.35rem 0.75rem;
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.02em;
+    }
+
+    .mentor-details {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .mentor-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .mentor-role {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 0.85rem;
+    }
+
+    .mentor-bio {
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--color-text-muted);
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .mentor-skills-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .skill-tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      background-color: var(--color-bg-subtle);
+      border: 1px solid var(--border-color-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-body);
+      font-weight: 500;
+    }
+
+    .mentor-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-color-subtle);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+
+    .mentor-social-links {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mentor-social-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--color-bg-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-body);
+      font-size: 0.85rem;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .mentor-social-icon:hover {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .mentor-session-link {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap var(--transition-fast);
+    }
+
+    .mentor-session-link:hover {
+      gap: 7px;
+      color: var(--color-primary-dark);
+    }
+
+    /* Accreditation & Partner Network */
+    .accreditation-section {
+      padding: 5rem 0;
+      background-color: #FFFFFF;
+      border-top: 1px solid var(--border-color-subtle);
+      border-bottom: 1px solid var(--border-color-subtle);
+    }
+
+    .partner-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .partner-badge-card {
+      background: var(--color-bg-subtle);
+      border: 1px solid var(--border-color-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 120px;
+    }
+
+    .partner-badge-card:hover {
+      background: #FFFFFF;
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-3px);
+    }
+
+    .partner-logo-mark {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--color-text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .partner-logo-sub {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Call to Action Banner */
+    .cta-banner-section {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, #111827 0%, #1F2937 100%);
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-box-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-heading {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: #FFFFFF;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.025em;
+    }
+
+    .cta-subtext {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      color: #D1D5DB;
+      margin-bottom: 2.25rem;
+    }
+
+    .cta-actions-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .cta-guarantee {
+      margin-top: 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: #9CA3AF;
+    }
+
+    .cta-guarantee-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Global Footer */
+    .site-footer {
+      background-color: #0F172A;
+      color: #94A3B8;
+      padding: 5rem 0 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.925rem;
+    }
+
+    .footer-top-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-logo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      text-decoration: none;
+    }
+
+    .footer-logo-link img {
+      height: 38px;
+      width: auto;
+    }
+
+    .footer-tagline {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #94A3B8;
+      margin-bottom: 1.5rem;
+      max-width: 320px;
+    }
+
+    .footer-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #E2E8F0;
+      width: fit-content;
+    }
+
+    .status-dot-pulse {
+      width: 8px;
+      height: 8px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .footer-heading {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .footer-link-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-link-list a {
+      color: #94A3B8;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .footer-link-list a:hover {
+      color: #38BDF8;
+      transform: translateX(3px);
+    }
+
+    /* Newsletter Box in Footer */
+    .newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .newsletter-input-group {
+      display: flex;
+      position: relative;
+    }
+
+    .newsletter-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-full);
+      color: #FFFFFF;
+      font-size: 0.875rem;
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+
+    .newsletter-input:focus {
+      border-color: var(--color-primary);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+    }
+
+    .newsletter-submit-btn {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      bottom: 4px;
+      padding: 0 1.15rem;
+      border-radius: var(--radius-full);
+      background: var(--color-primary);
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .newsletter-submit-btn:hover {
+      background: var(--color-primary-hover);
+    }
+
+    /* Footer Social Links */
+    .footer-social-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer-social-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-social-item:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-social-badge {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #E2E8F0;
+      font-size: 0.8rem;
+    }
+
+    /* Bottom Copyright Bar */
+    .footer-bottom-bar {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-bottom-links a {
+      color: #64748B;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .footer-bottom-links a:hover {
+      color: #CBD5E1;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      .hero-visual-col {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .mentors-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .stats-highlight-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .partner-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .footer-top-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mission-vision-grid {
+        grid-template-columns: 1fr;
+      }
+      .mv-card.card-mission,
+      .mv-card.card-vision {
+        grid-column: span 1;
+      }
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-highlight-row {
+        grid-template-columns: 1fr;
+      }
+      .mentors-grid {
+        grid-template-columns: 1fr;
+        max-width: 380px;
+        margin: 0 auto;
+      }
+      .timeline-track-wrap::before {
+        left: 20px;
+      }
+      .timeline-node {
+        flex-direction: row !important;
+        padding-left: 55px;
+      }
+      .timeline-node-pin {
+        left: 20px;
+      }
+      .timeline-content-box {
+        width: 100%;
+      }
+      .partner-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-top-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-floating-card.card-bottom-left {
+        bottom: 0.5rem;
+        left: 0.5rem;
+      }
+      .hero-floating-card.card-top-right {
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-body">
+
+  <!-- Accessible Skip to Main Content Link -->
+  <a href="#main-content" class="skip-to-content" style="position:absolute;top:-100px;left:10px;background:#F59E0B;color:#78350F;font-weight:700;padding:8px 16px;border-radius:4px;z-index:999999;transition:top 0.2s;" onfocus="this.style.top='10px'" onblur="this.style.top='-100px'">
+    Skip to main content
+  </a>
+
+  <!-- =========================================================================
+       GLOBAL UNIFIED PRELOADER (Consistent centered viewport loading spinner)
+       ========================================================================= -->
+  <div id="app-loader" class="global-page-loader" role="status" aria-live="polite" aria-label="Loading Stackly Education">
+    <div class="loader-centered-content">
+      <div class="loader-spinner-wrapper">
+        <div class="loader-ring-spinner" aria-hidden="true"></div>
+        <div class="loader-brand-badge">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly" class="loader-brand-img" width="32" height="32">
+        </div>
+      </div>
+
+  <!-- =========================================================================
+       SITE HEADER & PRIMARY NAVIGATION
+       ========================================================================= -->
+  <header class="site-header" role="banner" id="siteHeader">
+    <div class="container">
+      <nav class="nav-wrapper" aria-label="Primary Navigation">
+        <!-- Brand Logo -->
+        <a href="../index.html" class="brand-logo-link" aria-label="Stackly Learn Home">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly Learn Logo" class="brand-logo-img" width="130" height="38">
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <ul class="nav-menu" role="menubar">
+          <li class="nav-item" role="none">
+            <a href="../index.html" class="nav-link" role="menuitem">Home</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="about.html" class="nav-link active" aria-current="page" role="menuitem">About us</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="courses.html" class="nav-link" role="menuitem">Courses</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="pricing.html" class="nav-link" role="menuitem">Pricing</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="contact.html" class="nav-link" role="menuitem">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Action CTAs -->
+        <div class="nav-actions">
+          <a href="sign-in.html" class="btn btn-secondary">Sign In</a>
+          <a href="sign-up.html" class="btn btn-primary">Get Started</a>
+
+          <!-- Mobile Hamburger Button -->
+          <button type="button" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNavOverlay" id="mobileMenuToggle">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true">
+    <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+      <div class="mobile-nav-header">
+        <a href="../index.html" class="brand-logo-link" aria-label="Stackly Homepage">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly Learn Logo" class="brand-logo-img" width="120" height="35">
+        </a>
+        <button type="button" class="mobile-nav-close" id="mobileNavClose" aria-label="Collapse side menu bar" title="Collapse menu">&times;</button>
+      </div>
+      <ul class="mobile-nav-links">
+        <li><a href="../index.html" class="mobile-nav-link">Home</a></li>
+        <li><a href="about.html" class="mobile-nav-link active">About us</a></li>
+        <li><a href="courses.html" class="mobile-nav-link">Courses</a></li>
+        <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
+        <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+      </ul>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto;">
+        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Sign In</a>
+        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+      <p class="loader-status-text">Loading Stackly Education...</p>
+    </div>
+  </div>
+
+    <!-- =============================================================
+       STICKY NAVBAR (Unified across all pages)
+       ============================================================= -->
+  
+
+  <!-- Mobile Fullscreen / Drawer Overlay Menu -->
+  
+  </div>
+
+  <!-- =========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================= -->
+  <main id="main-content">
+
+    <!-- =======================================================================
+         3. HERO SECTION
+         ======================================================================= -->
+    <section class="about-hero-section hero-animated-wrap" aria-labelledby="about-hero-heading" style="position: relative; overflow: hidden; padding: 3rem 0 5rem;">
+      <!-- High Visibility Background Image with Ken Burns & Parallax -->
+      <div class="hero-bg-container" aria-hidden="true">
+        <div class="hero-bg-anim-wrapper">
+          <img src="../assets/images/about-collaborative-study.webp" alt="Collaborative Learning" class="hero-bg-image hero-parallax-bg" loading="eager" width="1920" height="1080">
+        </div>
+        <div class="hero-bg-overlay"></div>
+      </div>
+
+      <div class="container hero-content-relative" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
+
+        
+        <!-- Accessible Breadcrumbs -->
+        <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
+          <ol class="breadcrumb-list">
+            <li class="breadcrumb-item"><a href="404.html">Home</a></li>
+            <li class="breadcrumb-separator" aria-hidden="true">/</li>
+            <li class="breadcrumb-item active" aria-current="page">About Us</li>
+          </ol>
+        </nav>
+
+        <div class="hero-grid">
+          <!-- Text Content Column -->
+          <div class="hero-text-col">
+            <div class="section-eyebrow badge-mint" style="color: var(--color-pastel-mint-dark);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              <span>Our Purpose &bull; Est. 2021</span>
+            </div>
+
+            <h1 id="about-hero-heading">
+              Empowering Next-Generation Thinkers, <span class="sketch-highlight highlight-yellow" style="position:relative; display:inline-block;">Builders</span>, and Creators.
+            </h1>
+
+            <p class="hero-subtitle">
+              We bridge the gap between theoretical education and real industry careers through hands-on mentorship and project-first curriculums.
+            </p>
+
+            <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+              <a href="#mission-vision" class="btn btn-emerald" style="padding: 0.85rem 1.65rem;">
+                <span>Explore Our Mission</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </a>
+              <a href="#faculty" class="btn btn-outline" style="padding: 0.85rem 1.5rem;">
+                <span>Meet Faculty</span>
+              </a>
+            </div>
+
+            <!-- Quick Trust Avatars -->
+            <div style="margin-top: 2.25rem; display: flex; align-items: center; gap: 1rem;">
+              <div style="display: flex; margin-left: 8px;">
+                <img src="../assets/images/student-amara-okafor.webp" alt="Alum" style="width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #FFFFFF; margin-left: -8px; object-fit: cover;">
+                <img src="../assets/images/student-david-kim.webp" alt="Alum" style="width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #FFFFFF; margin-left: -8px; object-fit: cover;">
+                <img src="../assets/images/student-elena-rostova.webp" alt="Alum" style="width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #FFFFFF; margin-left: -8px; object-fit: cover;">
+                <img src="../assets/images/student-lucas-silva.webp" alt="Alum" style="width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid #FFFFFF; margin-left: -8px; object-fit: cover;">
+              </div>
+              <div style="font-size: 0.85rem; color: var(--color-text-body); line-height: 1.4;">
+                <strong style="color: var(--color-text-main); font-weight: 700;">45,000+ Active Students</strong>
+                <span style="display: block; color: var(--color-text-muted);">Collaborating across 48 countries</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual Column with Hero Imagery & Floating Metric Chips -->
+          <div class="hero-visual-col">
+            <div class="hero-image-frame">
+              <img src="../assets/images/about-collaborative-study.webp" alt="Stackly students actively collaborating in an interactive project lab" width="700" height="440" loading="eager">
+            </div>
+
+            <!-- Floating Badge Top Right -->
+            <div class="hero-floating-card card-top-right">
+              <div class="floating-card-icon" style="background: var(--color-pastel-mint); color: var(--color-pastel-mint-dark);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div>
+                <p class="floating-card-title">100% Project-Based</p>
+                <p class="floating-card-desc">Zero Rote Memorization</p>
+              </div>
+            </div>
+
+            <!-- Floating Badge Bottom Left -->
+            <div class="hero-floating-card card-bottom-left">
+              <div class="floating-card-icon" style="background: var(--color-pastel-yellow); color: var(--color-pastel-yellow-dark);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              </div>
+              <div>
+                <p class="floating-card-title">Top 1% Mentors</p>
+                <p class="floating-card-desc">Ex-Spotify, Stripe &amp; Big Tech</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         4. MISSION, VISION, AND VALUES SECTION
+         ======================================================================= -->
+    <section id="mission-vision" class="section-spacing" style="padding: 5.5rem 0; background-color: var(--color-bg-subtle);" aria-labelledby="mv-section-heading">
+      <div class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
+        
+        <div class="section-header-centered">
+          <div class="section-eyebrow badge-yellow" style="color: var(--color-pastel-yellow-dark);">
+            <span>Core Foundation</span>
+          </div>
+          <h2 id="mv-section-heading" class="section-title">
+            Engineered to Solve Modern Education's Biggest Broken Promise.
+          </h2>
+          <p class="section-subtitle">
+            Traditional academia charges tens of thousands of dollars for decades-old theory. Stackly replaced static textbooks with interactive, build-in-public production sprints.
+          </p>
+        </div>
+
+        <!-- Mission & Vision Bento Grid -->
+        <div class="mission-vision-grid">
+          
+          <!-- Mission Card -->
+          <article class="mv-card card-mission">
+            <div>
+              <div class="mv-card-header">
+                <div class="mv-card-icon" style="background: var(--color-pastel-mint); color: var(--color-primary-dark);">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                </div>
+                <h3 class="mv-card-title">Our Mission</h3>
+              </div>
+              <p>
+                Demystify complex modern skills and make world-class, project-verified education accessible to everyone worldwide, regardless of geographical or financial background.
+              </p>
+            </div>
+            <div class="mv-card-highlight">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Applied learning over theoretical memorization</span>
+            </div>
+          </article>
+
+          <!-- Vision Card -->
+          <article class="mv-card card-vision">
+            <div>
+              <div class="mv-card-header">
+                <div class="mv-card-icon" style="background: var(--color-pastel-yellow); color: #B45309;">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </div>
+                <h3 class="mv-card-title">Our Vision</h3>
+              </div>
+              <p>
+                An education ecosystem where every learner graduates not with a paper certificate, but with a living, cryptographically-verified portfolio of real production applications.
+              </p>
+            </div>
+            <div class="mv-card-highlight" style="color: #92400E;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>Proven skill proof that replaces outdated resumes</span>
+            </div>
+          </article>
+
+          <!-- Core Values 4-Column Grid -->
+          <div class="values-grid">
+            
+            <!-- Value 1 -->
+            <div class="value-box">
+              <div class="value-icon-badge" style="background: var(--color-pastel-mint); color: var(--color-primary-dark);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <h4 class="value-title">Practical Mastery</h4>
+              <p class="value-description">
+                Learn by shipping real software, testing live architectures, and deploying cloud infrastructures under real production constraints.
+              </p>
+            </div>
+
+            <!-- Value 2 -->
+            <div class="value-box">
+              <div class="value-icon-badge" style="background: var(--color-pastel-blue); color: var(--color-pastel-blue-dark);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <h4 class="value-title">Radical Inclusivity</h4>
+              <p class="value-description">
+                Eliminating socioeconomic and regional obstacles through asynchronous labs, global cohort scholarships, and inclusive mentorship.
+              </p>
+            </div>
+
+            <!-- Value 3 -->
+            <div class="value-box">
+              <div class="value-icon-badge" style="background: var(--color-pastel-peach); color: var(--color-pastel-peach-dark);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <h4 class="value-title">Uncompromising Quality</h4>
+              <p class="value-description">
+                Every curriculum is authored, verified, and updated quarterly by practicing Lead and Principal engineers at tier-one organizations.
+              </p>
+            </div>
+
+            <!-- Value 4 -->
+            <div class="value-box">
+              <div class="value-icon-badge" style="background: var(--color-pastel-lilac); color: var(--color-pastel-lilac-dark);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              </div>
+              <h4 class="value-title">Community Spirit</h4>
+              <p class="value-description">
+                No lone wolves. Learners collaborate in agile squads, performing peer pull-request reviews, pair programming, and mock interviews.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         5. OUR JOURNEY & IMPACT MILESTONES SECTION
+         ======================================================================= -->
+    <section class="journey-section" aria-labelledby="journey-heading">
+      <div class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
+        
+        <div class="section-header-centered">
+          <div class="section-eyebrow badge-emerald" style="color: var(--color-primary-dark);">
+            <span>Impact by the Numbers</span>
+          </div>
+          <h2 id="journey-heading" class="section-title">
+            Our Journey &amp; Milestones
+          </h2>
+          <p class="section-subtitle">
+            Founded with an uncompromising vision to replace outdated static lectures with interactive browser labs, real code reviews, and tangible career outcomes.
+          </p>
+        </div>
+
+        <!-- Metric Grid -->
+        <div class="stats-highlight-row">
+          <div class="stat-metric-card">
+            <div class="stat-number stat-accent-teal">120K<span style="font-size: 1.8rem;">+</span></div>
+            <div class="stat-label">Completed Projects</div>
+            <p class="stat-subtext">Production-grade web apps, ML pipelines &amp; UX prototypes.</p>
+          </div>
+
+          <div class="stat-metric-card">
+            <div class="stat-number stat-accent-emerald">94<span style="font-size: 1.8rem;">%</span></div>
+            <div class="stat-label">Career Outcome Rate</div>
+            <p class="stat-subtext">Employed or promoted within 6 months of graduation.</p>
+          </div>
+
+          <div class="stat-metric-card">
+            <div class="stat-number stat-accent-yellow">250<span style="font-size: 1.8rem;">+</span></div>
+            <div class="stat-label">Senior Tech Mentors</div>
+            <p class="stat-subtext">Practicing architects providing code reviews and 1-on-1s.</p>
+          </div>
+
+          <div class="stat-metric-card">
+            <div class="stat-number stat-accent-purple">48</div>
+            <div class="stat-label">Countries Represented</div>
+            <p class="stat-subtext">Global cohorts learning and building across all time zones.</p>
+          </div>
+        </div>
+
+        <!-- Interactive Timeline Track -->
+        <div class="timeline-track-wrap" role="region" aria-label="Company Milestones Timeline">
+          
+          <!-- Node 1: 2021 -->
+          <div class="timeline-node">
+            <div class="timeline-node-pin" aria-hidden="true">01</div>
+            <div class="timeline-content-box">
+              <span class="timeline-year-tag">2021 &bull; Genesis</span>
+              <h3 class="timeline-step-title">The "Death to Slides" Manifesto</h3>
+              <p class="timeline-step-desc">
+                Founded by former engineering managers frustrated by junior applicants who knew theoretical definitions but couldn't debug an asynchronous API call. Launched our in-browser project execution sandbox.
+              </p>
+            </div>
+          </div>
+
+          <!-- Node 2: 2023 -->
+          <div class="timeline-node">
+            <div class="timeline-node-pin" aria-hidden="true">02</div>
+            <div class="timeline-content-box">
+              <span class="timeline-year-tag">2023 &bull; Global Expansion</span>
+              <h3 class="timeline-step-title">1-on-1 Mentorship Network</h3>
+              <p class="timeline-step-desc">
+                Scaled mentor squad to over 100 seasoned tech leaders from Spotify, Stripe, and Google. Introduced synchronized peer cohorts and career placement guarantees.
+              </p>
+            </div>
+          </div>
+
+          <!-- Node 3: 2025 -->
+          <div class="timeline-node">
+            <div class="timeline-node-pin" aria-hidden="true">03</div>
+            <div class="timeline-content-box">
+              <span class="timeline-year-tag">2025 &bull; Portfolio Innovation</span>
+              <h3 class="timeline-step-title">Cryptographic Portfolio Verification</h3>
+              <p class="timeline-step-desc">
+                Pioneered tamper-proof skill badges verified directly through GitHub commit histories and mentor code reviews, directly adopted by 140+ hiring partner companies.
+              </p>
+            </div>
+          </div>
+
+          <!-- Node 4: 2026 -->
+          <div class="timeline-node">
+            <div class="timeline-node-pin" aria-hidden="true">04</div>
+            <div class="timeline-content-box">
+              <span class="timeline-year-tag">2026 &bull; The New Standard</span>
+              <h3 class="timeline-step-title">120,000+ Projects &amp; Beyond</h3>
+              <p class="timeline-step-desc">
+                Celebrated our milestone of 120,000 completed student projects and a sustained 94% career promotion rate. Expanded AI &amp; Cloud Systems curricula worldwide.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         6. MEET OUR EXPERT MENTORS & FACULTY
+         ======================================================================= -->
+    <section id="faculty" class="mentors-section" aria-labelledby="faculty-heading">
+      <div class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
+        
+        <div class="section-header-centered">
+          <div class="section-eyebrow badge-lilac" style="color: var(--color-pastel-lilac-dark);">
+            <span>World-Class Faculty</span>
+          </div>
+          <h2 id="faculty-heading" class="section-title">
+            Learn Directly from Industry Practitioners.
+          </h2>
+          <p class="section-subtitle">
+            Our mentors aren't career academics. They are principal engineers, design leads, and machine learning directors who build software used by millions every day.
+          </p>
+        </div>
+
+        <div class="mentors-grid">
+          
+          <!-- Mentor 1: Alex Chen -->
+          <article class="mentor-card">
+            <div class="mentor-thumb-wrap">
+              <img src="../assets/images/mentor-alex-chen.webp" alt="Alex Chen, Lead UI/UX Architect" width="350" height="270" loading="lazy">
+              <span class="mentor-exp-chip">Ex-Spotify &bull; 10+ Yrs</span>
+            </div>
+            <div class="mentor-details">
+              <h3 class="mentor-name">Alex Chen</h3>
+              <p class="mentor-role">Lead UI/UX Architect</p>
+              <p class="mentor-bio">
+                Specializes in enterprise design systems, accessibility architecture, and micro-interactions. Spearheaded component libraries serving 400M+ active audio streaming listeners.
+              </p>
+              <div class="mentor-skills-tags">
+                <span class="skill-tag">Design Systems</span>
+                <span class="skill-tag">Figma Prototyping</span>
+                <span class="skill-tag">WCAG 2.1</span>
+              </div>
+              <div class="mentor-footer">
+                <div class="mentor-social-links">
+                  <a href="404.html" class="mentor-social-icon" aria-label="Alex Chen LinkedIn profile (redirects to 404)" title="LinkedIn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                  </a>
+                  <a href="404.html" class="mentor-social-icon" aria-label="Alex Chen Twitter/X profile (redirects to 404)" title="Twitter/X">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </a>
+                  <a href="404.html" class="mentor-social-icon" aria-label="Alex Chen GitHub profile (redirects to 404)" title="GitHub">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                  </a>
+                </div>
+                <a href="404.html" class="mentor-session-link">
+                  <span>Book 1-on-1</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Mentor 2: Sarah Jenkins -->
+          <article class="mentor-card">
+            <div class="mentor-thumb-wrap">
+              <img src="../assets/images/mentor-sarah-jenkins.webp" alt="Sarah Jenkins, Senior Full Stack Engineer" width="350" height="270" loading="lazy">
+              <span class="mentor-exp-chip">Ex-Stripe &bull; 8+ Yrs</span>
+            </div>
+            <div class="mentor-details">
+              <h3 class="mentor-name">Sarah Jenkins</h3>
+              <p class="mentor-role">Senior Full Stack Engineer</p>
+              <p class="mentor-bio">
+                Full-stack authority and open-source contributor. Engineered high-throughput payment gateways and fault-tolerant distributed cloud nodes processing billions in volume.
+              </p>
+              <div class="mentor-skills-tags">
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">PostgreSQL</span>
+              </div>
+              <div class="mentor-footer">
+                <div class="mentor-social-links">
+                  <a href="404.html" class="mentor-social-icon" aria-label="Sarah Jenkins LinkedIn profile (redirects to 404)" title="LinkedIn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                  </a>
+                  <a href="404.html" class="mentor-social-icon" aria-label="Sarah Jenkins Twitter/X profile (redirects to 404)" title="Twitter/X">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </a>
+                  <a href="404.html" class="mentor-social-icon" aria-label="Sarah Jenkins GitHub profile (redirects to 404)" title="GitHub">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                  </a>
+                </div>
+                <a href="404.html" class="mentor-session-link">
+                  <span>Book 1-on-1</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Mentor 3: Marcus Vance -->
+          <article class="mentor-card">
+            <div class="mentor-thumb-wrap">
+              <img src="../assets/images/mentor-marcus-vance.webp" alt="Marcus Vance, Director of AI & Machine Learning" width="350" height="270" loading="lazy">
+              <span class="mentor-exp-chip">AI Research &bull; 12+ Yrs</span>
+            </div>
+            <div class="mentor-details">
+              <h3 class="mentor-name">Marcus Vance</h3>
+              <p class="mentor-role">Director of AI &amp; Machine Learning</p>
+              <p class="mentor-bio">
+                Pioneering researcher in transformer fine-tuning, RAG pipelines, and edge inference. Dedicated to teaching production MLops rather than purely theoretical statistical models.
+              </p>
+              <div class="mentor-skills-tags">
+                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">LLM Fine-Tuning</span>
+                <span class="skill-tag">MLOps</span>
+              </div>
+              <div class="mentor-footer">
+                <div class="mentor-social-links">
+                  <a href="404.html" class="mentor-social-icon" aria-label="Marcus Vance LinkedIn profile (redirects to 404)" title="LinkedIn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                  </a>
+                  <a href="404.html" class="mentor-social-icon" aria-label="Marcus Vance Twitter/X profile (redirects to 404)" title="Twitter/X">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </a>
+                  <a href="404.html" class="mentor-social-icon" aria-label="Marcus Vance GitHub profile (redirects to 404)" title="GitHub">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                  </a>
+                </div>
+                <a href="404.html" class="mentor-session-link">
+                  <span>Book 1-on-1</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Mentor 4: Priya Sharma -->
+          <article class="mentor-card">
+            <div class="mentor-thumb-wrap">
+              <img src="../assets/images/mentor-priya-sharma.webp" alt="Priya Sharma, Head of Product Growth & Strategy" width="350" height="270" loading="lazy">
+              <span class="mentor-exp-chip">Growth Leader &bull; 9+ Yrs</span>
+            </div>
+            <div class="mentor-details">
+              <h3 class="mentor-name">Priya Sharma</h3>
+              <p class="mentor-role">Head of Product Growth &amp; Strategy</p>
+              <p class="mentor-bio">
+                Expert in data-driven user acquisition, monetization models, and viral product loops. Guides students in validating software products and turning codebases into businesses.
+              </p>
+              <div class="mentor-skills-tags">
+                <span class="skill-tag">Product Analytics</span>
+                <span class="skill-tag">Growth Funnels</span>
+                <span class="skill-tag">A/B Testing</span>
+              </div>
+              <div class="mentor-footer">
+                <div class="mentor-social-links">
+                  <a href="404.html" class="mentor-social-icon" aria-label="Priya Sharma LinkedIn profile (redirects to 404)" title="LinkedIn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                  </a>
+                  <a href="404.html" class="mentor-social-icon" aria-label="Priya Sharma Twitter/X profile (redirects to 404)" title="Twitter/X">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  </a>
+                  <a href="404.html" class="mentor-social-icon" aria-label="Priya Sharma GitHub profile (redirects to 404)" title="GitHub">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                  </a>
+                </div>
+                <a href="404.html" class="mentor-session-link">
+                  <span>Book 1-on-1</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         7. GLOBAL ACCREDITATION & PARTNER NETWORK
+         ======================================================================= -->
+    <section class="accreditation-section" aria-labelledby="accreditation-heading">
+      <div class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
+        
+        <div class="section-header-centered" style="margin-bottom: 2.75rem;">
+          <div class="section-eyebrow badge-blue" style="color: var(--color-pastel-blue-dark);">
+            <span>Industry Credentials</span>
+          </div>
+          <h2 id="accreditation-heading" class="section-title" style="font-size: 2.15rem;">
+            Global Accreditation &amp; Partner Network
+          </h2>
+          <p class="section-subtitle">
+            Stackly course certifications are backed by rigorous competency audits and recognized by leading cloud providers, academic federations, and technology leaders.
+          </p>
+        </div>
+
+        <div class="partner-grid">
+          
+          <div class="partner-badge-card">
+            <div class="partner-logo-mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+              <span>AWS Academy</span>
+            </div>
+            <span class="partner-logo-sub">Curriculum Partner</span>
+          </div>
+
+          <div class="partner-badge-card">
+            <div class="partner-logo-mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284C7" stroke-width="2.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>
+              <span>Google Cloud</span>
+            </div>
+            <span class="partner-logo-sub">Authorized Labs</span>
+          </div>
+
+          <div class="partner-badge-card">
+            <div class="partner-logo-mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>ISO 27001</span>
+            </div>
+            <span class="partner-logo-sub">Security Certified</span>
+          </div>
+
+          <div class="partner-badge-card">
+            <div class="partner-logo-mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              <span>ECTS Credit</span>
+            </div>
+            <span class="partner-logo-sub">European Academic</span>
+          </div>
+
+          <div class="partner-badge-card">
+            <div class="partner-logo-mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E11D48" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              <span>Linux Fdn</span>
+            </div>
+            <span class="partner-logo-sub">Silver Member</span>
+          </div>
+
+          <div class="partner-badge-card">
+            <div class="partner-logo-mark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              <span>IEEE Edu</span>
+            </div>
+            <span class="partner-logo-sub">Standard Certified</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         8. CALL TO ACTION BANNER
+         ======================================================================= -->
+    <section class="cta-banner-section" aria-labelledby="cta-heading">
+      <div class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
+        
+        <div class="cta-box-content">
+          <div class="section-eyebrow badge-yellow" style="color: var(--color-pastel-yellow-dark); margin-bottom: 1.25rem;">
+            <span>Start Building Today</span>
+          </div>
+          
+          <h2 id="cta-heading" class="cta-heading">
+            Ready to Build a Career You're Truly Proud Of?
+          </h2>
+          
+          <p class="cta-subtext">
+            Join over 45,000 ambitious developers, designers, and future tech leaders. Get paired with your personal industry mentor and start shipping production-grade software today.
+          </p>
+
+          <div class="cta-actions-group">
+            <a href="404.html" class="btn btn-emerald" style="padding: 0.95rem 2rem; font-size: 1.05rem; box-shadow: 0 8px 25px rgba(13, 148, 136, 0.4);">
+              <span>Start Learning Free</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="404.html" class="btn btn-outline" style="padding: 0.95rem 1.85rem; font-size: 1.05rem; color: #FFFFFF; border-color: rgba(255, 255, 255, 0.3);">
+              <span>Explore All Courses</span>
+            </a>
+          </div>
+
+          <div class="cta-guarantee">
+            <div class="cta-guarantee-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>14-Day Money-Back Guarantee</span>
+            </div>
+            <div class="cta-guarantee-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>No Credit Card for Free Tier</span>
+            </div>
+            <div class="cta-guarantee-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>1-on-1 Code Reviews</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       CONSISTENT GLOBAL FOOTER
+       ========================================================================= -->
+    <!-- ======================================================================
+       UNIFIED GLOBAL FOOTER (Consistent across all pages)
+       ====================================================================== -->
+    <!-- ======================================================================
+       UNIFIED GLOBAL FOOTER (Consistent across all pages)
+       ====================================================================== -->
+  <footer class="unified-footer" role="contentinfo">
+    <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;">
+      <div class="unified-footer-grid">
+        <!-- Col 1: Brand & Bio -->
+        <div class="footer-brand-col">
+          <a href="../index.html" class="brand-logo" aria-label="Stackly Homepage" style="margin-bottom: 1.25rem;">
+            <img src="../assets/images/logoStackly.webp" alt="Stackly Logo" width="125" height="32">
+          </a>
+          <p style="font-size: 0.925rem; line-height: 1.65; color: #94A3B8; margin-bottom: 1.5rem; max-width: 340px;">
+            Stackly Learn is an advanced education and online course platform empowering ambitious learners, designers, and engineers worldwide with hands-on, mentor-led curriculums.
+          </p>
+          <div class="app-badges-group" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="404.html" class="app-badge-btn" aria-label="Download on App Store" style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 0.85rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #FFF; text-decoration: none; font-size: 0.8rem;">
+              <span style="font-size: 1.1rem;" aria-hidden="true">&#63743;</span>
+              <span><span style="font-size: 0.65rem; display: block; opacity: 0.75;">Download on</span><strong>App Store</strong></span>
+            </a>
+            <a href="404.html" class="app-badge-btn" aria-label="Get it on Google Play" style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 0.85rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #FFF; text-decoration: none; font-size: 0.8rem;">
+              <span style="font-size: 1.1rem;" aria-hidden="true">&#9654;</span>
+              <span><span style="font-size: 0.65rem; display: block; opacity: 0.75;">GET IT ON</span><strong>Google Play</strong></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links (Operating Site Navigation) -->
+        <div>
+          <h4 class="unified-footer-heading">Quick Links</h4>
+          <ul class="unified-footer-list">
+            <li><a href="../index.html">Home Overview</a></li>
+            <li><a href="about.html">About Stackly</a></li>
+            <li><a href="courses.html">Browse All Courses</a></li>
+            <li><a href="pricing.html">Tuition &amp; Plans</a></li>
+            <li><a href="contact.html">Admissions &amp; Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Academic Programs (Redirect to 404 per rules) -->
+        <div>
+          <h4 class="unified-footer-heading">Academic Tracks</h4>
+          <ul class="unified-footer-list">
+            <li><a href="404.html">UI/UX Design Systems</a></li>
+            <li><a href="404.html">Full-Stack Web Engineering</a></li>
+            <li><a href="404.html">Applied AI &amp; Machine Learning</a></li>
+            <li><a href="404.html">Cloud Architecture &amp; DevOps</a></li>
+            <li><a href="404.html">Growth &amp; Digital Strategy</a></li>
+            <li><a href="404.html">Verified Certificate Pass</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Campus HQ Details -->
+        <div>
+          <h4 class="unified-footer-heading">Salem Campus HQ</h4>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0.85rem; line-height: 1.55;">
+            MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu 636008
+          </p>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0.5rem; line-height: 1.55;">
+            <strong style="color: #F8FAFC;">Phone:</strong> <a href="404.html" style="color: #94A3B8; text-decoration: none;">+91 9876543210</a>
+          </p>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0; line-height: 1.55;">
+            <strong style="color: #F8FAFC;">Email:</strong> <a href="404.html" style="color: #94A3B8; text-decoration: none;">hello@thestackly.com</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Unified Footer Bottom -->
+      <div class="unified-footer-bottom" style="display: flex; flex-direction: column; gap: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; width: 100%;">
+          <p style="margin: 0; font-size: 0.875rem; color: #94A3B8;">&copy; 2026 Stackly Edu. All Rights Reserved.</p>
+
+          <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+              <span>Facebook</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              <span>Instagram</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span>Twitter/X</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Screenshot Policy Links Displayed Strictly Below Copyright Section -->
+        <div class="footer-legal-sub-bar" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1rem; display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap;">
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Privacy Policy</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Terms &amp; Conditions</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Honor Code &amp; Conduct</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Academic Accreditation</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Floating Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Scroll to top">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
+
+  <!-- Platform Master JavaScript Module -->
+    <!-- GSAP & ScrollTrigger Core Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

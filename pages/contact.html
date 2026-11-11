@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <!-- Primary Meta Tags -->
+  <title>Contact Us | Stackly Education &amp; Online Course Platform</title>
+  <meta name="title" content="Contact Us | Stackly Education &amp; Online Course Platform" />
+  <meta name="description" content="Get in touch with our learning advisors for personalized curriculum guidance, admissions questions, bootcamp details, or enterprise training plans." />
+  <meta name="keywords" content="Stackly contact, learning advisors, online courses support, tech bootcamps admission, Salem education hub, corporate training" />
+  <meta name="theme-color" content="#F59E0B" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://thestackly.com/contact.html" />
+  <meta property="og:title" content="Contact Our Learning Advisors | Stackly Education" />
+  <meta property="og:description" content="Have questions about courses, enterprise plans, or curriculum guidance? Our education advisors are here to help." />
+  <meta property="og:image" content="../assets/images/about-collaborative-study.webp" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="Contact Our Learning Advisors | Stackly Education" />
+  <meta property="twitter:description" content="Have questions about courses, enterprise plans, or curriculum guidance? Our education advisors are here to help." />
+  <meta property="twitter:image" content="../assets/images/about-collaborative-study.webp" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="../assets/images/logoStackly.webp" />
+
+  <!-- Google Fonts: Inter, Plus Jakarta Sans, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Global Design System Stylesheet -->
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+
+  <!-- Custom Contact Page Enhanced Styles -->
+  <style>
+    /* Contact Page Specific Enhancements */
+    .contact-hero-section {
+      background: linear-gradient(180deg, #FDFBF7 0%, #F5F9F8 100%);
+      padding: clamp(3rem, 5vw, 4.5rem) 0 2.5rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-color-subtle);
+    }
+
+    .contact-hero-pattern {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.08) 0%, rgba(254, 240, 138, 0.04) 50%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Breadcrumbs */
+    .breadcrumb-nav {
+      margin-bottom: 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .breadcrumb-list {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    .breadcrumb-item a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .breadcrumb-item a:hover {
+      color: var(--color-primary-hover);
+      text-decoration: underline;
+    }
+
+    .breadcrumb-separator {
+      color: var(--color-text-subtle);
+      font-size: 0.75rem;
+    }
+
+    .breadcrumb-item.active {
+      color: var(--color-text-main);
+      font-weight: 600;
+    }
+
+    /* Trust Chips */
+    .trust-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .trust-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color-medium);
+      border-radius: var(--radius-full);
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--color-text-body);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .trust-chip i {
+      color: var(--color-primary);
+    }
+
+    /* Contact Info Cards */
+    .info-card-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .info-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color-subtle);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-xs);
+      transition: all var(--transition-normal);
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(13, 148, 136, 0.3);
+    }
+
+    .info-card-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .info-card.accent-yellow .info-card-icon-wrap {
+      background: var(--color-pastel-yellow);
+      color: var(--color-pastel-yellow-dark);
+    }
+
+    .info-card.accent-mint .info-card-icon-wrap {
+      background: var(--color-pastel-mint);
+      color: var(--color-pastel-mint-dark);
+    }
+
+    .info-card.accent-lilac .info-card-icon-wrap {
+      background: var(--color-pastel-lilac);
+      color: var(--color-pastel-lilac-dark);
+    }
+
+    .info-card-body h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--color-text-main);
+    }
+
+    .info-card-body p {
+      font-size: 0.9rem;
+      color: var(--color-text-body);
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .info-card-link {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+    }
+
+    .info-card-link:hover {
+      color: var(--color-primary-hover);
+      text-decoration: underline;
+    }
+
+    /* Social Links with Icon + Label */
+    .social-links-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .social-btn-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-full);
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color-medium);
+      color: var(--color-text-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+    }
+
+    .social-btn-pill:hover {
+      background: var(--color-text-main);
+      color: #FFFFFF;
+      border-color: var(--color-text-main);
+      transform: translateY(-2px);
+    }
+
+    .social-btn-pill i {
+      font-size: 1rem;
+    }
+
+    .social-btn-pill.fb:hover { background: #1877F2; border-color: #1877F2; }
+    .social-btn-pill.tw:hover { background: #000000; border-color: #000000; }
+    .social-btn-pill.in:hover { background: #0A66C2; border-color: #0A66C2; }
+    .social-btn-pill.ig:hover { background: linear-gradient(45deg, #F09433, #BC1888); border-color: #BC1888; }
+    .social-btn-pill.yt:hover { background: #FF0000; border-color: #FF0000; }
+
+    /* Branch Office Bento Box */
+    .branch-offices-box {
+      background: #F8FAFC;
+      border: 1.5px dashed var(--border-color-medium);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .branch-card {
+      padding: 1rem;
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color-subtle);
+      margin-bottom: 0.75rem;
+    }
+
+    .branch-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .branch-card h5 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .branch-card p {
+      font-size: 0.825rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0;
+    }
+
+    /* Form Container & Floating Labels */
+    .contact-form-container {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color-subtle);
+      border-radius: var(--radius-2xl);
+      padding: clamp(1.75rem, 3vw, 2.75rem);
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+
+    .form-header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      background: var(--color-pastel-mint);
+      color: var(--color-pastel-mint-dark);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .phone-split-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .country-code-select {
+      width: 140px;
+      flex-shrink: 0;
+      height: 48px;
+      padding: 0.75rem 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      background-color: var(--color-bg-subtle);
+      border: 1.5px solid var(--border-color-medium);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      outline: none;
+      transition: all var(--transition-fast);
+    }
+
+    .country-code-select:focus {
+      border-color: var(--color-primary);
+      background-color: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+
+    .phone-input-wrap {
+      flex: 1;
+      position: relative;
+    }
+
+    .char-counter-text {
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-align: right;
+      margin-top: 0.35rem;
+      font-weight: 500;
+    }
+
+    /* In-Page Success Banner */
+    .submission-success-banner {
+      display: none;
+      background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+      border: 1.5px solid #10B981;
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+      animation: fadeInSlide 0.4s ease-out;
+    }
+
+    .submission-success-banner.visible {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Google Map Section */
+    .map-wrapper {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      border: 1.5px solid var(--border-color-subtle);
+      box-shadow: var(--shadow-sm);
+      background: #E2E8F0;
+    }
+
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .map-overlay-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color-medium);
+      box-shadow: var(--shadow-md);
+      max-width: 300px;
+      z-index: 2;
+    }
+
+    /* FAQ Section Accordions */
+    .faq-accordion-item {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color-subtle);
+      border-radius: var(--radius-xl);
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all var(--transition-fast);
+    }
+
+    .faq-accordion-item:hover {
+      border-color: var(--border-color-medium);
+    }
+
+    .faq-accordion-item.active {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-accordion-header {
+      width: 100%;
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-align: left;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color var(--transition-fast);
+    }
+
+    .faq-accordion-item.active .faq-accordion-header {
+      color: var(--color-primary);
+    }
+
+    .faq-icon-chevron {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--color-bg-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-main);
+      transition: transform var(--transition-normal), background var(--transition-fast);
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+
+    .faq-accordion-item.active .faq-icon-chevron {
+      transform: rotate(180deg);
+      background: var(--color-primary-light);
+      color: var(--color-primary-dark);
+    }
+
+    .faq-accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-accordion-inner {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      color: var(--color-text-body);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    /* Global Site Footer */
+    .site-footer {
+      background-color: #111827;
+      color: #9CA3AF;
+      padding: 5rem 0 2.5rem;
+      position: relative;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .site-footer a {
+      color: #D1D5DB;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    .site-footer a:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand-desc {
+      font-size: 0.925rem;
+      line-height: 1.65;
+      margin: 1.25rem 0 1.5rem;
+      max-width: 340px;
+    }
+
+    .footer-heading {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .footer-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-newsletter-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+    }
+
+    .footer-newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .footer-input {
+      flex: 1;
+      height: 44px;
+      padding: 0.6rem 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-full);
+      color: #FFFFFF;
+      font-size: 0.875rem;
+      outline: none;
+    }
+
+    .footer-input:focus {
+      border-color: var(--color-primary);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-utility-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .phone-split-group {
+        flex-direction: column;
+      }
+      .country-code-select {
+        width: 100%;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body data-page="contact">
+  <!-- Accessibility Skip Navigation -->
+  <a href="#main-content" class="sr-only" style="position: absolute; top: 10px; left: 10px; z-index: 100000; background: #F59E0B; color: #78350F; font-weight: 700; padding: 10px 16px; border-radius: 6px;">Skip to main content</a>
+
+  <!-- =========================================================================
+       GLOBAL UNIFIED PRELOADER (Consistent centered viewport loading spinner)
+       ========================================================================= -->
+  <div id="app-loader" class="global-page-loader" role="status" aria-live="polite" aria-label="Loading Stackly Education">
+    <div class="loader-centered-content">
+      <div class="loader-spinner-wrapper">
+        <div class="loader-ring-spinner" aria-hidden="true"></div>
+        <div class="loader-brand-badge">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly" class="loader-brand-img" width="32" height="32">
+        </div>
+      </div>
+
+  <!-- =========================================================================
+       SITE HEADER & PRIMARY NAVIGATION
+       ========================================================================= -->
+  <header class="site-header" role="banner" id="siteHeader">
+    <div class="container">
+      <nav class="nav-wrapper" aria-label="Primary Navigation">
+        <!-- Brand Logo -->
+        <a href="../index.html" class="brand-logo-link" aria-label="Stackly Learn Home">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly Learn Logo" class="brand-logo-img" width="130" height="38">
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <ul class="nav-menu" role="menubar">
+          <li class="nav-item" role="none">
+            <a href="../index.html" class="nav-link" role="menuitem">Home</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="about.html" class="nav-link" role="menuitem">About us</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="courses.html" class="nav-link" role="menuitem">Courses</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="pricing.html" class="nav-link" role="menuitem">Pricing</a>
+          </li>
+          <li class="nav-item" role="none">
+            <a href="contact.html" class="nav-link active" aria-current="page" role="menuitem">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Action CTAs -->
+        <div class="nav-actions">
+          <a href="sign-in.html" class="btn btn-secondary">Sign In</a>
+          <a href="sign-up.html" class="btn btn-primary">Get Started</a>
+
+          <!-- Mobile Hamburger Button -->
+          <button type="button" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNavOverlay" id="mobileMenuToggle">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true">
+    <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+      <div class="mobile-nav-header">
+        <a href="../index.html" class="brand-logo-link" aria-label="Stackly Homepage">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly Learn Logo" class="brand-logo-img" width="120" height="35">
+        </a>
+        <button type="button" class="mobile-nav-close" id="mobileNavClose" aria-label="Collapse side menu bar" title="Collapse menu">&times;</button>
+      </div>
+      <ul class="mobile-nav-links">
+        <li><a href="../index.html" class="mobile-nav-link">Home</a></li>
+        <li><a href="about.html" class="mobile-nav-link">About us</a></li>
+        <li><a href="courses.html" class="mobile-nav-link">Courses</a></li>
+        <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
+        <li><a href="contact.html" class="mobile-nav-link active">Contact</a></li>
+      </ul>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto;">
+        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Sign In</a>
+        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+      </div>
+    </div>
+  </div>
+
+      <p class="loader-status-text">Loading Stackly Education...</p>
+    </div>
+  </div>
+
+    <!-- =============================================================
+       STICKY NAVBAR (Unified across all pages)
+       ============================================================= -->
+  
+
+  <!-- Mobile Fullscreen / Drawer Overlay Menu -->
+  
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main id="main-content">
+    
+    <!-- 3. HERO & BREADCRUMBS SECTION -->
+    <section class="contact-hero-section hero-animated-wrap" style="position: relative; padding: 3.5rem 0 4.5rem; overflow: hidden;">
+      <!-- High Visibility Background Image with Ken Burns & Parallax -->
+      <div class="hero-bg-container" aria-hidden="true">
+        <div class="hero-bg-anim-wrapper">
+          <img src="../assets/images/about-collaborative-study.webp" alt="Advisors Support Background" class="hero-bg-image hero-parallax-bg" loading="eager" width="1920" height="1080">
+        </div>
+        <div class="hero-bg-overlay"></div>
+      </div>
+
+      <div class="container hero-content-relative">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb-nav" aria-label="Breadcrumb" style="margin-bottom: 1.5rem;">
+          <ol class="breadcrumb-list" style="display: flex; align-items: center; gap: 0.5rem; list-style: none; padding: 0; margin: 0; font-size: 0.875rem;">
+            <li class="breadcrumb-item">
+              <a href="../index.html" style="color: #475569; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s;">
+                <i class="fa-solid fa-house" style="font-size: 0.825rem; color: #F59E0B;"></i>
+                <span>Home</span>
+              </a>
+            </li>
+            <li class="breadcrumb-separator" style="color: #94A3B8; font-size: 0.75rem;"><i class="fa-solid fa-chevron-right"></i></li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: #D97706; font-weight: 700;">Contact Us</li>
+          </ol>
+        </nav>
+
+        <div style="max-width: 820px; position: relative; z-index: 2;">
+          <div class="badge badge-emerald" style="margin-bottom: 1.25rem; font-size: 0.85rem; padding: 0.45rem 1.1rem; background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1);">
+            <i class="fa-solid fa-headset"></i> Dedicated Admissions &amp; Learner Advisory
+          </div>
+          <h1 class="hero-heading-contrast" style="font-size: clamp(2.25rem, 5vw, 3.5rem); margin-bottom: 1.25rem; line-height: 1.15; color: #0F172A;">
+            Get in Touch with our <span style="background: linear-gradient(120deg, #D1FAE5 0%, #A7F3D0 100%); padding: 0 10px; border-radius: 8px; color: #065F46; display: inline-block;">Learning Advisors</span>
+          </h1>
+          <p class="hero-subtitle-contrast" style="margin-bottom: 2rem; max-width: 720px; font-size: clamp(1.05rem, 2vw, 1.2rem); color: #334155; line-height: 1.65;">
+            Have questions about courses, enterprise plans, or curriculum guidance? Our education advisors are here to help you craft your future in tech, design, and product leadership.
+          </p>
+
+          <!-- High-Contrast Floating Metric Badges -->
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+            <div class="hero-metric-pill">
+              <i class="fa-solid fa-bolt" style="color: #F59E0B;"></i>
+              <span>Avg. Response Time: <strong>&lt; 2 Hours</strong></span>
+            </div>
+            <div class="hero-metric-pill">
+              <i class="fa-solid fa-star" style="color: #F59E0B;"></i>
+              <span>Resolution Satisfaction: <strong>98.4%</strong></span>
+            </div>
+            <div class="hero-metric-pill">
+              <i class="fa-solid fa-globe" style="color: #0284C7;"></i>
+              <span>Global Support: <strong>IST, EST, SGT</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 & 5. CONTACT INFORMATION & INTERACTIVE FORM SECTION (BENTO GRID) -->
+    <section class="section-spacing" style="padding-top: 3.5rem;">
+      <div class="container">
+        <div class="bento-grid">
+          
+          <!-- LEFT COLUMN: Contact Information Cards & Offices (col-span-5) -->
+          <div class="col-span-5" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            
+            <div style="margin-bottom: 0.5rem;">
+              <span class="handwritten-badge">Direct Communication Channels</span>
+              <h2 style="font-size: 1.85rem; margin-top: 0.35rem;">Reach Out Directly</h2>
+              <p class="text-muted" style="font-size: 0.925rem;">Our campus and support desks are open Monday to Saturday, 9:00 AM – 8:00 PM IST.</p>
+            </div>
+
+            <div class="info-card-group">
+              
+              <!-- Address Card -->
+              <div class="info-card accent-mint">
+                <div class="info-card-icon-wrap">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="info-card-body">
+                  <h4>Headquarters &amp; Learning Campus</h4>
+                  <p>MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu 636008, India</p>
+                  <a href="404.html" target="_blank" rel="noopener noreferrer" class="info-card-link">
+                    <span>View on Google Maps</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Phone Card (Redirects to 404.html per global standards) -->
+              <div class="info-card accent-yellow">
+                <div class="info-card-icon-wrap">
+                  <i class="fa-solid fa-phone-volume"></i>
+                </div>
+                <div class="info-card-body">
+                  <h4>Student &amp; Admissions Hotline</h4>
+                  <p>Speak to an academic counselor for instant enrollment inquiries.</p>
+                  <a href="404.html" data-404="true" class="info-card-link" style="font-size: 1.05rem; font-weight: 700;">
+                    <i class="fa-solid fa-phone"></i> +91 9876543210
+                  </a>
+                  <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.25rem;">Toll-free across India &bull; Mon - Sat 9am to 8pm IST</div>
+                </div>
+              </div>
+
+              <!-- Email Card (Redirects to 404.html per global standards) -->
+              <div class="info-card accent-lilac">
+                <div class="info-card-icon-wrap">
+                  <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <div class="info-card-body">
+                  <h4>Official Email Inquiries</h4>
+                  <p>For curriculum questions, enterprise partnerships &amp; mentor applications.</p>
+                  <a href="404.html" data-404="true" class="info-card-link" style="font-size: 1rem; font-weight: 700;">
+                    <i class="fa-solid fa-envelope"></i> hello@thestackly.com
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Social Media Channels (with Icon + Label -> Redirect to 404.html) -->
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; box-shadow: var(--shadow-xs);">
+              <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--color-text-main);">
+                Connect with our Global Community
+              </h4>
+              <p class="text-muted" style="font-size: 0.85rem; margin-bottom: 0.75rem;">
+                Stay updated with free workshops, alumni spotlights, hackathons, and cohort release announcements.
+              </p>
+              <div class="social-links-grid">
+                <a href="404.html" data-404="true" class="social-btn-pill fb" aria-label="Visit Facebook">
+                  <i class="fa-brands fa-facebook"></i>
+                  <span>Facebook</span>
+                </a>
+                <a href="404.html" data-404="true" class="social-btn-pill tw" aria-label="Visit Twitter / X">
+                  <i class="fa-brands fa-x-twitter"></i>
+                  <span>Twitter / X</span>
+                </a>
+                <a href="404.html" data-404="true" class="social-btn-pill ig" aria-label="Visit Instagram">
+                  <i class="fa-brands fa-instagram"></i>
+                  <span>Instagram</span>
+                </a>
+                <a href="404.html" data-404="true" class="social-btn-pill in" aria-label="Visit LinkedIn">
+                  <i class="fa-brands fa-linkedin-in"></i>
+                  <span>LinkedIn</span>
+                </a>
+                <a href="404.html" data-404="true" class="social-btn-pill yt" aria-label="Visit YouTube">
+                  <i class="fa-brands fa-youtube"></i>
+                  <span>YouTube</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Additional Branch Offices -->
+            <div class="branch-offices-box">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--color-text-main); text-transform: uppercase; letter-spacing: 0.04em;">
+                  <i class="fa-solid fa-city" style="color: var(--color-primary); margin-right: 0.35rem;"></i> Regional Innovation Centers
+                </h4>
+                <span class="badge badge-mint" style="font-size: 0.72rem;">Global Presence</span>
+              </div>
+              
+              <!-- Bangalore Tech Park -->
+              <div class="branch-card">
+                <h5>
+                  <i class="fa-solid fa-building" style="color: var(--color-primary);"></i>
+                  Bangalore Tech Park (R&amp;D Hub)
+                </h5>
+                <p>Outer Ring Road, Bellandur Tech Corridor, Bangalore, Karnataka 560103, India</p>
+              </div>
+
+              <!-- Singapore Hub -->
+              <div class="branch-card">
+                <h5>
+                  <i class="fa-solid fa-building-flag" style="color: #0284C7;"></i>
+                  Singapore Education Hub (APAC HQ)
+                </h5>
+                <p>Marina Bay Financial Centre, Tower 3, Singapore 018982</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Interactive Contact Form (col-span-7) -->
+          <div class="col-span-7">
+            <div class="contact-form-container">
+              
+              <!-- Prominent Success Notification Banner -->
+              <div id="contactSuccessBanner" class="submission-success-banner" role="alert" aria-live="assertive">
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: #10B981; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.25rem;">
+                  <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <div style="flex: 1;">
+                  <h4 style="color: #065F46; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">Message Sent Successfully!</h4>
+                  <p style="color: #047857; font-size: 0.9rem; margin-bottom: 0.5rem; line-height: 1.5;">
+                    Thank you for reaching out to Stackly. An assigned education advisor will review your inquiry and connect via email or phone within <strong>2 business hours</strong>.
+                  </p>
+                  <button type="button" id="dismissBannerBtn" class="btn btn-sm btn-white" style="font-size: 0.8rem; padding: 0.35rem 0.85rem;">
+                    Dismiss Notification
+                  </button>
+                </div>
+              </div>
+
+              <!-- Form Header -->
+              <div style="margin-bottom: 2rem;">
+                <div class="form-header-badge">
+                  <i class="fa-solid fa-comments"></i> 1-on-1 Guidance
+                </div>
+                <h3 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Send an Inquiry to Our Advisors</h3>
+                <p class="text-muted" style="font-size: 0.925rem;">
+                  Fill out the form below. Fields marked with an asterisk (<span style="color: var(--color-danger); font-weight: 700;">*</span>) are strictly mandatory.
+                </p>
+              </div>
+
+              <!-- Contact Form -->
+              <form id="contactForm" class="contact-form" novalidate data-form="contact">
+                
+                <!-- Full Name Field -->
+                <div class="form-group" id="group-name">
+                  <label for="contactName" class="form-label">
+                    Full Name <span style="color: var(--color-danger); font-weight: 700;">*</span>
+                  </label>
+                  <div class="input-wrapper input-has-icon-left">
+                    <span class="input-icon-left"><i class="fa-solid fa-user"></i></span>
+                    <input 
+                      type="text" 
+                      id="contactName" 
+                      name="name" 
+                      class="form-input" 
+                      placeholder="e.g. Rahul Sharma" 
+                      required 
+                      autocomplete="name"
+                      aria-required="true"
+                      aria-describedby="name-feedback"
+                      maxlength="50"
+                      pattern="^[A-Za-z\s]+$"
+                      title="Name must strictly contain letters and spaces only"
+                    />
+                  </div>
+                  <div class="form-feedback" id="name-feedback" aria-live="polite"></div>
+                  <small style="font-size: 0.75rem; color: var(--color-text-subtle); display: block; margin-top: 3px;">
+                    Only alphabetic characters (A-Z, a-z) and single spaces are accepted.
+                  </small>
+                </div>
+
+                <!-- Email Address Field -->
+                <div class="form-group" id="group-email">
+                  <label for="contactEmail" class="form-label">
+                    Email Address <span style="color: var(--color-danger); font-weight: 700;">*</span>
+                  </label>
+                  <div class="input-wrapper input-has-icon-left">
+                    <span class="input-icon-left"><i class="fa-solid fa-envelope"></i></span>
+                    <input 
+                      type="email" 
+                      id="contactEmail" 
+                      name="email" 
+                      class="form-input" 
+                      placeholder="e.g. rahul.sharma@example.com" 
+                      required 
+                      autocomplete="email"
+                      aria-required="true"
+                      aria-describedby="email-feedback"
+                    />
+                  </div>
+                  <div class="form-feedback" id="email-feedback" aria-live="polite"></div>
+                </div>
+
+                <!-- Split Country Code & Mobile Number Field -->
+                <div class="form-group" id="group-phone">
+                  <label for="contactPhone" class="form-label">
+                    Mobile Phone Number <span style="color: var(--color-danger); font-weight: 700;">*</span>
+                  </label>
+                  <div class="phone-split-group">
+                    <!-- Country Code Selector Dropdown -->
+                    <select id="countryCodeSelect" name="country_code" class="country-code-select" aria-label="Select Country Dial Code">
+                      <option value="+91" selected>🇮🇳 +91 (IN)</option>
+                      <option value="+1">🇺🇸 +1 (US)</option>
+                      <option value="+44">🇬🇧 +44 (UK)</option>
+                      <option value="+65">🇸🇬 +65 (SG)</option>
+                      <option value="+61">🇦🇺 +61 (AU)</option>
+                      <option value="+971">🇦🇪 +971 (AE)</option>
+                      <option value="+49">🇩🇪 +49 (DE)</option>
+                      <option value="+33">🇫🇷 +33 (FR)</option>
+                      <option value="+81">🇯🇵 +81 (JP)</option>
+                    </select>
+
+                    <!-- 10-Digit Phone Input -->
+                    <div class="phone-input-wrap input-wrapper input-has-icon-left">
+                      <span class="input-icon-left"><i class="fa-solid fa-phone"></i></span>
+                      <input 
+                        type="tel" 
+                        id="contactPhone" 
+                        name="phone" 
+                        class="form-input" 
+                        placeholder="10-digit mobile number" 
+                        required 
+                        autocomplete="tel-national"
+                        aria-required="true"
+                        aria-describedby="phone-feedback"
+                        maxlength="10"
+                        inputmode="numeric"
+                        pattern="^[0-9]{10}$"
+                        title="Strictly requires exactly 10 numeric digits"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-feedback" id="phone-feedback" aria-live="polite"></div>
+                  <small style="font-size: 0.75rem; color: var(--color-text-subtle); display: block; margin-top: 3px;">
+                    Strictly requires exactly 10 numerical digits (without spaces or dashes).
+                  </small>
+                </div>
+
+                <!-- Subject Selection Dropdown -->
+                <div class="form-group" id="group-subject">
+                  <label for="contactSubject" class="form-label">
+                    Inquiry Subject <span style="color: var(--color-danger); font-weight: 700;">*</span>
+                  </label>
+                  <div class="input-wrapper input-has-icon-left">
+                    <span class="input-icon-left"><i class="fa-solid fa-list-check"></i></span>
+                    <select id="contactSubject" name="subject" class="form-input" required aria-required="true" aria-describedby="subject-feedback" style="cursor: pointer;">
+                      <option value="" disabled selected>-- Select an Inquiry Topic --</option>
+                      <option value="Full-Stack Web Development Bootcamp">Full-Stack Web Development Bootcamp</option>
+                      <option value="Applied Artificial Intelligence & Data Science">Applied Artificial Intelligence &amp; Data Science</option>
+                      <option value="Cloud Computing & DevOps Mastery">Cloud Computing &amp; DevOps Mastery</option>
+                      <option value="UI/UX Product Design Masterclass">UI/UX Product Design Masterclass</option>
+                      <option value="Enterprise & Team Upskilling Solutions">Enterprise &amp; Team Upskilling Solutions</option>
+                      <option value="Admissions, Scholarships & EMI Financing">Admissions, Scholarships &amp; EMI Financing</option>
+                      <option value="Technical Support & Platform Assistance">Technical Support &amp; Platform Assistance</option>
+                      <option value="Other Inquiries">Other Inquiries</option>
+                    </select>
+                  </div>
+                  <div class="form-feedback" id="subject-feedback" aria-live="polite"></div>
+                </div>
+
+                <!-- Message Field (Optional with Live Character Counter) -->
+                <div class="form-group" id="group-message">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                    <label for="contactMessage" class="form-label" style="margin-bottom: 0;">
+                      Detailed Message <span style="font-size: 0.78rem; font-weight: 500; color: var(--color-text-muted);">(Optional)</span>
+                    </label>
+                    <span id="charCounter" class="char-counter-text" data-char-count="true">0 / 500 characters</span>
+                  </div>
+                  <textarea 
+                    id="contactMessage" 
+                    name="message" 
+                    class="form-input" 
+                    placeholder="Briefly describe your background, career objectives, or specific questions..." 
+                    rows="4" 
+                    maxlength="500"
+                    data-maxlength="500"
+                    aria-describedby="charCounter message-feedback"
+                    style="height: auto; resize: vertical; padding: 0.85rem 1rem;"
+                  ></textarea>
+                  <div class="form-feedback" id="message-feedback" aria-live="polite"></div>
+                </div>
+
+                <!-- Data Privacy Agreement Note -->
+                <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
+                  <i class="fa-solid fa-lock" style="color: var(--color-primary); margin-right: 0.25rem;"></i>
+                  Your contact details are strictly confidential. By submitting, you agree to our 
+                  <a href="404.html" data-404="true" style="color: var(--color-primary); text-decoration: underline;">Privacy Policy</a>. We never sell your personal information.
+                </p>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submitBtn" class="btn btn-emerald btn-lg w-100" style="font-size: 1.05rem; padding: 1rem 2rem;">
+                  <span>Submit Inquiry</span>
+                  <i class="fa-solid fa-paper-plane"></i>
+                </button>
+
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. RESPONSIVE EMBEDDED GOOGLE MAP SECTION -->
+    <section class="section-spacing" style="padding-top: 1rem; background-color: var(--color-bg-subtle);">
+      <div class="container">
+        
+        <div style="text-align: center; max-width: 680px; margin: 0 auto 2.5rem;">
+          <span class="handwritten-badge badge-accent">Visit Our Learning Campus</span>
+          <h2 style="font-size: 2.1rem; margin-top: 0.35rem;">Salem Headquarters on Google Maps</h2>
+          <p class="text-muted" style="font-size: 0.95rem;">
+            Experience our collaborative tech labs, open mentor desks, and coding studios in person at Chinna Thirupathi, Salem.
+          </p>
+        </div>
+
+        <div class="map-wrapper">
+          <!-- Floating Interactive Badge -->
+          <div class="map-overlay-badge">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+              <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #10B981;"></span>
+              <strong style="font-size: 0.9rem; color: var(--color-text-main);">Stackly Salem Campus</strong>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--color-text-body); margin-bottom: 0.5rem; line-height: 1.4;">
+              MMR Complex, Chinna Thirupathi, Salem, TN 636008
+            </p>
+            <a href="404.html" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary" style="font-size: 0.75rem; padding: 0.35rem 0.75rem;">
+              <i class="fa-solid fa-directions"></i> Get Directions
+            </a>
+          </div>
+
+          <!-- Embedded Google Map pointing to Chinna Thirupathi, Salem -->
+          <iframe 
+            title="Stackly Education Salem Campus Google Map" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.139682708307!2d78.17415497571343!3d11.684534741804597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1b1c2b8c9d7%3A0xbcfc493cf02b93e8!2sChinna%20Tirupathi%2C%20Salem%2C%20Tamil%20Nadu%20636008!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. CONTACT & ADMISSIONS FAQ SECTION (5 ACCORDIONS) -->
+    <section class="section-spacing">
+      <div class="container">
+        
+        <div style="text-align: center; max-width: 720px; margin: 0 auto 3rem;">
+          <span class="badge badge-yellow" style="margin-bottom: 0.75rem; font-size: 0.85rem; padding: 0.4rem 0.9rem;">
+            <i class="fa-solid fa-circle-question"></i> Clarifications &amp; Help
+          </span>
+          <h2 style="font-size: 2.25rem;">Contact &amp; Admissions FAQs</h2>
+          <p class="text-muted" style="font-size: 1rem;">
+            Answers to our most frequently asked questions about enrollment, mentorship calls, payment plans, and certifications.
+          </p>
+        </div>
+
+        <div style="max-width: 860px; margin: 0 auto;" id="faqContainer">
+          
+          <!-- Accordion 1 -->
+          <div class="faq-accordion-item active">
+            <button type="button" class="faq-accordion-header" aria-expanded="true" aria-controls="faq-ans-1" id="faq-q-1">
+              <span>How do I schedule a 1-on-1 counseling session with an academic mentor?</span>
+              <span class="faq-icon-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div id="faq-ans-1" class="faq-accordion-content" role="region" aria-labelledby="faq-q-1" style="max-height: 400px;">
+              <div class="faq-accordion-inner">
+                You can easily book a 1-on-1 session by submitting the inquiry form above with the subject matching your field of interest, or by signing in to your student dashboard. Our team of lead mentors (including senior engineers from Google, Amazon, and Stripe) holds open advisory office hours on Tuesday and Thursday afternoons.
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion 2 -->
+          <div class="faq-accordion-item">
+            <button type="button" class="faq-accordion-header" aria-expanded="false" aria-controls="faq-ans-2" id="faq-q-2">
+              <span>What are the admission criteria and prerequisites for technical bootcamps?</span>
+              <span class="faq-icon-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div id="faq-ans-2" class="faq-accordion-content" role="region" aria-labelledby="faq-q-2">
+              <div class="faq-accordion-inner">
+                Prerequisites vary by curriculum level. Foundational tracks (such as Full-Stack Fundamentals or Digital Product Design) have no strict prior coding requirements. Advanced specializations, like Applied AI, Cloud Architecture, or DevOps, require a short foundational logic evaluation or prior experience with JavaScript, Python, or Linux.
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion 3 -->
+          <div class="faq-accordion-item">
+            <button type="button" class="faq-accordion-header" aria-expanded="false" aria-controls="faq-ans-3" id="faq-q-3">
+              <span>Do you offer corporate enterprise training and custom team licensing?</span>
+              <span class="faq-icon-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div id="faq-ans-3" class="faq-accordion-content" role="region" aria-labelledby="faq-q-3">
+              <div class="faq-accordion-inner">
+                Yes. Stackly Enterprise provides customized corporate training packages, dedicated private sandboxes, progress analytics for engineering leads, and hands-on capstone reviews. Email our enterprise desk directly at <strong>hello@thestackly.com</strong> or select "Enterprise &amp; Team Upskilling" in the contact form.
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion 4 -->
+          <div class="faq-accordion-item">
+            <button type="button" class="faq-accordion-header" aria-expanded="false" aria-controls="faq-ans-4" id="faq-q-4">
+              <span>Can I switch batches, defer my cohort, or apply for course fee refunds?</span>
+              <span class="faq-icon-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div id="faq-ans-4" class="faq-accordion-content" role="region" aria-labelledby="faq-q-4">
+              <div class="faq-accordion-inner">
+                We believe in flexible learning journeys. You may request a one-time cohort deferral up to 7 days before class kicks off at no extra cost. Furthermore, all self-paced and cohort bootcamps come with a hassle-free 14-day money-back guarantee if you feel the curriculum does not match your expectations.
+              </div>
+            </div>
+          </div>
+
+          <!-- Accordion 5 -->
+          <div class="faq-accordion-item">
+            <button type="button" class="faq-accordion-header" aria-expanded="false" aria-controls="faq-ans-5" id="faq-q-5">
+              <span>Are Stackly course completion certifications globally recognized and verified?</span>
+              <span class="faq-icon-chevron"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div id="faq-ans-5" class="faq-accordion-content" role="region" aria-labelledby="faq-q-5">
+              <div class="faq-accordion-inner">
+                Every Stackly certificate carries a unique cryptographically signed verification hash and permanent URL. They integrate natively with LinkedIn licenses &amp; certifications, Credly, and resume verification engines utilized by top tech recruitment partners worldwide.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: GLOBAL ADVISORY HUBS & STUDY CENTERS
+         ========================================================================= -->
+    <section class="advisory-hubs-section" aria-labelledby="hubs-heading" style="padding: clamp(3.5rem, 5vw, 5rem) 0; background: #FFFFFF; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;">
+      <div class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
+        
+        <div style="text-align: center; max-width: 680px; margin: 0 auto clamp(2rem, 4vw, 3rem);">
+          <div class="badge" style="background: rgba(245, 158, 11, 0.12); color: #B45309; border: 1px solid rgba(245, 158, 11, 0.28); margin-bottom: 0.75rem;">
+            Global Presence
+          </div>
+          <h2 id="hubs-heading" style="font-size: clamp(1.75rem, 3vw, 2.35rem); font-weight: 800; color: #0F172A; line-height: 1.25; margin-bottom: 0.75rem;">
+            Regional Advisory &amp; Learning Hubs
+          </h2>
+          <p style="color: #475569; font-size: 1rem; line-height: 1.6;">
+            Visit our regional centers for in-person mentor counseling, hardware lab access, and community networking sessions.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+          
+          <!-- Hub 1: Singapore -->
+          <div style="background: #FAF9F5; border: 1px solid #E2E8F0; border-radius: 16px; padding: 1.75rem; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <span style="font-size: 1.75rem;" aria-hidden="true">🇸🇬</span>
+              <span style="font-size: 0.75rem; font-weight: 700; background: #FEF3C7; color: #92400E; padding: 0.25rem 0.6rem; border-radius: 9999px;">APAC Hub</span>
+            </div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem;">Singapore Center</h3>
+            <p style="color: #64748B; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1rem;">
+              Level 24, Marina Bay Financial Tower 1, 8 Marina Blvd, Singapore 018981
+            </p>
+            <div style="font-size: 0.85rem; color: #0F172A; font-weight: 600; margin-bottom: 0.35rem;">
+              <i class="fa-solid fa-clock" style="color: #F59E0B; margin-right: 0.4rem;"></i> 09:00 - 18:00 SGT
+            </div>
+            <div style="font-size: 0.85rem; color: #0F172A; font-weight: 600; margin-bottom: 1.25rem;">
+              <i class="fa-solid fa-envelope" style="color: #F59E0B; margin-right: 0.4rem;"></i> apac-advisory@stackly.edu
+            </div>
+            <a href="404.html" class="btn btn-secondary btn-sm" style="width: 100%; justify-content: center; border-radius: 10px;">Visit Hub Guidelines</a>
+          </div>
+
+          <!-- Hub 2: Bengaluru -->
+          <div style="background: #FAF9F5; border: 1px solid #E2E8F0; border-radius: 16px; padding: 1.75rem; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <span style="font-size: 1.75rem;" aria-hidden="true">🇮🇳</span>
+              <span style="font-size: 0.75rem; font-weight: 700; background: #D1FAE5; color: #065F46; padding: 0.25rem 0.6rem; border-radius: 9999px;">Tech Campus</span>
+            </div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem;">Bengaluru Center</h3>
+            <p style="color: #64748B; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1rem;">
+              Campus 3B, RMZ Ecospace, Outer Ring Road, Bellandur, Bengaluru 560103
+            </p>
+            <div style="font-size: 0.85rem; color: #0F172A; font-weight: 600; margin-bottom: 0.35rem;">
+              <i class="fa-solid fa-clock" style="color: #F59E0B; margin-right: 0.4rem;"></i> 09:30 - 19:00 IST
+            </div>
+            <div style="font-size: 0.85rem; color: #0F172A; font-weight: 600; margin-bottom: 1.25rem;">
+              <i class="fa-solid fa-envelope" style="color: #F59E0B; margin-right: 0.4rem;"></i> india-desk@stackly.edu
+            </div>
+            <a href="404.html" class="btn btn-secondary btn-sm" style="width: 100%; justify-content: center; border-radius: 10px;">Visit Hub Guidelines</a>
+          </div>
+
+          <!-- Hub 3: London -->
+          <div style="background: #FAF9F5; border: 1px solid #E2E8F0; border-radius: 16px; padding: 1.75rem; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <span style="font-size: 1.75rem;" aria-hidden="true">🇬🇧</span>
+              <span style="font-size: 0.75rem; font-weight: 700; background: #EDE9FE; color: #5B21B6; padding: 0.25rem 0.6rem; border-radius: 9999px;">EMEA Center</span>
+            </div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem;">London Innovation Hub</h3>
+            <p style="color: #64748B; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1rem;">
+              Tea Building, 56 Shoreditch High Street, Hackney, London E1 6JJ
+            </p>
+            <div style="font-size: 0.85rem; color: #0F172A; font-weight: 600; margin-bottom: 0.35rem;">
+              <i class="fa-solid fa-clock" style="color: #F59E0B; margin-right: 0.4rem;"></i> 09:00 - 17:30 GMT
+            </div>
+            <div style="font-size: 0.85rem; color: #0F172A; font-weight: 600; margin-bottom: 1.25rem;">
+              <i class="fa-solid fa-envelope" style="color: #F59E0B; margin-right: 0.4rem;"></i> emea-team@stackly.edu
+            </div>
+            <a href="404.html" class="btn btn-secondary btn-sm" style="width: 100%; justify-content: center; border-radius: 10px;">Visit Hub Guidelines</a>
+          </div>
+
+          <!-- Hub 4: San Francisco -->
+          <div style="background: #FAF9F5; border: 1px solid #E2E8F0; border-radius: 16px; padding: 1.75rem; transition: transform 0.2s ease, box-shadow 0.2s ease;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+              <span style="font-size: 1.75rem;" aria-hidden="true">🇺🇸</span>
+              <span style="font-size: 0.75rem; font-weight: 700; background: #E0F2FE; color: #0369A1; padding: 0.25rem 0.6rem; border-radius: 9999px;">Americas Hub</span>
+            </div>
+            <h3 style="font-size: 1.2rem; font-weight: 800; color: #0F172A; margin-bottom: 0.5rem;">San Francisco Lab</h3>
+            <p style="color: #64748B; font-size: 0.88rem; line-height: 1.5; margin-bottom: 1rem;">
+              Suite 400, 100 Montgomery St, Financial District, San Francisco, CA 94104
+            </p>
+            <div style="font-size: 0.85rem; color: #0F172A; font-weight: 600; margin-bottom: 0.35rem;">
+              <i class="fa-solid fa-clock" style="color: #F59E0B; margin-right: 0.4rem;"></i> 08:30 - 17:00 PST
+            </div>
+            <div style="font-size: 0.85rem; color: #0F172A; font-weight: 600; margin-bottom: 1.25rem;">
+              <i class="fa-solid fa-envelope" style="color: #F59E0B; margin-right: 0.4rem;"></i> americas-office@stackly.edu
+            </div>
+            <a href="404.html" class="btn btn-secondary btn-sm" style="width: 100%; justify-content: center; border-radius: 10px;">Visit Hub Guidelines</a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: ENTERPRISE PARTNERSHIPS & INSTITUTIONAL ADMISSIONS
+         ========================================================================= -->
+    <section class="enterprise-partnership-section" aria-labelledby="enterprise-heading" style="padding: clamp(3.5rem, 5vw, 5rem) 0; background: #0F172A; color: #F8FAFC;">
+      <div class="container" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; align-items: center;">
+          <div>
+            <div class="badge" style="background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.4); margin-bottom: 1rem;">
+              Enterprise &amp; University Solutions
+            </div>
+            <h2 id="enterprise-heading" style="font-size: clamp(1.85rem, 3.2vw, 2.5rem); font-weight: 800; color: #FFFFFF; line-height: 1.2; margin-bottom: 1rem;">
+              Scaling Talent Across <span style="background: linear-gradient(135deg, #F59E0B 0%, #38BDF8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">500+ Tech Organizations</span>
+            </h2>
+            <p style="color: #94A3B8; font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.75rem;">
+              Equip your engineering, product, and design divisions with customized cohort bootcamps, dedicated executive mentor office hours, and accredited certification tracking.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <a href="404.html" class="btn btn-primary" style="padding: 0.75rem 1.75rem; border-radius: 9999px;">
+                <span>Schedule Enterprise Call</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+              <a href="404.html" class="btn" style="background: rgba(255, 255, 255, 0.1); color: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.2); padding: 0.75rem 1.5rem; border-radius: 9999px;">
+                Download Enterprise Deck
+              </a>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 1.5rem; text-align: center;">
+              <div style="font-size: 2.25rem; font-weight: 800; color: #F59E0B; margin-bottom: 0.35rem;">98.4%</div>
+              <div style="color: #94A3B8; font-size: 0.85rem; font-weight: 600;">Corporate Cohort Completion</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 1.5rem; text-align: center;">
+              <div style="font-size: 2.25rem; font-weight: 800; color: #38BDF8; margin-bottom: 0.35rem;">&lt; 1h</div>
+              <div style="color: #94A3B8; font-size: 0.85rem; font-weight: 600;">Enterprise SLA Response</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 1.5rem; text-align: center;">
+              <div style="font-size: 2.25rem; font-weight: 800; color: #10B981; margin-bottom: 0.35rem;">500+</div>
+              <div style="color: #94A3B8; font-size: 0.85rem; font-weight: 600;">Hiring Partner Networks</div>
+            </div>
+            <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 1.5rem; text-align: center;">
+              <div style="font-size: 2.25rem; font-weight: 800; color: #A855F7; margin-bottom: 0.35rem;">100%</div>
+              <div style="color: #94A3B8; font-size: 0.85rem; font-weight: 600;">Accredited Credentials</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 8. CONSISTENT GLOBAL FOOTER -->
+    <!-- ======================================================================
+       UNIFIED GLOBAL FOOTER (Consistent across all pages)
+       ====================================================================== -->
+    <!-- ======================================================================
+       UNIFIED GLOBAL FOOTER (Consistent across all pages)
+       ====================================================================== -->
+  <footer class="unified-footer" role="contentinfo">
+    <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 1.5rem;">
+      <div class="unified-footer-grid">
+        <!-- Col 1: Brand & Bio -->
+        <div class="footer-brand-col">
+          <a href="../index.html" class="brand-logo" aria-label="Stackly Homepage" style="margin-bottom: 1.25rem;">
+            <img src="../assets/images/logoStackly.webp" alt="Stackly Logo" width="125" height="32">
+          </a>
+          <p style="font-size: 0.925rem; line-height: 1.65; color: #94A3B8; margin-bottom: 1.5rem; max-width: 340px;">
+            Stackly Learn is an advanced education and online course platform empowering ambitious learners, designers, and engineers worldwide with hands-on, mentor-led curriculums.
+          </p>
+          <div class="app-badges-group" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="404.html" class="app-badge-btn" aria-label="Download on App Store" style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 0.85rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #FFF; text-decoration: none; font-size: 0.8rem;">
+              <span style="font-size: 1.1rem;" aria-hidden="true">&#63743;</span>
+              <span><span style="font-size: 0.65rem; display: block; opacity: 0.75;">Download on</span><strong>App Store</strong></span>
+            </a>
+            <a href="404.html" class="app-badge-btn" aria-label="Get it on Google Play" style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 0.85rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #FFF; text-decoration: none; font-size: 0.8rem;">
+              <span style="font-size: 1.1rem;" aria-hidden="true">&#9654;</span>
+              <span><span style="font-size: 0.65rem; display: block; opacity: 0.75;">GET IT ON</span><strong>Google Play</strong></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links (Operating Site Navigation) -->
+        <div>
+          <h4 class="unified-footer-heading">Quick Links</h4>
+          <ul class="unified-footer-list">
+            <li><a href="../index.html">Home Overview</a></li>
+            <li><a href="about.html">About Stackly</a></li>
+            <li><a href="courses.html">Browse All Courses</a></li>
+            <li><a href="pricing.html">Tuition &amp; Plans</a></li>
+            <li><a href="contact.html">Admissions &amp; Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Academic Programs (Redirect to 404 per rules) -->
+        <div>
+          <h4 class="unified-footer-heading">Academic Tracks</h4>
+          <ul class="unified-footer-list">
+            <li><a href="404.html">UI/UX Design Systems</a></li>
+            <li><a href="404.html">Full-Stack Web Engineering</a></li>
+            <li><a href="404.html">Applied AI &amp; Machine Learning</a></li>
+            <li><a href="404.html">Cloud Architecture &amp; DevOps</a></li>
+            <li><a href="404.html">Growth &amp; Digital Strategy</a></li>
+            <li><a href="404.html">Verified Certificate Pass</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Campus HQ Details -->
+        <div>
+          <h4 class="unified-footer-heading">Salem Campus HQ</h4>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0.85rem; line-height: 1.55;">
+            MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu 636008
+          </p>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0.5rem; line-height: 1.55;">
+            <strong style="color: #F8FAFC;">Phone:</strong> <a href="404.html" style="color: #94A3B8; text-decoration: none;">+91 9876543210</a>
+          </p>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 0; line-height: 1.55;">
+            <strong style="color: #F8FAFC;">Email:</strong> <a href="404.html" style="color: #94A3B8; text-decoration: none;">hello@thestackly.com</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Unified Footer Bottom -->
+      <div class="unified-footer-bottom" style="display: flex; flex-direction: column; gap: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; width: 100%;">
+          <p style="margin: 0; font-size: 0.875rem; color: #94A3B8;">&copy; 2026 Stackly Edu. All Rights Reserved.</p>
+
+          <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+              <span>Facebook</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              <span>Instagram</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span>Twitter/X</span>
+            </a>
+            <a href="404.html" style="color: #94A3B8; text-decoration: none; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Screenshot Policy Links Displayed Strictly Below Copyright Section -->
+        <div class="footer-legal-sub-bar" style="border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1rem; display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap;">
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Privacy Policy</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Terms &amp; Conditions</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Honor Code &amp; Conduct</a>
+          <a href="404.html" style="color: #64748B; font-size: 0.825rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#CBD5E1'" onmouseout="this.style.color='#64748B'">Academic Accreditation</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Floating Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Scroll to top">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
+
+  <!-- Application Bootstrap Script -->
+  <script src="../assets/js/main.js"></script>
+
+  <!-- Dedicated Contact Page Script: Strict Real-time Filtering & Interactive Validation -->
+  <script>
+    (function () {
+      'use strict';
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('contactName');
+        const emailInput = document.getElementById('contactEmail');
+        const phoneInput = document.getElementById('contactPhone');
+        const subjectSelect = document.getElementById('contactSubject');
+        const messageTextarea = document.getElementById('contactMessage');
+        const charCounter = document.getElementById('charCounter');
+        const successBanner = document.getElementById('contactSuccessBanner');
+        const dismissBannerBtn = document.getElementById('dismissBannerBtn');
+
+        // 1. Strict Keystroke Filtering for Full Name (Letters & Spaces Only)
+        if (nameInput) {
+          nameInput.addEventListener('input', function () {
+            // Strip any character that is NOT a letter or space
+            const filtered = this.value.replace(/[^a-zA-Z\s]/g, '');
+            if (this.value !== filtered) {
+              this.value = filtered;
+            }
+            if (this.value.trim().length >= 2) {
+              clearError(nameInput, 'name-feedback');
+            }
+          });
+        }
+
+        // 2. Strict Keystroke Filtering for Mobile Phone (Exactly Digits, Max 10)
+        if (phoneInput) {
+          phoneInput.addEventListener('input', function () {
+            // Strip any character that is not a numeric digit
+            const filtered = this.value.replace(/\D/g, '').slice(0, 10);
+            if (this.value !== filtered) {
+              this.value = filtered;
+            }
+            if (filtered.length === 10) {
+              clearError(phoneInput, 'phone-feedback');
+            }
+          });
+        }
+
+        // 3. Live Character Counter for Optional Message Textarea
+        if (messageTextarea && charCounter) {
+          const maxChars = 500;
+          const updateCounter = function () {
+            const currentLen = messageTextarea.value.length;
+            charCounter.textContent = currentLen + ' / ' + maxChars + ' characters';
+            if (currentLen >= maxChars) {
+              charCounter.style.color = '#DC2626';
+            } else if (currentLen > 400) {
+              charCounter.style.color = '#D97706';
+            } else {
+              charCounter.style.color = 'var(--color-text-muted)';
+            }
+          };
+
+          messageTextarea.addEventListener('input', updateCounter);
+          updateCounter();
+        }
+
+        // 4. Helper Methods for Inline Error Management
+        function showError(inputEl, feedbackId, message) {
+          const group = inputEl.closest('.form-group') || inputEl.parentNode;
+          group.classList.add('has-error');
+          inputEl.classList.add('is-invalid');
+          inputEl.setAttribute('aria-invalid', 'true');
+          
+          let feedbackEl = document.getElementById(feedbackId);
+          if (!feedbackEl) {
+            feedbackEl = group.querySelector('.form-feedback');
+          }
+          if (feedbackEl) {
+            feedbackEl.className = 'form-feedback feedback-error';
+            feedbackEl.innerHTML = '<i class="fa-solid fa-circle-exclamation" style="font-size: 0.8rem;"></i> ' + message;
+          }
+        }
+
+        function clearError(inputEl, feedbackId) {
+          const group = inputEl.closest('.form-group') || inputEl.parentNode;
+          group.classList.remove('has-error');
+          inputEl.classList.remove('is-invalid');
+          inputEl.removeAttribute('aria-invalid');
+
+          let feedbackEl = document.getElementById(feedbackId);
+          if (!feedbackEl) {
+            feedbackEl = group.querySelector('.form-feedback');
+          }
+          if (feedbackEl) {
+            feedbackEl.className = 'form-feedback';
+            feedbackEl.innerHTML = '';
+          }
+        }
+
+        function clearAllValidationErrors() {
+          clearError(nameInput, 'name-feedback');
+          clearError(emailInput, 'email-feedback');
+          clearError(phoneInput, 'phone-feedback');
+          clearError(subjectSelect, 'subject-feedback');
+          if (messageTextarea) clearError(messageTextarea, 'message-feedback');
+        }
+
+        // 5. Strict Form Submission Validation & Behavior
+        if (form) {
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            clearAllValidationErrors();
+
+            let hasError = false;
+            let firstInvalid = null;
+
+            // Validate Full Name: Required, letters & spaces only, 2-50 characters
+            const nameVal = nameInput ? nameInput.value.trim() : '';
+            if (!nameVal) {
+              showError(nameInput, 'name-feedback', 'Full name is required.');
+              hasError = true;
+              firstInvalid = firstInvalid || nameInput;
+            } else if (!/^[A-Za-z\s]{2,50}$/.test(nameVal)) {
+              showError(nameInput, 'name-feedback', 'Full name strictly accepts only alphabets and spaces (2-50 chars).');
+              hasError = true;
+              firstInvalid = firstInvalid || nameInput;
+            }
+
+            // Validate Email: Required, standard email regex
+            const emailVal = emailInput ? emailInput.value.trim() : '';
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailVal) {
+              showError(emailInput, 'email-feedback', 'Email address is required.');
+              hasError = true;
+              firstInvalid = firstInvalid || emailInput;
+            } else if (!emailRegex.test(emailVal)) {
+              showError(emailInput, 'email-feedback', 'Please enter a valid email address (e.g. name@domain.com).');
+              hasError = true;
+              firstInvalid = firstInvalid || emailInput;
+            }
+
+            // Validate Mobile Number: Required, strictly exactly 10 numerical digits
+            const phoneVal = phoneInput ? phoneInput.value.trim().replace(/\D/g, '') : '';
+            if (!phoneVal) {
+              showError(phoneInput, 'phone-feedback', 'Mobile number is required.');
+              hasError = true;
+              firstInvalid = firstInvalid || phoneInput;
+            } else if (phoneVal.length !== 10) {
+              showError(phoneInput, 'phone-feedback', 'Mobile number strictly requires exactly 10 digits (currently ' + phoneVal.length + ').');
+              hasError = true;
+              firstInvalid = firstInvalid || phoneInput;
+            }
+
+            // Validate Subject: Required selection
+            const subjectVal = subjectSelect ? subjectSelect.value : '';
+            if (!subjectVal) {
+              showError(subjectSelect, 'subject-feedback', 'Please select an inquiry topic.');
+              hasError = true;
+              firstInvalid = firstInvalid || subjectSelect;
+            }
+
+            // Validate Optional Message: If supplied, must be >= 10 characters
+            if (messageTextarea) {
+              const msgVal = messageTextarea.value.trim();
+              if (msgVal.length > 0 && msgVal.length < 10) {
+                showError(messageTextarea, 'message-feedback', 'If providing a message, please write at least 10 characters.');
+                hasError = true;
+                firstInvalid = firstInvalid || messageTextarea;
+              }
+            }
+
+            // If invalid: auto-focus to first invalid element & show toast
+            if (hasError) {
+              if (firstInvalid) {
+                firstInvalid.focus();
+                // Smooth scroll if element is out of view
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+              if (window.StacklyApp && window.StacklyApp.showToast) {
+                window.StacklyApp.showToast('Please correct the highlighted fields before submitting.', 'error');
+              }
+              return;
+            }
+
+            // Success Submission State
+            if (successBanner) {
+              successBanner.classList.add('visible');
+              successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            if (window.StacklyApp && window.StacklyApp.showToast) {
+              window.StacklyApp.showToast('Inquiry submitted! Our advisor will contact you within 2 hours.', 'success', 5000);
+            }
+
+            // Reset form controls
+            form.reset();
+            if (charCounter) charCounter.textContent = '0 / 500 characters';
+          });
+        }
+
+        // Banner Dismiss button
+        if (dismissBannerBtn && successBanner) {
+          dismissBannerBtn.addEventListener('click', function () {
+            successBanner.classList.remove('visible');
+          });
+        }
+
+        // 6. Interactive FAQ Accordion Logic with Accessible ARIA Toggling
+        const faqContainer = document.getElementById('faqContainer');
+        if (faqContainer) {
+          const faqItems = faqContainer.querySelectorAll('.faq-accordion-item');
+
+          faqItems.forEach(function (item) {
+            const headerBtn = item.querySelector('.faq-accordion-header');
+            const content = item.querySelector('.faq-accordion-content');
+
+            if (!headerBtn || !content) return;
+
+            headerBtn.addEventListener('click', function () {
+              const isCurrentlyActive = item.classList.contains('active');
+
+              // Close all other accordions for clean single-view accordion experience
+              faqItems.forEach(function (otherItem) {
+                if (otherItem !== item) {
+                  otherItem.classList.remove('active');
+                  const otherBtn = otherItem.querySelector('.faq-accordion-header');
+                  const otherContent = otherItem.querySelector('.faq-accordion-content');
+                  if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+                  if (otherContent) otherContent.style.maxHeight = null;
+                }
+              });
+
+              // Toggle current accordion
+              if (isCurrentlyActive) {
+                item.classList.remove('active');
+                headerBtn.setAttribute('aria-expanded', 'false');
+                content.style.maxHeight = null;
+              } else {
+                item.classList.add('active');
+                headerBtn.setAttribute('aria-expanded', 'true');
+                content.style.maxHeight = content.scrollHeight + 30 + 'px';
+              }
+            });
+          });
+        }
+
+      });
+    })();
+  </script>
+  <!-- GSAP & ScrollTrigger Core Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Your Account | Stackly - Education & Online Course Platform</title>
+  <meta name="description" content="Sign up for Stackly Education. Access 500+ expert-led courses, 1-on-1 industry mentorship, certified capstone projects, and an active global learning community.">
+  <link rel="icon" type="image/webp" href="../assets/images/logoStackly.webp">
+
+  <!-- Google Fonts Preconnect & Stylesheets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Master Project Stylesheet -->
+  <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <style>
+    /* --------------------------------------------------------------------------
+       DEDICATED STYLES FOR AUTHENTICATION SIGN-UP PAGE
+       -------------------------------------------------------------------------- */
+    :root {
+      --header-auth-height: 72px;
+    }
+
+    /* Fixed Clean Header Bar (Strictly NO Navigation Bar) */
+    .auth-fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-auth-height);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid var(--border-color-subtle);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      transition: all var(--transition-fast);
+    }
+
+    .auth-header-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .auth-brand-logo-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: opacity var(--transition-fast);
+    }
+
+    .auth-brand-logo-link:hover {
+      opacity: 0.9;
+    }
+
+    .auth-logo-img {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .auth-header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--color-text-body);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-color-medium);
+      background-color: var(--color-bg-surface);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-back-home:hover {
+      background-color: var(--color-bg-subtle);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+      transform: translateX(-2px);
+    }
+
+    .auth-header-divider {
+      width: 1px;
+      height: 24px;
+      background-color: var(--border-color-medium);
+      display: block;
+    }
+
+    .auth-header-signin-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+    }
+
+    .auth-header-signin-link {
+      font-weight: 700;
+      color: var(--color-primary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      background-color: var(--color-primary-light);
+      transition: all var(--transition-fast);
+    }
+
+    .auth-header-signin-link:hover {
+      background-color: var(--color-primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+    }
+
+    /* Split Layout Wrapper */
+    .signup-viewport {
+      padding-top: var(--header-auth-height);
+      min-height: 100vh;
+      display: flex;
+      background-color: var(--color-bg-body);
+    }
+
+    .signup-split-layout {
+      display: flex;
+      width: 100%;
+      min-height: calc(100vh - var(--header-auth-height));
+    }
+
+    /* Side A: Brand Messaging & Student Highlight */
+    .signup-brand-sidebar {
+      flex: 1.05;
+      background: linear-gradient(145deg, #0F172A 0%, #1E293B 55%, #0B1120 100%);
+      color: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3.5rem 3.5rem;
+    }
+
+    .brand-glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    .brand-glow-orb-1 {
+      width: 360px;
+      height: 360px;
+      background: rgba(254, 240, 138, 0.22);
+      top: -80px;
+      right: -80px;
+    }
+
+    .brand-glow-orb-2 {
+      width: 420px;
+      height: 420px;
+      background: rgba(167, 243, 208, 0.20);
+      bottom: -100px;
+      left: -100px;
+    }
+
+    .signup-brand-content {
+      position: relative;
+      z-index: 2;
+      max-width: 540px;
+    }
+
+    .brand-pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--color-pastel-yellow);
+      margin-bottom: 1.5rem;
+    }
+
+    .brand-headline {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 3.2vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-headline span.highlight-yellow {
+      color: var(--color-pastel-yellow);
+      position: relative;
+    }
+
+    .brand-description {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+    }
+
+    /* Checklist of Features */
+    .brand-feature-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.95rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .brand-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.96rem;
+      font-weight: 500;
+      color: #FFFFFF;
+    }
+
+    .brand-feature-icon {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      background: rgba(254, 240, 138, 0.25);
+      border: 1px solid rgba(254, 240, 138, 0.6);
+      color: var(--color-pastel-yellow);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* Student Elena Rostova Highlight Card */
+    .student-highlight-card {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      max-width: 520px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      margin-top: 1.5rem;
+    }
+
+    .student-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .student-avatar-wrap {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 2.5px solid var(--color-pastel-yellow);
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .student-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .student-meta h4 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 0.15rem;
+    }
+
+    .student-meta p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .student-badge-hired {
+      margin-left: auto;
+      background: rgba(16, 185, 129, 0.25);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #A7F3D0;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+    }
+
+    .student-quote {
+      font-style: italic;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 0.85rem;
+    }
+
+    .student-rating-stars {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: #FCD34D;
+      font-size: 0.9rem;
+    }
+
+    /* Side B: Form Side */
+    .signup-form-section {
+      flex: 1.15;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 2rem;
+      background-color: var(--color-bg-surface);
+      overflow-y: auto;
+    }
+
+    .signup-card-container {
+      width: 100%;
+      max-width: 580px;
+      padding: 1rem 0;
+    }
+
+    .signup-header-box {
+      margin-bottom: 1.75rem;
+    }
+
+    .signup-badge-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    .signup-title {
+      font-family: var(--font-heading);
+      font-size: 1.95rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      line-height: 1.2;
+      margin-bottom: 0.45rem;
+      letter-spacing: -0.01em;
+    }
+
+    .signup-subtitle {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+    }
+
+    /* Social Registration Buttons (404 Redirects) */
+    .social-register-group {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.65rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      height: 44px;
+      background-color: #FFFFFF;
+      border: 1.5px solid var(--border-color-medium);
+      border-radius: var(--radius-md);
+      color: var(--color-text-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .social-btn:hover {
+      background-color: var(--color-bg-subtle);
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .social-icon-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Divider */
+    .auth-divider-line {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 1.5rem 0 1.75rem;
+      color: var(--color-text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .auth-divider-line::before,
+    .auth-divider-line::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1.5px solid var(--border-color-medium);
+    }
+
+    .auth-divider-line span {
+      padding: 0 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Form Fields Grid */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-field-group {
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .form-field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-heading);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      margin-bottom: 0.45rem;
+    }
+
+    .req-star {
+      color: var(--color-danger);
+      margin-left: 2px;
+    }
+
+    .form-text-input,
+    .form-select-input {
+      width: 100%;
+      height: 48px;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.94rem;
+      color: var(--color-text-main);
+      background-color: var(--color-bg-subtle);
+      border: 1.5px solid var(--border-color-medium);
+      border-radius: var(--radius-md);
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+
+    .form-select-input {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg2+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 16px 16px;
+      padding-right: 2.75rem;
+      cursor: pointer;
+    }
+
+    .form-text-input:focus,
+    .form-select-input:focus {
+      background-color: #FFFFFF;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+
+    /* Mobile Number Split Group */
+    .phone-split-container {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .phone-code-select {
+      width: 110px;
+      min-width: 110px;
+      height: 48px;
+      padding: 0 0.5rem 0 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text-main);
+      background-color: var(--color-bg-subtle);
+      border: 1.5px solid var(--border-color-medium);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.4rem center;
+      background-size: 14px 14px;
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+
+    .phone-code-select:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+      background-color: #FFFFFF;
+    }
+
+    .phone-number-input {
+      flex: 1;
+    }
+
+    /* Password Input Wrapper with Show/Hide Toggle */
+    .password-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .password-input-wrapper .form-text-input {
+      padding-right: 2.85rem;
+    }
+
+    .btn-toggle-eye {
+      position: absolute;
+      right: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-muted);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: color var(--transition-fast), background-color var(--transition-fast);
+      border: none;
+      background: transparent;
+    }
+
+    .btn-toggle-eye:hover {
+      color: var(--color-text-main);
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    /* Password Strength Indicator */
+    .password-meter-wrap {
+      margin-top: 0.5rem;
+    }
+
+    .password-strength-bars {
+      display: flex;
+      gap: 5px;
+      height: 5px;
+      margin-bottom: 0.4rem;
+    }
+
+    .strength-step {
+      flex: 1;
+      background-color: #E2E8F0;
+      border-radius: var(--radius-full);
+      transition: background-color 0.25s ease;
+    }
+
+    .password-strength-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .strength-status-text {
+      font-weight: 700;
+      transition: color 0.25s ease;
+    }
+
+    /* Strength Colors */
+    .strength-weak .strength-step:nth-child(1) { background-color: #EF4444; }
+    .strength-weak .strength-status-text { color: #DC2626; }
+
+    .strength-fair .strength-step:nth-child(1),
+    .strength-fair .strength-step:nth-child(2) { background-color: #F59E0B; }
+    .strength-fair .strength-status-text { color: #D97706; }
+
+    .strength-good .strength-step:nth-child(1),
+    .strength-good .strength-step:nth-child(2),
+    .strength-good .strength-step:nth-child(3) { background-color: #F59E0B; }
+    .strength-good .strength-status-text { color: #92400E; }
+
+    .strength-strong .strength-step { background-color: #10B981; }
+    .strength-strong .strength-status-text { color: #059669; }
+
+    /* Checkboxes */
+    .checkbox-field-group {
+      margin-bottom: 1rem;
+    }
+
+    .custom-checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      cursor: pointer;
+      user-select: none;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      color: var(--color-text-body);
+    }
+
+    .custom-checkbox-input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .checkbox-box {
+      width: 19px;
+      height: 19px;
+      min-width: 19px;
+      margin-top: 2px;
+      border: 1.5px solid var(--border-color-medium);
+      border-radius: var(--radius-xs);
+      background-color: var(--color-bg-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast);
+    }
+
+    .custom-checkbox-input:checked + .checkbox-box {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #FFFFFF;
+    }
+
+    .custom-checkbox-input:focus-visible + .checkbox-box {
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+    }
+
+    .checkbox-checkmark-svg {
+      width: 12px;
+      height: 12px;
+      display: none;
+    }
+
+    .custom-checkbox-input:checked + .checkbox-box .checkbox-checkmark-svg {
+      display: block;
+    }
+
+    .checkbox-text-content a {
+      color: var(--color-primary);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .checkbox-text-content a:hover {
+      color: var(--color-primary-hover);
+    }
+
+    /* Validation Feedback */
+    .inline-error-msg {
+      display: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--color-danger);
+      margin-top: 0.35rem;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .form-field-group.has-error .inline-error-msg {
+      display: flex;
+    }
+
+    .form-field-group.has-error .form-text-input,
+    .form-field-group.has-error .form-select-input,
+    .form-field-group.has-error .phone-code-select {
+      border-color: var(--color-danger) !important;
+      background-color: #FFF8F8 !important;
+    }
+
+    .form-field-group.has-error .checkbox-box {
+      border-color: var(--color-danger) !important;
+    }
+
+    /* Submit Button */
+    .btn-submit-signup {
+      width: 100%;
+      height: 52px;
+      margin-top: 0.75rem;
+      background-color: var(--color-text-main);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: var(--radius-full);
+      border: 1.5px solid transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      box-shadow: 0 4px 14px rgba(17, 24, 39, 0.15);
+    }
+
+    .btn-submit-signup:hover {
+      background-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
+    }
+
+    .btn-submit-signup:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit-signup:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .signup-card-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .signup-card-footer a {
+      color: var(--color-primary);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .signup-card-footer a:hover {
+      color: var(--color-primary-hover);
+    }
+
+    /* Success Toast Notification */
+    .auth-toast-notification {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10000;
+      background: #FFFFFF;
+      border: 1.5px solid #10B981;
+      border-left: 5px solid #10B981;
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      max-width: 420px;
+      transform: translateY(120%);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .auth-toast-notification.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .toast-icon {
+      width: 28px;
+      height: 28px;
+      background: #ECFDF5;
+      color: #059669;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .toast-content h5 {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 0.2rem;
+    }
+
+    .toast-content p {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 1080px) {
+      .signup-brand-sidebar {
+        padding: 2.5rem 2rem;
+      }
+      .brand-headline {
+        font-size: 2.15rem;
+      }
+      .student-highlight-card {
+        padding: 1.25rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .signup-split-layout {
+        flex-direction: column;
+      }
+      .signup-brand-sidebar {
+        display: none; /* Mobile hides side banner for optimal form ergonomics */
+      }
+      .signup-form-section {
+        padding: 2rem 1.25rem;
+      }
+      .auth-header-signin-cta span.auth-signin-text {
+        display: none;
+      }
+      .social-register-group {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .auth-header-container {
+        padding: 0 1rem;
+      }
+      .btn-back-home span {
+        display: none;
+      }
+      .btn-back-home {
+        padding: 0.5rem;
+      }
+      .signup-title {
+        font-size: 1.65rem;
+      }
+    }
+  
+    /* Modern Split Auth Layout: Fixed Left Side & Smooth Scrollable Right Side */
+    @media (min-width: 1025px) {
+      body.page-auth-fixed {
+        height: 100vh;
+        overflow: hidden;
+      }
+      .signup-viewport {
+        height: 100vh;
+        overflow: hidden;
+      }
+      .signup-split-layout {
+        height: calc(100vh - var(--header-auth-height));
+        overflow: hidden;
+      }
+      .signup-brand-sidebar {
+        height: 100% !important;
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        overflow: hidden !important;
+        flex: 1.05 !important;
+      }
+      .signup-form-section {
+        height: 100% !important;
+        overflow-y: auto !important;
+        flex: 1.15 !important;
+        -webkit-overflow-scrolling: touch;
+        display: flex !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        padding: 2.5rem 2rem 4rem !important;
+      }
+      .signup-form-section::-webkit-scrollbar {
+        width: 6px;
+      }
+      .signup-form-section::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .signup-form-section::-webkit-scrollbar-thumb {
+        background: #CBD5E1;
+        border-radius: 9999px;
+      }
+    }
+
+  </style>
+</head>
+<body class="page-auth-fixed">
+
+  <!-- =========================================================================
+       GLOBAL UNIFIED PRELOADER (Consistent centered viewport loading spinner)
+       ========================================================================= -->
+  <div id="app-loader" class="global-page-loader" role="status" aria-live="polite" aria-label="Loading Stackly Education">
+    <div class="loader-centered-content">
+      <div class="loader-spinner-wrapper">
+        <div class="loader-ring-spinner" aria-hidden="true"></div>
+        <div class="loader-brand-badge">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly" class="loader-brand-img" width="32" height="32">
+        </div>
+      </div>
+      <p class="loader-status-text">Loading Stackly Education...</p>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. FIXED TOP HEADER BAR (STRICTLY NO NAVBAR)
+       Logo -> index.html | Back to Home -> index.html | Sign In -> sign-in.html
+       ======================================================================== -->
+  <header class="auth-fixed-header" role="banner">
+    <div class="auth-header-container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1360px; margin: 0 auto; padding: 0 1.5rem;">
+      <!-- Left Section: Back to Home + Brand Logo -->
+      <div class="auth-header-left" style="display: flex; align-items: center; gap: 1.25rem;">
+        <a href="../index.html" class="btn-back-home" aria-label="Return to Stackly Home" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; padding: 0.5rem 1.15rem; border-radius: 9999px; border: 1.5px solid #CBD5E1; color: #0F172A; font-weight: 600; font-size: 0.875rem; background: #FFFFFF; transition: all 0.2s ease;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Back to Home</span>
+        </a>
+
+        <!-- Logo clicking redirects to index.html -->
+        <a href="../index.html" class="auth-brand-logo-link" aria-label="Stackly Education Homepage">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly Logo" class="auth-logo-img">
+        </a>
+      </div>
+
+      <!-- Right Header Section: Security Badge -->
+      <div class="auth-header-right" style="display: flex; align-items: center; gap: 0.5rem; color: #64748B; font-size: 0.85rem; font-weight: 600;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span>256-Bit SSL Encrypted</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       3. MODERN SPLIT LAYOUT (SIDE A: BRAND / HIGHLIGHTS | SIDE B: FORM)
+       ======================================================================== -->
+  <main class="signup-viewport">
+    <div class="signup-split-layout">
+
+      <!-- --------------------------------------------------------------------
+           SIDE A: BRAND MESSAGING, STUDENT HIGHLIGHT & FEATURE CHECKLIST
+           -------------------------------------------------------------------- -->
+      <section class="signup-brand-sidebar" aria-label="Why Join Stackly Education">
+        <div class="brand-glow-orb brand-glow-orb-1"></div>
+        <div class="brand-glow-orb brand-glow-orb-2"></div>
+
+        <div class="signup-brand-content">
+          <span class="brand-pill-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
+            Transform Your Learning Curve
+          </span>
+
+          <h1 class="brand-headline">
+            Start your journey today with <span class="highlight-yellow">Stackly.</span>
+          </h1>
+
+          <p class="brand-description">
+            Step into a high-impact learning ecosystem engineered for the modern digital economy. Master practical skills through interactive labs, peer cohorts, and direct mentorship.
+          </p>
+
+          <!-- Feature Checklist -->
+          <ul class="brand-feature-checklist" role="list">
+            <li class="brand-feature-item">
+              <span class="brand-feature-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span><strong>500+ Curated Courses</strong> in Full-Stack, AI Engineering, UI/UX & Cloud</span>
+            </li>
+            <li class="brand-feature-item">
+              <span class="brand-feature-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span><strong>1-on-1 Mentorship</strong> with top engineers and certified design leaders</span>
+            </li>
+            <li class="brand-feature-item">
+              <span class="brand-feature-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span><strong>Portfolio Capstone Projects</strong> verified with cryptographic certificates</span>
+            </li>
+            <li class="brand-feature-item">
+              <span class="brand-feature-icon" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span><strong>Role-Aware Dashboards</strong> tailored for Students, Instructors & Mentors</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Student Elena Rostova Highlight Card -->
+        <div class="student-highlight-card" aria-label="Student Testimonial">
+          <div class="student-card-header">
+            <div class="student-avatar-wrap">
+              <img src="../assets/images/student-elena-rostova.webp" alt="Elena Rostova - UX Design Scholar" class="student-avatar-img">
+            </div>
+            <div class="student-meta">
+              <h4>Elena Rostova</h4>
+              <p>UX Design Scholar & Junior Developer</p>
+            </div>
+            <span class="student-badge-hired">Hired at Fintech Labs</span>
+          </div>
+
+          <p class="student-quote">
+            "The personalized mentor critiques and structured capstones helped me assemble an industry-grade portfolio. I transitioned into full-time product design in under five months."
+          </p>
+
+          <div class="student-rating-stars" aria-label="5 out of 5 stars rating">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FCD34D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FCD34D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FCD34D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FCD34D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#FCD34D" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span style="font-size: 0.8rem; margin-left: 0.4rem; color: #FFFFFF; font-weight: 600;">Verified Graduate</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- --------------------------------------------------------------------
+           SIDE B: STRUCTURED REGISTRATION CARD
+           -------------------------------------------------------------------- -->
+      <section class="signup-form-section" aria-label="Registration Form Section">
+        <div class="signup-card-container">
+
+          <!-- Header Box -->
+          <div class="signup-header-box">
+            <span class="signup-badge-tag">JOIN THE ACADEMY</span>
+            <h2 class="signup-title">Create your account</h2>
+            <p class="signup-subtitle">Choose your learning path and unlock lifetime access to course communities.</p>
+          </div>
+
+          
+
+          <!-- Registration Form -->
+          <form id="signUpForm" novalidate>
+
+            <!-- Row 1: First Name & Last Name (STRICTLY letters only, no digits or special characters) -->
+            <div class="form-grid-2">
+              <div class="form-field-group" id="groupFirstName">
+                <label class="form-field-label" for="signupFirstName">
+                  <span>First Name <span class="req-star">*</span></span>
+                </label>
+                <input
+                  type="text"
+                  id="signupFirstName"
+                  class="form-text-input"
+                  placeholder="e.g. Elena"
+                  required
+                  autocomplete="given-name"
+                  aria-required="true"
+                  aria-describedby="errorFirstName"
+                >
+                <div class="inline-error-msg" id="errorFirstName" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  <span>First name is required (letters only, no numbers).</span>
+                </div>
+              </div>
+
+              <div class="form-field-group" id="groupLastName">
+                <label class="form-field-label" for="signupLastName">
+                  <span>Last Name <span class="req-star">*</span></span>
+                </label>
+                <input
+                  type="text"
+                  id="signupLastName"
+                  class="form-text-input"
+                  placeholder="e.g. Rostova"
+                  required
+                  autocomplete="family-name"
+                  aria-required="true"
+                  aria-describedby="errorLastName"
+                >
+                <div class="inline-error-msg" id="errorLastName" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  <span>Last name is required (letters only, no numbers).</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: Email Address -->
+            <div class="form-field-group" id="groupEmail">
+              <label class="form-field-label" for="signupEmail">
+                <span>Email Address <span class="req-star">*</span></span>
+              </label>
+              <input
+                type="email"
+                id="signupEmail"
+                class="form-text-input"
+                placeholder="name@example.com"
+                required
+                autocomplete="email"
+                aria-required="true"
+                aria-describedby="errorEmail"
+              >
+              <div class="inline-error-msg" id="errorEmail" role="alert">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>Please enter a valid email address.</span>
+              </div>
+            </div>
+
+            <!-- Row 3: Mobile Number (Country Code + EXACTLY 10 Digits) & Role Dropdown -->
+            <div class="form-grid-2">
+              <div class="form-field-group" id="groupPhone">
+                <label class="form-field-label" for="signupPhone">
+                  <span>Mobile Number <span class="req-star">*</span></span>
+                </label>
+                <div class="phone-split-container">
+                  <select id="signupPhoneCode" class="phone-code-select" aria-label="Country Code">
+                    <option value="+91" selected>🇮🇳 +91</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+61">🇦🇺 +61</option>
+                    <option value="+971">🇦🇪 +971</option>
+                    <option value="+49">🇩🇪 +49</option>
+                    <option value="+33">🇫🇷 +33</option>
+                    <option value="+81">🇯🇵 +81</option>
+                    <option value="+65">🇸🇬 +65</option>
+                    <option value="+1">🇨🇦 +1</option>
+                  </select>
+                  <input
+                    type="tel"
+                    id="signupPhone"
+                    class="form-text-input phone-number-input"
+                    placeholder="10-digit number"
+                    maxlength="10"
+                    required
+                    autocomplete="tel-national"
+                    inputmode="numeric"
+                    aria-required="true"
+                    aria-describedby="errorPhone"
+                  >
+                </div>
+                <div class="inline-error-msg" id="errorPhone" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  <span>Enter strictly 10 digits numerical length.</span>
+                </div>
+              </div>
+
+              <div class="form-field-group" id="groupRole">
+                <label class="form-field-label" for="signupRole">
+                  <span>Register As <span class="req-star">*</span></span>
+                </label>
+                <select id="signupRole" class="form-select-input" required aria-required="true" aria-describedby="errorRole">
+                  <option value="" disabled selected>Select account role...</option>
+                  <option value="Student">🎓 Student (Take courses & earn certs)</option>
+                  <option value="Instructor">👨‍🏫 Instructor / Employee (Publish & manage courses)</option>
+                  <option value="Manager">📊 Manager (Curriculum & faculty operations)</option>
+                  <option value="Admin">⚡ Admin (Platform operations & analytics)</option>
+                  <option value="Customer">🏢 Customer (Enterprise learning client)</option>
+                  <option value="Vendor">🤝 Vendor (Content & tooling partner)</option>
+                </select>
+                <div class="inline-error-msg" id="errorRole" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  <span>Please select a valid account role.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 4: Password & Confirm Password -->
+            <div class="form-grid-2">
+              <div class="form-field-group" id="groupPassword">
+                <label class="form-field-label" for="signupPassword">
+                  <span>Password <span class="req-star">*</span></span>
+                </label>
+                <div class="password-input-wrapper">
+                  <input
+                    type="password"
+                    id="signupPassword"
+                    class="form-text-input"
+                    placeholder="Min 8 (Upper, Lower, Num, Sym)"
+                    required
+                    autocomplete="new-password"
+                    aria-required="true"
+                    aria-describedby="errorPassword"
+                  >
+                  <button type="button" class="btn-toggle-eye" data-target="signupPassword" aria-label="Toggle password visibility">
+                    <svg class="eye-open-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg class="eye-closed-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                  </button>
+                </div>
+                <div class="inline-error-msg" id="errorPassword" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  <span>Password needs 8+ chars (upper, lower, num & symbol).</span>
+                </div>
+              </div>
+
+              <div class="form-field-group" id="groupConfirmPassword">
+                <label class="form-field-label" for="signupConfirmPassword">
+                  <span>Confirm Password <span class="req-star">*</span></span>
+                </label>
+                <div class="password-input-wrapper">
+                  <input
+                    type="password"
+                    id="signupConfirmPassword"
+                    class="form-text-input"
+                    placeholder="Re-enter password"
+                    required
+                    autocomplete="new-password"
+                    aria-required="true"
+                    aria-describedby="errorConfirmPassword"
+                  >
+                  <button type="button" class="btn-toggle-eye" data-target="signupConfirmPassword" aria-label="Toggle password visibility">
+                    <svg class="eye-open-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg class="eye-closed-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                      <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                  </button>
+                </div>
+                <div class="inline-error-msg" id="errorConfirmPassword" role="alert">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  <span>Passwords do not match.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Password Strength Indicator Bar -->
+            <div class="password-meter-wrap" id="passwordMeterWrap">
+              <div class="password-strength-bars" id="strengthBarWrap">
+                <span class="strength-step" id="step1"></span>
+                <span class="strength-step" id="step2"></span>
+                <span class="strength-step" id="step3"></span>
+                <span class="strength-step" id="step4"></span>
+              </div>
+              <div class="password-strength-label">
+                <span>Password Strength:</span>
+                <span class="strength-status-text" id="strengthStatusText">Enter a secure password</span>
+              </div>
+            </div>
+
+            <!-- Mandatory Checkbox: Terms of Use & Privacy Policy (Rule: /terms intentionally redirects to 404.html) -->
+            <div class="checkbox-field-group form-field-group" id="groupTerms" style="margin-top: 1.25rem;">
+              <label class="custom-checkbox-label">
+                <input type="checkbox" id="signupTerms" class="custom-checkbox-input" required aria-required="true" aria-describedby="errorTerms">
+                <span class="checkbox-box" aria-hidden="true">
+                  <svg class="checkbox-checkmark-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <span class="checkbox-text-content">
+                  I agree to the <a href="404.html" target="_blank" rel="noopener">Terms of Use</a> and <a href="404.html" target="_blank" rel="noopener">Privacy Policy</a>. <span class="req-star">*</span>
+                </span>
+              </label>
+              <div class="inline-error-msg" id="errorTerms" role="alert">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>You must agree to the Terms of Use and Privacy Policy.</span>
+              </div>
+            </div>
+
+            <!-- Optional Checkbox: Newsletter, Updates & Marketing (Rule: /newsletter-policy intentionally redirects to 404.html) -->
+            <div class="checkbox-field-group" id="groupNewsletter">
+              <label class="custom-checkbox-label">
+                <input type="checkbox" id="signupNewsletter" class="custom-checkbox-input">
+                <span class="checkbox-box" aria-hidden="true">
+                  <svg class="checkbox-checkmark-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <span class="checkbox-text-content">
+                  I would like to receive newsletters, promotional content, updates, and marketing communication. Read our <a href="404.html" target="_blank" rel="noopener">Communication Policy</a>.
+                </span>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitSignupBtn" class="btn-submit-signup">
+              <span>Create Free Account</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+          <!-- Instant Access With Section (Moved to bottom per user request) -->
+          <div style="margin-top: 1.75rem; border-top: 1px solid #E2E8F0; padding-top: 1.5rem;">
+            <div style="font-size: 0.85rem; font-weight: 600; color: #64748B; text-align: center; margin-bottom: 0.85rem;">
+              Instant access with
+            </div>
+            <div class="social-register-group">
+              <a href="404.html" class="social-btn" aria-label="Sign up with Google">
+                <svg class="social-icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                  <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                </svg>
+                <span>Google</span>
+              </a>
+
+              <a href="404.html" class="social-btn" aria-label="Sign up with Microsoft">
+                <svg class="social-icon-svg" viewBox="0 0 23 23" aria-hidden="true">
+                  <path fill="#f35325" d="M1 1h10v10H1z"/>
+                  <path fill="#81bc06" d="M12 1h10v10H12z"/>
+                  <path fill="#05a6f0" d="M1 12h10v10H1z"/>
+                  <path fill="#ffba08" d="M12 12h10v10H12z"/>
+                </svg>
+                <span>Microsoft</span>
+              </a>
+
+              <a href="404.html" class="social-btn" aria-label="Sign up with GitHub">
+                <svg class="social-icon-svg" viewBox="0 0 24 24" fill="#24292F" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+                </svg>
+                <span>GitHub</span>
+              </a>
+
+              <a href="404.html" class="social-btn" aria-label="Sign up with LinkedIn">
+                <svg class="social-icon-svg" viewBox="0 0 24 24" fill="#0A66C2" aria-hidden="true">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Bottom Sign In Link -->
+          <div style="margin-top: 1.5rem; text-align: center; font-size: 0.925rem; color: #64748B;">
+            Already have an account? 
+            <a href="sign-in.html" style="color: #F59E0B; font-weight: 700; text-decoration: none; margin-left: 0.35rem; transition: color 0.2s;" onmouseover="this.style.color='#D97706'" onmouseout="this.style.color='#F59E0B'">
+              Sign In &rarr;
+            </a>
+          </div>
+
+
+          <!-- Card Footer -->
+          <div class="signup-card-footer">
+            Already have an account? <a href="sign-in.html">Sign in here ➔</a>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       4. SUCCESS MODAL / TOAST NOTIFICATION
+       ======================================================================== -->
+  <aside id="authSuccessToast" class="auth-toast-notification" role="status" aria-live="assertive" aria-atomic="true">
+    <div class="toast-icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+    <div class="toast-content">
+      <h5 id="toastHeading">Account Created Successfully!</h5>
+      <p id="toastMessage">Welcome to Stackly! Redirecting to sign in...</p>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       5. CLIENT-SIDE JAVASCRIPT (VALIDATION, STORAGE, PASSWORD STRENGTH)
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ------------------------------------------------------------------------
+      // A. PRELOADER DISMISSAL
+      // ------------------------------------------------------------------------
+      function dismissLoader() {
+        const loader = document.getElementById('app-loader');
+        if (loader && !loader.classList.contains('loaded')) {
+          loader.classList.add('loaded');
+          setTimeout(() => {
+            if (loader.parentNode) loader.parentNode.removeChild(loader);
+          }, 450);
+        }
+      }
+
+      window.addEventListener('load', dismissLoader);
+      setTimeout(dismissLoader, 2500); // Fail-safe loader dismissal
+
+      // ------------------------------------------------------------------------
+      // B. DOM ELEMENTS
+      // ------------------------------------------------------------------------
+      const form = document.getElementById('signUpForm');
+      const firstNameInput = document.getElementById('signupFirstName');
+      const lastNameInput = document.getElementById('signupLastName');
+      const emailInput = document.getElementById('signupEmail');
+      const phoneCodeSelect = document.getElementById('signupPhoneCode');
+      const phoneInput = document.getElementById('signupPhone');
+      const roleSelect = document.getElementById('signupRole');
+      const passwordInput = document.getElementById('signupPassword');
+      const confirmPasswordInput = document.getElementById('signupConfirmPassword');
+      const termsCheckbox = document.getElementById('signupTerms');
+      const newsletterCheckbox = document.getElementById('signupNewsletter');
+      const submitBtn = document.getElementById('submitSignupBtn');
+
+      const meterWrap = document.getElementById('passwordMeterWrap');
+      const strengthStatusText = document.getElementById('strengthStatusText');
+      const successToast = document.getElementById('authSuccessToast');
+      const toastHeading = document.getElementById('toastHeading');
+      const toastMessage = document.getElementById('toastMessage');
+
+      // ------------------------------------------------------------------------
+      // C. STRICT INPUT RESTRICTIONS (Letters only, Numbers only)
+      // ------------------------------------------------------------------------
+
+      // First Name: STRICTLY letters only (no digits, no special characters)
+      firstNameInput.addEventListener('input', function (e) {
+        const cleaned = e.target.value.replace(/[^A-Za-z\s]/g, '');
+        if (e.target.value !== cleaned) {
+          e.target.value = cleaned;
+        }
+        if (cleaned.length > 0) {
+          clearError('groupFirstName');
+        }
+      });
+
+      // Last Name: STRICTLY letters only (no digits, no special characters)
+      lastNameInput.addEventListener('input', function (e) {
+        const cleaned = e.target.value.replace(/[^A-Za-z\s]/g, '');
+        if (e.target.value !== cleaned) {
+          e.target.value = cleaned;
+        }
+        if (cleaned.length > 0) {
+          clearError('groupLastName');
+        }
+      });
+
+      // Mobile: STRICTLY numbers only, maximum 10 digits
+      phoneInput.addEventListener('input', function (e) {
+        const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
+        if (e.target.value !== digitsOnly) {
+          e.target.value = digitsOnly;
+        }
+        if (digitsOnly.length === 10) {
+          clearError('groupPhone');
+        }
+      });
+
+      // ------------------------------------------------------------------------
+      // D. PASSWORD VISIBILITY TOGGLE
+      // ------------------------------------------------------------------------
+      const toggleButtons = document.querySelectorAll('.btn-toggle-eye');
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+          const targetId = this.getAttribute('data-target');
+          const targetInput = document.getElementById(targetId);
+          const eyeOpen = this.querySelector('.eye-open-icon');
+          const eyeClosed = this.querySelector('.eye-closed-icon');
+
+          if (!targetInput) return;
+
+          if (targetInput.type === 'password') {
+            targetInput.type = 'text';
+            if (eyeOpen) eyeOpen.style.display = 'none';
+            if (eyeClosed) eyeClosed.style.display = 'block';
+            this.setAttribute('aria-label', 'Hide password');
+          } else {
+            targetInput.type = 'password';
+            if (eyeOpen) eyeOpen.style.display = 'block';
+            if (eyeClosed) eyeClosed.style.display = 'none';
+            this.setAttribute('aria-label', 'Show password');
+          }
+        });
+      });
+
+      // ------------------------------------------------------------------------
+      // E. PASSWORD STRENGTH CALCULATION & INTERACTIVE METER
+      // Requirements: min 8 chars, uppercase, lowercase, number, special char.
+      // ------------------------------------------------------------------------
+      function calculatePasswordStrength(pass) {
+        if (!pass) return { score: 0, label: 'Enter a secure password', valid: false };
+
+        let score = 0;
+        const hasLength = pass.length >= 8;
+        const hasUpper = /[A-Z]/.test(pass);
+        const hasLower = /[a-z]/.test(pass);
+        const hasNumber = /[0-9]/.test(pass);
+        const hasSpecial = /[^A-Za-z0-9]/.test(pass);
+
+        if (hasLength) score++;
+        if (hasUpper && hasLower) score++;
+        if (hasNumber) score++;
+        if (hasSpecial) score++;
+
+        // Bonus for length >= 12
+        if (hasLength && hasUpper && hasLower && hasNumber && hasSpecial && pass.length >= 12) {
+          score = 4;
+        }
+
+        const valid = hasLength && hasUpper && hasLower && hasNumber && hasSpecial;
+
+        let label = 'Weak';
+        let className = 'strength-weak';
+
+        if (score === 1) {
+          label = 'Weak (Needs upper, number & symbol)';
+          className = 'strength-weak';
+        } else if (score === 2) {
+          label = 'Fair (Add number & special character)';
+          className = 'strength-fair';
+        } else if (score === 3) {
+          label = 'Good (Add special symbol for strong)';
+          className = 'strength-good';
+        } else if (score >= 4) {
+          label = 'Strong password!';
+          className = 'strength-strong';
+        }
+
+        return { score, label, className, valid };
+      }
+
+      passwordInput.addEventListener('input', function () {
+        const val = this.value;
+        const result = calculatePasswordStrength(val);
+
+        meterWrap.className = 'password-meter-wrap ' + (val ? result.className : '');
+        strengthStatusText.textContent = result.label;
+
+        if (result.valid) {
+          clearError('groupPassword');
+        }
+
+        // Live check confirm password match if already filled
+        if (confirmPasswordInput.value.length > 0) {
+          if (confirmPasswordInput.value === val) {
+            clearError('groupConfirmPassword');
+          }
+        }
+      });
+
+      confirmPasswordInput.addEventListener('input', function () {
+        if (this.value === passwordInput.value && this.value.length > 0) {
+          clearError('groupConfirmPassword');
+        }
+      });
+
+      // Clear role error on change
+      roleSelect.addEventListener('change', function () {
+        if (this.value) clearError('groupRole');
+      });
+
+      // Clear terms error on check
+      termsCheckbox.addEventListener('change', function () {
+        if (this.checked) clearError('groupTerms');
+      });
+
+      // ------------------------------------------------------------------------
+      // F. ERROR HELPERS & AUTO-FOCUS
+      // ------------------------------------------------------------------------
+      function setError(groupId, customMessage) {
+        const group = document.getElementById(groupId);
+        if (group) {
+          group.classList.add('has-error');
+          if (customMessage) {
+            const errorSpan = group.querySelector('.inline-error-msg span');
+            if (errorSpan) errorSpan.textContent = customMessage;
+          }
+        }
+      }
+
+      function clearError(groupId) {
+        const group = document.getElementById(groupId);
+        if (group) {
+          group.classList.remove('has-error');
+        }
+      }
+
+      // ------------------------------------------------------------------------
+      // G. FORM VALIDATION & SUBMISSION
+      // ------------------------------------------------------------------------
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Reset errors
+        ['groupFirstName', 'groupLastName', 'groupEmail', 'groupPhone', 'groupRole', 'groupPassword', 'groupConfirmPassword', 'groupTerms']
+          .forEach(clearError);
+
+        let isValid = true;
+        let firstInvalidElement = null;
+
+        function markInvalid(element, groupId, message) {
+          setError(groupId, message);
+          isValid = false;
+          if (!firstInvalidElement) {
+            firstInvalidElement = element;
+          }
+        }
+
+        // 1. Validate First Name (Strictly letters only)
+        const firstNameVal = firstNameInput.value.trim();
+        const letterRegex = /^[A-Za-z\s]+$/;
+        if (!firstNameVal) {
+          markInvalid(firstNameInput, 'groupFirstName', 'First name is required.');
+        } else if (!letterRegex.test(firstNameVal)) {
+          markInvalid(firstNameInput, 'groupFirstName', 'First name must contain strictly letters only.');
+        }
+
+        // 2. Validate Last Name (Strictly letters only)
+        const lastNameVal = lastNameInput.value.trim();
+        if (!lastNameVal) {
+          markInvalid(lastNameInput, 'groupLastName', 'Last name is required.');
+        } else if (!letterRegex.test(lastNameVal)) {
+          markInvalid(lastNameInput, 'groupLastName', 'Last name must contain strictly letters only.');
+        }
+
+        // 3. Validate Email
+        const emailVal = emailInput.value.trim();
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailVal) {
+          markInvalid(emailInput, 'groupEmail', 'Email address is required.');
+        } else if (!emailRegex.test(emailVal)) {
+          markInvalid(emailInput, 'groupEmail', 'Please enter a valid email address (e.g. name@domain.com).');
+        }
+
+        // 4. Validate Phone Number (STRICTLY 10 numerical digits)
+        const phoneVal = phoneInput.value.trim();
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneVal) {
+          markInvalid(phoneInput, 'groupPhone', 'Mobile phone number is required.');
+        } else if (!phoneRegex.test(phoneVal)) {
+          markInvalid(phoneInput, 'groupPhone', 'Mobile number must be strictly 10 digits numerical length.');
+        }
+
+        // 5. Validate Role
+        const roleVal = roleSelect.value;
+        if (!roleVal) {
+          markInvalid(roleSelect, 'groupRole', 'Please select an account role.');
+        }
+
+        // 6. Validate Password Complexity
+        const passVal = passwordInput.value;
+        const strength = calculatePasswordStrength(passVal);
+        if (!passVal) {
+          markInvalid(passwordInput, 'groupPassword', 'Password is required.');
+        } else if (!strength.valid) {
+          markInvalid(passwordInput, 'groupPassword', 'Password must be 8+ chars and include uppercase, lowercase, number, and special character.');
+        }
+
+        // 7. Validate Confirm Password Match
+        const confirmVal = confirmPasswordInput.value;
+        if (!confirmVal) {
+          markInvalid(confirmPasswordInput, 'groupConfirmPassword', 'Please re-enter your password to confirm.');
+        } else if (confirmVal !== passVal) {
+          markInvalid(confirmPasswordInput, 'groupConfirmPassword', 'Passwords do not match. Please verify.');
+        }
+
+        // 8. Validate Terms & Conditions Checkbox
+        if (!termsCheckbox.checked) {
+          markInvalid(termsCheckbox, 'groupTerms', 'You must agree to the Terms of Use and Privacy Policy to register.');
+        }
+
+        // Auto-focus first invalid field
+        if (!isValid) {
+          if (firstInvalidElement) {
+            firstInvalidElement.focus();
+            if (typeof firstInvalidElement.scrollIntoView === 'function') {
+              firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }
+          return;
+        }
+
+        // ----------------------------------------------------------------------
+        // H. CHECK EXISTING LOCALSTORAGE & PERSIST USER
+        // ----------------------------------------------------------------------
+        let existingUsers = [];
+        try {
+          const raw = localStorage.getItem('stackly_users');
+          if (raw) {
+            existingUsers = JSON.parse(raw);
+            if (!Array.isArray(existingUsers)) existingUsers = [];
+          }
+        } catch (err) {
+          existingUsers = [];
+        }
+
+        // Check if email already registered
+        const alreadyExists = existingUsers.some(u => u.email && u.email.toLowerCase() === emailVal.toLowerCase());
+        if (alreadyExists) {
+          markInvalid(emailInput, 'groupEmail', 'An account with this email address already exists. Please sign in instead.');
+          emailInput.focus();
+          return;
+        }
+
+        // Disable button to prevent double submit
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <svg class="loader-spinner" style="width: 20px; height: 20px; border-width: 2.5px; position: static; display: inline-block;" viewBox="0 0 24 24"></svg>
+          <span>Creating Account...</span>
+        `;
+
+        // Create new user object
+        const phoneCodeVal = phoneCodeSelect.value || '+91';
+        const newUser = {
+          id: 'usr_' + Date.now(),
+          firstName: firstNameVal,
+          lastName: lastNameVal,
+          fullName: firstNameVal + ' ' + lastNameVal,
+          email: emailVal.toLowerCase(),
+          phoneCode: phoneCodeVal,
+          phone: phoneVal,
+          fullPhone: phoneCodeVal + ' ' + phoneVal,
+          role: roleVal,
+          newsletter: newsletterCheckbox.checked,
+          registeredAt: new Date().toISOString()
+        };
+
+        // Save to localStorage 'stackly_users'
+        existingUsers.push(newUser);
+        try {
+          localStorage.setItem('stackly_users', JSON.stringify(existingUsers));
+          // Pre-populate email for sign-in page convenience
+          sessionStorage.setItem('stackly_registered_email', newUser.email);
+        } catch (err) {
+          console.warn('LocalStorage error:', err);
+        }
+
+        // Display Success Toast
+        toastHeading.textContent = `Welcome, ${firstNameVal}!`;
+        toastMessage.textContent = 'Account created successfully. Redirecting you to sign in...';
+        successToast.classList.add('active');
+
+        // Mandatory rule: "Redirect user to: /sign-in"
+        setTimeout(function () {
+          window.location.href = 'sign-in.html';
+        }, 1500);
+      });
+
+    })();
+  </script>
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Scroll to top">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <!-- GSAP & ScrollTrigger Core Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../assets/js/animations.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
