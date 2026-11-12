@@ -3589,6 +3589,13 @@
     </div>
   </div>
 
+  <!-- Back to Top Floating Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Scroll to top">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
   <!-- =========================================================================
        GLOBAL SCRIPT & CONTROLLERS
        ========================================================================= -->
@@ -3929,6 +3936,29 @@
 
       if (mobileClose) mobileClose.addEventListener('click', closeMobile);
       if (backdrop) backdrop.addEventListener('click', closeMobile);
+
+      // Back to Top Button Controller
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (backToTopBtn) {
+        function checkScroll() {
+          const scrollPos = window.scrollY || document.documentElement.scrollTop || (document.querySelector('.dashboard-main') ? document.querySelector('.dashboard-main').scrollTop : 0);
+          if (scrollPos > 280) {
+            backToTopBtn.classList.add('is-visible');
+          } else {
+            backToTopBtn.classList.remove('is-visible');
+          }
+        }
+
+        window.addEventListener('scroll', checkScroll, { passive: true });
+        const dashMain = document.querySelector('.dashboard-main');
+        if (dashMain) dashMain.addEventListener('scroll', checkScroll, { passive: true });
+
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          document.documentElement.scrollTo({ top: 0, behavior: 'smooth' });
+          if (dashMain) dashMain.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
     });
   </script>
 </body>
