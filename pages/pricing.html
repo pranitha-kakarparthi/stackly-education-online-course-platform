@@ -27,6 +27,13 @@
     /* Breadcrumbs styled globally via styles.css */
 
     /* Hero Header */
+    .pricing-hero-wrap {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-color-subtle);
+      background: linear-gradient(180deg, #FDFBF7 0%, #F5F9F8 100%);
+    }
     .pricing-hero {
       text-align: left;
       max-width: 820px;
@@ -878,12 +885,11 @@
   </div>
 
   <main id="main-content">
-    <div class="container section-spacing">
 
-      <!-- ====================================================================
-           3. HERO SECTION WITH BREADCRUMB, HEADLINE & BILLING TOGGLE
-           ==================================================================== -->
-      <section class="pricing-hero-wrap hero-animated-wrap" style="position: relative; overflow: hidden; padding: 3.5rem 0 4.5rem;">
+    <!-- ====================================================================
+         3. HERO SECTION WITH BREADCRUMB, HEADLINE & BILLING TOGGLE
+         ==================================================================== -->
+    <section class="pricing-hero-wrap hero-animated-wrap" style="position: relative; overflow: hidden; padding: 3.5rem 0 4.5rem; border-bottom: 1px solid var(--border-color-subtle);">
       <!-- High Visibility Background Image with Ken Burns & Parallax -->
       <div class="hero-bg-container" aria-hidden="true">
         <div class="hero-bg-anim-wrapper">
@@ -949,10 +955,13 @@
       </div>
     </section>
 
+    <!-- Main pricing sections container -->
+    <div class="container section-spacing" style="padding-top: 3.5rem;">
+
       <!-- ====================================================================
            4. PRICING TIERS CARDS (4 TIERS)
            ==================================================================== -->
-      <section class="pricing-grid" aria-label="Pricing Plans">
+      <section class="pricing-grid" aria-label="Pricing Plans" style="margin-top: 0;">
 
         <!-- Tier 1: Free Starter -->
         <article class="pricing-card">
