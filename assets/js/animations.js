@@ -41,6 +41,11 @@
     initInteractiveMascot();
     initTactileInteractions();
     initBackToTop();
+    initStaggeredWordReveal();
+    initTypewriterEffect();
+    initWordRotationFlip();
+    initMaskedSlideUp();
+    initKineticBadges();
   }
 
   // 1. KINETIC TYPOGRAPHY (Hero Section Staggered Masked Reveal)
@@ -357,6 +362,187 @@
       } else {
         bar.style.width = targetWidth;
       }
+    });
+  }
+
+  // 8. STAGGERED WORD / LETTER REVEAL
+  function initStaggeredWordReveal() {
+    const staggerEls = document.querySelectorAll('.stagger-words-reveal');
+    staggerEls.forEach((el, elIndex) => {
+      // If not already split into word wrappers
+      if (!el.classList.contains('is-split')) {
+        const textNodes = Array.from(el.childNodes);
+        const fragment = document.createDocumentFragment();
+
+        textNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const words = node.textContent.split(/(\s+)/);
+            words.forEach(word => {
+              if (word.trim().length === 0) {
+                fragment.appendChild(document.createTextNode(word));
+              } else {
+                const wrap = document.createElement('span');
+                wrap.className = 'stagger-word-wrap';
+                const inner = document.createElement('span');
+                inner.className = 'stagger-word-inner';
+                inner.textContent = word;
+                wrap.appendChild(inner);
+                fragment.appendChild(wrap);
+              }
+            });
+          } else {
+            fragment.appendChild(node.cloneNode(true));
+          }
+        });
+
+        el.innerHTML = '';
+        el.appendChild(fragment);
+        el.classList.add('is-split');
+      }
+
+      const inners = el.querySelectorAll('.stagger-word-inner');
+      if (typeof gsap !== 'undefined') {
+        gsap.to(inners, {
+          y: '0%',
+          opacity: 1,
+          duration: 0.85,
+          ease: 'power3.out',
+          stagger: 0.045,
+          delay: 0.15 + (elIndex * 0.1)
+        });
+      } else {
+        inners.forEach((item, i) => {
+          setTimeout(() => {
+            item.classList.add('is-revealed');
+          }, 150 + (i * 45));
+        });
+      }
+    });
+  }
+
+  // 9. TYPEWRITER EFFECT WITH BLINKING CURSOR
+  function initTypewriterEffect() {
+    const typewriterEls = document.querySelectorAll('.hero-typewriter');
+    typewriterEls.forEach(el => {
+      let words = [];
+      try {
+        const raw = el.getAttribute('data-typewriter-words');
+        words = JSON.parse(raw);
+      } catch (e) {
+        words = ['Applied AI', 'Full-Stack Web', 'UI/UX Design', 'Cloud Systems'];
+      }
+
+      if (!words || words.length === 0) return;
+
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typingSpeed = 80;
+      const deletingSpeed = 40;
+      const pauseEnd = 2000;
+      const pauseStart = 400;
+
+      const textSpan = el.querySelector('.hero-typewriter-text') || el;
+      let cursorSpan = el.querySelector('.typewriter-cursor');
+      if (!cursorSpan) {
+        cursorSpan = document.createElement('span');
+        cursorSpan.className = 'typewriter-cursor';
+        cursorSpan.textContent = '|';
+        cursorSpan.setAttribute('aria-hidden', 'true');
+        el.appendChild(cursorSpan);
+      }
+
+      function typeCycle() {
+        const currentWord = words[wordIndex];
+
+        if (isDeleting) {
+          charIndex--;
+          textSpan.textContent = currentWord.substring(0, charIndex);
+        } else {
+          charIndex++;
+          textSpan.textContent = currentWord.substring(0, charIndex);
+        }
+
+        let delay = isDeleting ? deletingSpeed : typingSpeed;
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          delay = pauseEnd;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          delay = pauseStart;
+        }
+
+        setTimeout(typeCycle, delay);
+      }
+
+      setTimeout(typeCycle, 600);
+    });
+  }
+
+  // 10. WORD ROTATION / 3D FLIP ANIMATION
+  function initWordRotationFlip() {
+    const flipWrappers = document.querySelectorAll('.word-flip-carousel');
+    flipWrappers.forEach(carousel => {
+      const inner = carousel.querySelector('.flip-words-inner');
+      const words = carousel.querySelectorAll('.flip-word');
+      if (!inner || words.length <= 1) return;
+
+      let currentIndex = 0;
+      const totalWords = words.length;
+
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalWords;
+        inner.style.transform = `translateY(-${currentIndex * 1.25}em)`;
+        words.forEach((w, i) => {
+          if (i === currentIndex) {
+            w.classList.add('active');
+          } else {
+            w.classList.remove('active');
+          }
+        });
+      }, 2600);
+    });
+  }
+
+  // 11. SMOOTH SLIDE-UP / MASKED TEXT REVEAL
+  function initMaskedSlideUp() {
+    const maskedTexts = document.querySelectorAll('.masked-reveal-text');
+    if (maskedTexts.length === 0) return;
+
+    if (typeof gsap !== 'undefined') {
+      gsap.to(maskedTexts, {
+        y: '0%',
+        opacity: 1,
+        duration: 0.9,
+        ease: 'power3.out',
+        stagger: 0.12,
+        delay: 0.3
+      });
+    } else {
+      maskedTexts.forEach((el, index) => {
+        setTimeout(() => {
+          el.classList.add('is-revealed');
+        }, 200 + (index * 120));
+      });
+    }
+  }
+
+  // 12. KINETIC BADGES HOVER & TILT REACTION
+  function initKineticBadges() {
+    const badges = document.querySelectorAll('.kinetic-highlight-badge');
+    badges.forEach(badge => {
+      badge.addEventListener('mousemove', (e) => {
+        const rect = badge.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        badge.style.transform = `translate(${x * 0.1}px, ${y * 0.1 - 3}px)`;
+      });
+
+      badge.addEventListener('mouseleave', () => {
+        badge.style.transform = '';
+      });
     });
   }
 

@@ -183,7 +183,6 @@
 </head>
 <body class="bg-[#FAF9F5] text-slate-800 font-sans antialiased selection:bg-amber-500 selection:text-white min-h-screen flex flex-col">
 
-  <!-- ================= 1. PURE CSS LOADER ================= -->
   <!-- =========================================================================
        GLOBAL UNIFIED PRELOADER (Consistent centered viewport loading spinner)
        ========================================================================= -->
@@ -195,9 +194,12 @@
           <img src="../assets/images/logoStackly.webp" alt="Stackly" class="loader-brand-img" width="32" height="32">
         </div>
       </div>
+      <p class="loader-status-text">Loading Stackly Education...</p>
+    </div>
+  </div>
 
   <!-- =========================================================================
-       SITE HEADER & PRIMARY NAVIGATION
+       SITE HEADER & PRIMARY NAVIGATION (Home, About us, Courses, Pricing, Contact, Signin, Register)
        ========================================================================= -->
   <header class="site-header" role="banner" id="siteHeader">
     <div class="container">
@@ -226,10 +228,10 @@
           </li>
         </ul>
 
-        <!-- Action CTAs -->
+        <!-- Action CTAs: Signin & Register -->
         <div class="nav-actions">
-          <a href="sign-in.html" class="btn btn-secondary">Sign In</a>
-          <a href="sign-up.html" class="btn btn-primary">Get Started</a>
+          <a href="sign-in.html" class="btn btn-secondary" title="Sign In to your Account">Signin</a>
+          <a href="sign-up.html" class="btn btn-primary" title="Register a New Account">Register</a>
 
           <!-- Mobile Hamburger Button -->
           <button type="button" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNavOverlay" id="mobileMenuToggle">
@@ -257,15 +259,13 @@
         <li><a href="courses.html" class="mobile-nav-link active">Courses</a></li>
         <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
         <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+        <li><a href="sign-in.html" class="mobile-nav-link">Signin</a></li>
+        <li><a href="sign-up.html" class="mobile-nav-link">Register</a></li>
       </ul>
-      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto;">
-        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Sign In</a>
-        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--color-border, #E2E8F0);">
+        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Signin</a>
+        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Register</a>
       </div>
-    </div>
-  </div>
-
-      <p class="loader-status-text">Loading Stackly Education...</p>
     </div>
   </div>
 
@@ -281,32 +281,45 @@
       </div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hero-content-relative">
-        <!-- Breadcrumb -->
-        <nav class="flex items-center gap-2 text-xs sm:text-sm text-slate-500 mb-6" aria-label="Breadcrumb">
-          <a href="../index.html" class="hover:text-amber-600 transition-colors flex items-center gap-1.5">
-            <i class="fa-solid fa-house text-xs"></i>
-            Home
-          </a>
-          <span class="text-slate-300">/</span>
-          <span class="text-amber-700 font-bold" aria-current="page">Courses</span>
+        <!-- Standardized Site Breadcrumb -->
+        <!-- Image-Matched Pill Breadcrumb -->
+        <!-- Image-Matched Pill Breadcrumb (Consistent with Contact Page) -->
+        <nav class="site-breadcrumb" aria-label="Breadcrumb">
+          <div class="breadcrumb-pill">
+            <a href="../index.html" class="breadcrumb-home-link" title="Return to Home">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" style="display:inline-block; vertical-align:middle;" aria-hidden="true">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+              <span>Home</span>
+            </a>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin: 0 1px;" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <span class="breadcrumb-active-page" aria-current="page">Courses</span>
+          </div>
         </nav>
 
         <div class="max-w-3xl">
-          <!-- Tag -->
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold gradient-badge text-primary-300 mb-4">
-            <span class="w-2 h-2 rounded-full bg-primary-400 animate-ping"></span>
-            Verified Industry-Aligned Catalog • 2026 Edition
+          <!-- Kinetic Highlight Badge with Live Pulsing Indicator -->
+          <div class="kinetic-highlight-badge">
+            <span class="kinetic-pulse-dot" aria-hidden="true">
+              <span class="kinetic-pulse-ring"></span>
+              <span class="kinetic-pulse-core"></span>
+            </span>
+            <span>Verified Industry-Aligned Catalog &bull; 2026 Edition</span>
           </div>
 
-          <!-- Hero Heading -->
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight">
-            Explore <span class="gradient-text">World-Class</span> Interactive Courses
+          <!-- Hero Heading with Staggered Word Reveal & Typewriter Effect -->
+          <h1 class="stagger-words-reveal text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight">
+            Explore Interactive Courses in <span class="hero-typewriter" data-typewriter-words='["React &amp; Next.js", "AI &amp; Prompt Engineering", "UI/UX &amp; Design Systems", "Cloud &amp; DevOps"]'><span class="hero-typewriter-text">React &amp; Next.js</span><span class="typewriter-cursor">|</span></span>
           </h1>
 
-          <!-- Hero Subtitle -->
-          <p class="text-lg sm:text-xl text-slate-600 leading-relaxed font-normal mb-8">
-            Master in-demand creative, technical, and business capabilities with verified mentor guidance and hands-on projects designed to advance your global tech career.
-          </p>
+          <!-- Hero Subtitle with Smooth Slide-Up / Masked Text Reveal -->
+          <div class="masked-reveal-wrap mb-8">
+            <p class="masked-reveal-text text-lg sm:text-xl text-slate-700 leading-relaxed font-normal m-0">
+              Master in-demand creative, technical, and business capabilities with verified mentor guidance and hands-on projects designed to advance your global tech career.
+            </p>
+          </div>
         </div>
 
         <!-- Search & Filter Bar Component -->

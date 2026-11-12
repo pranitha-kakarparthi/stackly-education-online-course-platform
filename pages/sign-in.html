@@ -74,7 +74,7 @@
 
     /* Adjust split layout for fixed header */
     .auth-split-wrapper {
-      padding-top: 72px;
+      padding-top: 0;
       min-height: 100vh;
       display: flex;
       width: 100%;
@@ -94,6 +94,7 @@
     }
 
     .auth-banner-content {
+      padding-top: 3.5rem;
       position: relative;
       z-index: 2;
       max-width: 580px;
@@ -272,9 +273,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 3rem 2.5rem;
+      padding: 1.5rem 2.5rem;
       background-color: var(--color-bg-surface);
       position: relative;
+      overflow: hidden; /* Right part ALSO fixed */
     }
 
     .auth-form-card {
@@ -590,7 +592,7 @@
       }
       .auth-form-side {
         padding: 2.5rem 1.25rem;
-        min-height: calc(100vh - 72px);
+        min-height: 100vh;
       }
       .auth-social-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -605,7 +607,7 @@
         height: 64px;
       }
       .auth-split-wrapper {
-        padding-top: 64px;
+        padding-top: 0;
       }
       .auth-header-brand img {
         height: 34px;
@@ -621,7 +623,7 @@
         overflow: hidden;
       }
       .auth-split-wrapper {
-        height: calc(100vh - 72px);
+        height: 100vh;
         overflow: hidden;
       }
       .auth-banner-side {
@@ -634,13 +636,12 @@
       }
       .auth-form-side {
         height: 100%;
-        overflow-y: auto;
+        overflow: hidden; /* Right part ALSO fixed */
         flex: 1;
-        -webkit-overflow-scrolling: touch;
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: center;
-        padding: 2.5rem 2.5rem 4rem;
+        padding: 1.5rem 2.5rem;
       }
       .auth-form-side::-webkit-scrollbar {
         width: 6px;
@@ -655,7 +656,7 @@
     }
 
     .auth-split-wrapper {
-      padding-top: 72px;
+      padding-top: 0;
       min-height: 100vh;
       display: flex;
       width: 100%;
@@ -680,9 +681,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 3rem 2.5rem;
+      padding: 1.5rem 2.5rem;
       background-color: var(--color-bg-surface);
       position: relative;
+      overflow: hidden; /* Right part ALSO fixed */
     }
   </style>
 </head>
@@ -703,35 +705,7 @@
     </div>
   </div>
 
-  <!-- =========================================================================
-       2. FIXED HEADER BAR
-       (NO traditional navbar - strictly brand logo, Back to Home & Create Account)
-       ========================================================================= -->
-  <header class="auth-fixed-header" role="banner">
-    <!-- Left Section: Back to Home + Brand Logo -->
-    <div class="auth-header-left" style="display: flex; align-items: center; gap: 1.25rem;">
-      <a href="../index.html" class="btn btn-outline btn-back-home" style="padding: 0.5rem 1.15rem; font-size: 0.875rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.5rem; border: 1.5px solid #CBD5E1; color: #0F172A; text-decoration: none; font-weight: 600; background: #FFFFFF; transition: all 0.2s ease;" title="Go back to Homepage">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        <span>Back to Home</span>
-      </a>
-
-      <!-- Brand Logo redirecting to index.html -->
-      <a href="../index.html" class="auth-header-brand" title="Stackly - Return to Homepage">
-        <img src="../assets/images/logoStackly.webp" alt="Stackly Education & Online Course Platform">
-      </a>
-    </div>
-
-    <!-- Right Header: Subtle security indicator -->
-    <div class="auth-header-right" style="display: flex; align-items: center; gap: 0.5rem; color: #64748B; font-size: 0.85rem; font-weight: 600;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-      <span>256-Bit SSL Encrypted</span>
-    </div>
-  </header>
+  <!-- Header top bar removed as requested; brand logo at top-left and Back to Home at top-right of left side -->
 
   <!-- =========================================================================
        3. MODERN SPLIT LAYOUT
@@ -742,6 +716,19 @@
          SIDE A: Brand Messaging, Benefits, Student Testimonial & Trust Badges
          ----------------------------------------------------------------------- -->
     <aside class="auth-banner-side" aria-label="Why learn with Stackly">
+      <!-- Fixed Brand Logo at Top-Left of Left Part -->
+      <a href="../index.html" class="auth-banner-brand-logo" aria-label="Stackly Homepage" title="Return to Stackly Homepage" onclick="event.stopPropagation(); window.location.href='../index.html';" data-no-intercept="true">
+        <img src="../assets/images/logoStackly.webp" alt="Stackly Education & Online Course Platform" class="auth-banner-logo-img">
+      </a>
+
+      <!-- Moved Back to Home Button at Top-Right of Left Part -->
+      <a href="../index.html" class="btn btn-outline btn-back-home" aria-label="Go back to Homepage" title="Go back to Homepage" onclick="event.stopPropagation(); window.location.href='../index.html';" data-no-intercept="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Back to Home</span>
+      </a>
       <!-- Decorative ambient glow elements -->
       <div class="auth-banner-shape auth-banner-shape-1" aria-hidden="true"></div>
       <div class="auth-banner-shape auth-banner-shape-2" aria-hidden="true"></div>
@@ -834,6 +821,16 @@
          ----------------------------------------------------------------------- -->
     <section class="auth-form-side" aria-labelledby="auth-page-heading">
       <div class="auth-form-card">
+      <div class="auth-mobile-header">
+        <a href="../index.html" class="brand-logo-link" aria-label="Return to Stackly Homepage">
+          <img src="../assets/images/logoStackly.webp" alt="Stackly Logo" style="height: 36px; width: auto; object-fit: contain;">
+        </a>
+        <a href="../index.html" class="btn btn-outline" style="padding: 0.4rem 0.95rem; font-size: 0.825rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.4rem; border: 1.5px solid #CBD5E1; color: #0F172A; text-decoration: none; font-weight: 600; background: #FFFFFF;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <span>Back to Home</span>
+        </a>
+      </div>
+
         <!-- Header & Badge -->
         <div class="auth-header">
           <div class="auth-card-badge">
@@ -857,7 +854,7 @@
         </div>
 
         <!-- Main Sign In Form with STRICT ORDER: 1. Email, 2. Password, 3. Login As -->
-        <form id="signInForm" novalidate autocomplete="on">
+        <form id="signInForm" novalidate autocomplete="off">
 
           <!-- 1. Email Address Input -->
           <div class="form-group" id="groupEmail">
@@ -949,8 +946,8 @@
                 </svg>
               </span>
               <select id="userRole" name="role" required class="form-input" aria-describedby="roleError">
-                <option value="" disabled>-- Select Your Role --</option>
-                <option value="Student" selected>Student (Learner Dashboard)</option>
+                <option value="" disabled selected>-- Select Your Role --</option>
+                <option value="Student">Student (Learner Dashboard)</option>
                 <option value="Instructor">Instructor / Employee (Course Creator)</option>
                 <option value="Manager">Manager (Curriculum & Operations)</option>
                 <option value="Admin">Admin (Platform Administrator)</option>
@@ -967,7 +964,7 @@
           <!-- Remember Me & Forgot Password Row -->
           <div class="auth-options-row">
             <label class="remember-label" for="rememberMe">
-              <input type="checkbox" id="rememberMe" name="rememberMe" checked>
+              <input type="checkbox" id="rememberMe" name="rememberMe">
               <span>Remember this device</span>
             </label>
             <!-- "Forgot Password?" MUST redirect to 404.html per global mandatory rules -->
@@ -988,7 +985,7 @@
         </form>
 
         <!-- "Instant access with" Section (Moved to Bottom per user request) -->
-        <div style="margin-top: 2rem; border-top: 1px solid #E2E8F0; padding-top: 1.5rem;">
+        <div style="margin-top: 1.25rem; border-top: 1px solid #E2E8F0; padding-top: 1rem;">
           <div style="font-size: 0.85rem; font-weight: 600; color: #64748B; text-align: center; margin-bottom: 0.85rem;">
             Instant access with
           </div>
@@ -1029,11 +1026,12 @@
           </div>
         </div>
 
-        <!-- "Create Account" Moved to Bottom of Page per user request -->
-        <div style="margin-top: 1.5rem; text-align: center; font-size: 0.925rem; color: #64748B;">
+        <!-- "Create Account" Redirects to Signup Page -->
+        <div style="margin-top: 1.15rem; text-align: center; font-size: 0.925rem; color: #64748B;">
           Don't have an account yet? 
-          <a href="sign-up.html" style="color: #F59E0B; font-weight: 700; text-decoration: none; margin-left: 0.35rem; transition: color 0.2s;" onmouseover="this.style.color='#D97706'" onmouseout="this.style.color='#F59E0B'">
-            Create Account &rarr;
+          <a href="sign-up.html" id="createAccountLink" style="color: #D97706; font-weight: 700; text-decoration: none; margin-left: 0.35rem; display: inline-flex; align-items: center; gap: 0.35rem; transition: all 0.2s ease;" onmouseover="this.style.color='#B45309'; this.style.transform='translateX(2px)';" onmouseout="this.style.color='#D97706'; this.style.transform='none';" onclick="event.stopPropagation(); window.location.href='sign-up.html';" data-no-intercept="true">
+            <span>Create Account</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
         </div>
       </div>
@@ -1047,6 +1045,23 @@
        ========================================================================= -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Explicit redirect for Back to Home buttons to index.html
+      document.querySelectorAll('.btn-back-home').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = '../index.html';
+        });
+      });
+
+      // Direct Navigation for Create Account Link
+      const createAccBtn = document.getElementById('createAccountLink');
+      if (createAccBtn) {
+        createAccBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.href = 'sign-up.html';
+        });
+      }
+
       // 1. Dismiss Pure CSS Preloader
       const loader = document.getElementById('app-loader');
       if (loader) {
@@ -1287,14 +1302,13 @@
 
       });
 
-      // 9. Prefill remembered email if available
-      try {
-        const rememberedEmail = localStorage.getItem('stackly_rememberedEmail');
-        if (rememberedEmail) {
-          userEmailInput.value = rememberedEmail;
-        }
-      } catch (e) {
-        // Ignore private browsing storage restriction
+      // 9. Ensure form is empty by default
+      if (signInForm) {
+        signInForm.reset();
+        userEmailInput.value = '';
+        userPasswordInput.value = '';
+        userRoleSelect.selectedIndex = 0;
+        if (rememberMeCheckbox) rememberMeCheckbox.checked = false;
       }
     });
   </script>

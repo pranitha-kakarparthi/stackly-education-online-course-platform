@@ -30,40 +30,7 @@
       overflow: hidden;
     }
 
-    .breadcrumb-nav {
-      margin-bottom: 1.5rem;
-    }
-
-    .breadcrumb-list {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--color-text-muted);
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .breadcrumb-item a {
-      color: var(--color-text-muted);
-      transition: color var(--transition-fast);
-      text-decoration: none;
-    }
-
-    .breadcrumb-item a:hover {
-      color: var(--color-primary);
-    }
-
-    .breadcrumb-separator {
-      color: var(--color-text-subtle);
-    }
-
-    .breadcrumb-item.active {
-      color: var(--color-primary-dark);
-      font-weight: 600;
-    }
+    /* Breadcrumbs styled globally via styles.css */
 
     /* Hero Grid & Layout */
     .hero-grid {
@@ -1089,13 +1056,9 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="bg-body">
-
-  <!-- Accessible Skip to Main Content Link -->
-  <a href="#main-content" class="skip-to-content" style="position:absolute;top:-100px;left:10px;background:#F59E0B;color:#78350F;font-weight:700;padding:8px 16px;border-radius:4px;z-index:999999;transition:top 0.2s;" onfocus="this.style.top='10px'" onblur="this.style.top='-100px'">
-    Skip to main content
-  </a>
 
   <!-- =========================================================================
        GLOBAL UNIFIED PRELOADER (Consistent centered viewport loading spinner)
@@ -1108,9 +1071,12 @@
           <img src="../assets/images/logoStackly.webp" alt="Stackly" class="loader-brand-img" width="32" height="32">
         </div>
       </div>
+      <p class="loader-status-text">Loading Stackly Education...</p>
+    </div>
+  </div>
 
   <!-- =========================================================================
-       SITE HEADER & PRIMARY NAVIGATION
+       SITE HEADER & PRIMARY NAVIGATION (Home, About us, Courses, Pricing, Contact, Signin, Register)
        ========================================================================= -->
   <header class="site-header" role="banner" id="siteHeader">
     <div class="container">
@@ -1139,10 +1105,10 @@
           </li>
         </ul>
 
-        <!-- Action CTAs -->
+        <!-- Action CTAs: Signin & Register -->
         <div class="nav-actions">
-          <a href="sign-in.html" class="btn btn-secondary">Sign In</a>
-          <a href="sign-up.html" class="btn btn-primary">Get Started</a>
+          <a href="sign-in.html" class="btn btn-secondary" title="Sign In to your Account">Signin</a>
+          <a href="sign-up.html" class="btn btn-primary" title="Register a New Account">Register</a>
 
           <!-- Mobile Hamburger Button -->
           <button type="button" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNavOverlay" id="mobileMenuToggle">
@@ -1170,30 +1136,16 @@
         <li><a href="courses.html" class="mobile-nav-link">Courses</a></li>
         <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
         <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+        <li><a href="sign-in.html" class="mobile-nav-link">Signin</a></li>
+        <li><a href="sign-up.html" class="mobile-nav-link">Register</a></li>
       </ul>
-      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto;">
-        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Sign In</a>
-        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--color-border, #E2E8F0);">
+        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Signin</a>
+        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Register</a>
       </div>
     </div>
   </div>
 
-      <p class="loader-status-text">Loading Stackly Education...</p>
-    </div>
-  </div>
-
-    <!-- =============================================================
-       STICKY NAVBAR (Unified across all pages)
-       ============================================================= -->
-  
-
-  <!-- Mobile Fullscreen / Drawer Overlay Menu -->
-  
-  </div>
-
-  <!-- =========================================================================
-       MAIN CONTENT CONTAINER
-       ========================================================================= -->
   <main id="main-content">
 
     <!-- =======================================================================
@@ -1211,30 +1163,44 @@
       <div class="container hero-content-relative" style="max-width: var(--container-max); margin: 0 auto; padding: 0 var(--container-padding);">
 
         
-        <!-- Accessible Breadcrumbs -->
-        <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
-          <ol class="breadcrumb-list">
-            <li class="breadcrumb-item"><a href="404.html">Home</a></li>
-            <li class="breadcrumb-separator" aria-hidden="true">/</li>
-            <li class="breadcrumb-item active" aria-current="page">About Us</li>
-          </ol>
+        <!-- Standardized Site Breadcrumb -->
+        <!-- Image-Matched Pill Breadcrumb -->
+        <!-- Image-Matched Pill Breadcrumb (Consistent with Contact Page) -->
+        <nav class="site-breadcrumb" aria-label="Breadcrumb">
+          <div class="breadcrumb-pill">
+            <a href="../index.html" class="breadcrumb-home-link" title="Return to Home">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" style="display:inline-block; vertical-align:middle;" aria-hidden="true">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+              <span>Home</span>
+            </a>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin: 0 1px;" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <span class="breadcrumb-active-page" aria-current="page">About Us</span>
+          </div>
         </nav>
 
         <div class="hero-grid">
           <!-- Text Content Column -->
           <div class="hero-text-col">
-            <div class="section-eyebrow badge-mint" style="color: var(--color-pastel-mint-dark);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-              <span>Our Purpose &bull; Est. 2021</span>
+            <div class="kinetic-highlight-badge">
+              <span class="kinetic-pulse-dot" aria-hidden="true">
+                <span class="kinetic-pulse-ring"></span>
+                <span class="kinetic-pulse-core"></span>
+              </span>
+              <span>Our Global Mission &bull; Founded 2021</span>
             </div>
 
-            <h1 id="about-hero-heading">
-              Empowering Next-Generation Thinkers, <span class="sketch-highlight highlight-yellow" style="position:relative; display:inline-block;">Builders</span>, and Creators.
+            <h1 id="about-hero-heading" class="stagger-words-reveal hero-heading-contrast" style="font-size: clamp(2.2rem, 4.5vw, 3.75rem); line-height: 1.15; margin-bottom: 1.25rem;">
+              Empowering Next-Generation <span class="word-flip-carousel"><span class="flip-words-inner"><span class="flip-word active">Thinkers</span><span class="flip-word">Builders</span><span class="flip-word">Leaders</span><span class="flip-word">Creators</span></span></span> Across The World.
             </h1>
 
-            <p class="hero-subtitle">
-              We bridge the gap between theoretical education and real industry careers through hands-on mentorship and project-first curriculums.
-            </p>
+            <div class="masked-reveal-wrap" style="margin-bottom: 1.75rem;">
+              <p class="hero-subtitle-contrast masked-reveal-text" style="font-size: clamp(1.05rem, 2vw, 1.25rem); color: #334155; line-height: 1.65; margin: 0;">
+                We bridge the gap between theoretical education and real industry careers through hands-on mentorship and project-first curriculums.
+              </p>
+            </div>
 
             <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
               <a href="#mission-vision" class="btn btn-emerald" style="padding: 0.85rem 1.65rem;">

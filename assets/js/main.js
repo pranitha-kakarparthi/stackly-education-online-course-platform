@@ -1924,7 +1924,7 @@
       document.addEventListener("click", (e) => {
         // 1. Logo clicks always redirect strictly to index.html
         const logoTarget = e.target.closest(
-          'img[src*="logoStackly"], [data-home-link], .brand-logo, .brand-logo-link, .auth-header-brand'
+          'img[src*="logoStackly"], [data-home-link], .brand-logo, .brand-logo-link, .auth-header-brand, .auth-banner-brand-logo'
         );
         if (logoTarget) {
           const anchor = logoTarget.closest("a");
@@ -1936,8 +1936,23 @@
           return;
         }
 
-        // 2. In non-dashboard pages (except 404 page itself), all action buttons & links outside navbar and footer redirect to 404
-        if (!isDashboard && !is404Page) {
+        // 1b. Allow core authentication and home navigation controls to navigate normally
+        const backHomeTarget = e.target.closest(
+          ".btn-back-home, [data-back-home], a[href$='index.html'], a[href*='index.html']"
+        );
+        if (backHomeTarget) {
+          return; // Allow normal navigation to index.html
+        }
+
+        const authNavTarget = e.target.closest(
+          "#createAccountLink, .link-create-account, #linkToSignIn, .link-to-signin, a[href*='sign-in.html'], a[href*='sign-up.html']"
+        );
+        if (authNavTarget) {
+          return; // Allow normal navigation to sign-in / sign-up
+        }
+
+        // 2. In non-dashboard and non-auth pages (except 404 page itself), all action buttons & links outside navbar and footer redirect to 404
+        if (!isDashboard && !is404Page && !isAuthPage) {
           const clickable = e.target.closest("a, button");
           if (clickable) {
             // Keep navbar & mobile drawer navigation working
@@ -2043,4 +2058,38 @@
   } else {
     App.init();
   }
+
+  // =========================================================================
+  // GLOBAL FORM INITIALIZER: Ensure all forms across the website are empty by default
+  // =========================================================================
+  function resetAllFormsToEmpty() {
+    document.querySelectorAll('form').forEach(form => {
+      try {
+        form.reset();
+        const fields = form.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"]), select, textarea');
+        fields.forEach(field => {
+          if (field.type === 'checkbox' || field.type === 'radio') {
+            field.checked = false;
+          } else if (field.tagName === 'SELECT') {
+            if (field.id !== 'signupPhoneCode' && field.id !== 'countryCodeSelect') {
+              field.selectedIndex = 0;
+            }
+          } else {
+            field.value = '';
+          }
+        });
+      } catch (e) {
+        // Safe fallback
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', resetAllFormsToEmpty);
+  } else {
+    resetAllFormsToEmpty();
+  }
+
+  window.addEventListener('pageshow', resetAllFormsToEmpty);
+
 })(window, document);

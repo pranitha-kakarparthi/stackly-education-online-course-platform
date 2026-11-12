@@ -24,31 +24,7 @@
        PRICING PAGE CUSTOM ENHANCEMENTS & MICRO-INTERACTIONS
        ========================================================================== */
     
-    /* Breadcrumb styling */
-    .breadcrumb-nav {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--color-text-muted);
-      margin-bottom: 1.5rem;
-    }
-    .breadcrumb-nav a {
-      color: var(--color-text-muted);
-      text-decoration: none;
-      transition: color var(--transition-fast);
-    }
-    .breadcrumb-nav a:hover {
-      color: var(--color-primary);
-    }
-    .breadcrumb-nav .separator {
-      color: var(--color-text-subtle);
-    }
-    .breadcrumb-nav .current {
-      color: var(--color-text-main);
-      font-weight: 600;
-    }
+    /* Breadcrumbs styled globally via styles.css */
 
     /* Hero Header */
     .pricing-hero {
@@ -809,12 +785,10 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-  <!-- ========================================================================
-       1. PURE CSS LOADER WITH LOGOSTACKLY.WEBP
-       ======================================================================== -->
   <!-- =========================================================================
        GLOBAL UNIFIED PRELOADER (Consistent centered viewport loading spinner)
        ========================================================================= -->
@@ -826,9 +800,12 @@
           <img src="../assets/images/logoStackly.webp" alt="Stackly" class="loader-brand-img" width="32" height="32">
         </div>
       </div>
+      <p class="loader-status-text">Loading Stackly Education...</p>
+    </div>
+  </div>
 
   <!-- =========================================================================
-       SITE HEADER & PRIMARY NAVIGATION
+       SITE HEADER & PRIMARY NAVIGATION (Home, About us, Courses, Pricing, Contact, Signin, Register)
        ========================================================================= -->
   <header class="site-header" role="banner" id="siteHeader">
     <div class="container">
@@ -857,10 +834,10 @@
           </li>
         </ul>
 
-        <!-- Action CTAs -->
+        <!-- Action CTAs: Signin & Register -->
         <div class="nav-actions">
-          <a href="sign-in.html" class="btn btn-secondary">Sign In</a>
-          <a href="sign-up.html" class="btn btn-primary">Get Started</a>
+          <a href="sign-in.html" class="btn btn-secondary" title="Sign In to your Account">Signin</a>
+          <a href="sign-up.html" class="btn btn-primary" title="Register a New Account">Register</a>
 
           <!-- Mobile Hamburger Button -->
           <button type="button" class="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNavOverlay" id="mobileMenuToggle">
@@ -888,25 +865,14 @@
         <li><a href="courses.html" class="mobile-nav-link">Courses</a></li>
         <li><a href="pricing.html" class="mobile-nav-link active">Pricing</a></li>
         <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
+        <li><a href="sign-in.html" class="mobile-nav-link">Signin</a></li>
+        <li><a href="sign-up.html" class="mobile-nav-link">Register</a></li>
       </ul>
-      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto;">
-        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Sign In</a>
-        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--color-border, #E2E8F0);">
+        <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Signin</a>
+        <a href="sign-up.html" class="btn btn-primary" style="width: 100%; text-align: center;">Register</a>
       </div>
     </div>
-  </div>
-
-      <p class="loader-status-text">Loading Stackly Education...</p>
-    </div>
-  </div>
-
-    <!-- =============================================================
-       STICKY NAVBAR (Unified across all pages)
-       ============================================================= -->
-  
-
-  <!-- Mobile Fullscreen / Drawer Overlay Menu -->
-  
   </div>
 
   <main id="main-content">
@@ -915,12 +881,6 @@
       <!-- ====================================================================
            3. HERO SECTION WITH BREADCRUMB, HEADLINE & BILLING TOGGLE
            ==================================================================== -->
-      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
-        <a href="404.html">Home</a>
-        <span class="separator" aria-hidden="true">/</span>
-        <span class="current" aria-current="page">Pricing</span>
-      </nav>
-
       <section class="pricing-hero-wrap hero-animated-wrap" style="position: relative; overflow: hidden; padding: clamp(2.5rem, 5vw, 4rem) 0 3rem;">
       <!-- High Visibility Background Image with Ken Burns & Parallax -->
       <div class="hero-bg-container" aria-hidden="true">
@@ -931,18 +891,40 @@
       </div>
 
       <div class="container hero-content-relative">
+        <!-- Image-Matched Pill Breadcrumb -->
+        <!-- Image-Matched Pill Breadcrumb (Consistent with Contact Page) -->
+        <nav class="site-breadcrumb" aria-label="Breadcrumb">
+          <div class="breadcrumb-pill">
+            <a href="../index.html" class="breadcrumb-home-link" title="Return to Home">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" style="display:inline-block; vertical-align:middle;" aria-hidden="true">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+              <span>Home</span>
+            </a>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin: 0 1px;" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <span class="breadcrumb-active-page" aria-current="page">Pricing</span>
+          </div>
+        </nav>
+
         <div class="pricing-hero" aria-labelledby="pricing-title">
-        <div class="badge badge-yellow" style="margin-bottom: 1.25rem;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-          </svg>
-          Flexible Career-Focused Investment
+        <div class="kinetic-highlight-badge">
+          <span class="kinetic-pulse-dot" aria-hidden="true">
+            <span class="kinetic-pulse-ring"></span>
+            <span class="kinetic-pulse-core"></span>
+          </span>
+          <span>Flexible Career-Focused Investment</span>
         </div>
 
-        <h1 id="pricing-title">Simple, Transparent Investment in Your Future.</h1>
-        <p class="hero-subtitle">
-          Choose the learning plan that fits your career goals. Cancel or upgrade anytime with zero hidden fees.
-        </p>
+        <h1 id="pricing-title" class="stagger-words-reveal hero-heading-contrast" style="font-size: clamp(2.2rem, 4.5vw, 3.75rem); line-height: 1.15; margin-bottom: 1.25rem;">
+          Transparent Investment for Every <span class="word-flip-carousel"><span class="flip-words-inner"><span class="flip-word active">Student</span><span class="flip-word">Builder</span><span class="flip-word">Team</span><span class="flip-word">Career</span></span></span>
+        </h1>
+        <div class="masked-reveal-wrap" style="margin-bottom: 2rem;">
+          <p class="hero-subtitle-contrast masked-reveal-text" style="font-size: clamp(1.05rem, 2vw, 1.25rem); color: #334155; line-height: 1.6; margin: 0;">
+            Choose the learning plan that fits your career goals. Cancel or upgrade anytime with zero hidden fees and 14-day money-back guarantee.
+          </p>
+        </div>
 
         <!-- Billing Cycle Toggle Switch -->
         <div class="billing-toggle-wrap" role="region" aria-label="Billing cycle selector">
@@ -1639,7 +1621,13 @@
            ==================================================================== -->
       <section class="faq-section" aria-labelledby="faq-title">
         <div class="section-header-centered">
-          <div class="badge badge-yellow" style="margin-bottom: 0.75rem;">Clear Answers</div>
+          <div class="kinetic-highlight-badge">
+          <span class="kinetic-pulse-dot" aria-hidden="true">
+            <span class="kinetic-pulse-ring"></span>
+            <span class="kinetic-pulse-core"></span>
+          </span>
+          <span>Flexible Career-Focused Investment</span>
+        </div>
           <h2 id="faq-title">Frequently Asked Questions</h2>
           <p style="color: var(--color-text-body); font-size: 1.05rem;">
             Everything you need to know about memberships, billing terms, enterprise seats, and guarantees.
