@@ -703,30 +703,41 @@
     if (!btn) {
       btn = document.createElement('button');
       btn.id = 'back-to-top';
+      btn.type = 'button';
       btn.className = 'back-to-top-btn';
       btn.setAttribute('aria-label', 'Back to top');
       btn.setAttribute('title', 'Scroll to top');
+      btn.setAttribute('data-no-intercept', 'true');
       btn.innerHTML = `
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
         </svg>
       `;
       document.body.appendChild(btn);
+    } else {
+      btn.type = 'button';
+      btn.setAttribute('data-no-intercept', 'true');
     }
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 350) {
+    function checkScroll() {
+      const scrollPos = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      if (scrollPos > 280) {
         btn.classList.add('is-visible');
       } else {
         btn.classList.remove('is-visible');
       }
-    }, { passive: true });
+    }
 
-    btn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth'
-      });
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll();
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const behavior = prefersReducedMotion ? 'auto' : 'smooth';
+      window.scrollTo({ top: 0, behavior });
+      document.documentElement.scrollTo({ top: 0, behavior });
+      document.body.scrollTo({ top: 0, behavior });
     });
   }
 

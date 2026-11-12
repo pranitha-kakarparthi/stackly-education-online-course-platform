@@ -1963,10 +1963,28 @@
           return; // Allow normal navigation to sign-in / sign-up
         }
 
+        // 1c. Allow Back to Top floating button to smoothly scroll without 404 redirection
+        const backToTopTarget = e.target.closest(
+          "#back-to-top, .back-to-top-btn, [data-back-to-top], [data-no-intercept='true']"
+        );
+        if (backToTopTarget) {
+          return; // Never intercept back-to-top button
+        }
+
         // 2. In non-dashboard and non-auth pages (except 404 page itself), all action buttons & links outside navbar and footer redirect to 404
         if (!isDashboard && !is404Page && !isAuthPage) {
           const clickable = e.target.closest("a, button");
           if (clickable) {
+            // Keep Back to Top button working without 404 redirection
+            if (
+              clickable.id === "back-to-top" ||
+              clickable.classList.contains("back-to-top-btn") ||
+              clickable.closest("#back-to-top, .back-to-top-btn, [data-back-to-top]") ||
+              clickable.getAttribute("data-no-intercept") === "true"
+            ) {
+              return;
+            }
+
             // Keep navbar & mobile drawer navigation working
             if (
               clickable.closest(
@@ -2011,6 +2029,10 @@
         );
         if (actionTarget) {
           if (
+            actionTarget.id === "back-to-top" ||
+            actionTarget.classList.contains("back-to-top-btn") ||
+            actionTarget.closest("#back-to-top, .back-to-top-btn, [data-back-to-top]") ||
+            actionTarget.getAttribute("data-no-intercept") === "true" ||
             actionTarget.hasAttribute("data-bs-toggle") ||
             actionTarget.hasAttribute("data-bs-target") ||
             actionTarget.classList.contains("dropdown-toggle") ||
