@@ -3534,6 +3534,41 @@ body.mobile-nav-open {
   color: #D97706 !important;
 }
 
+/* Force SVGs in breadcrumbs to never collapse or hide */
+.breadcrumb-pill svg,
+.site-breadcrumb svg,
+.breadcrumb-home-link svg,
+.breadcrumb-home-icon,
+.breadcrumb-separator-icon {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+}
+
+.breadcrumb-home-icon,
+.breadcrumb-home-link svg,
+.breadcrumb-pill .breadcrumb-home-link svg {
+  width: 15px !important;
+  height: 15px !important;
+  min-width: 15px !important;
+  min-height: 15px !important;
+  max-width: 15px !important;
+  max-height: 15px !important;
+  fill: #F59E0B !important;
+}
+
+.breadcrumb-separator-icon,
+.breadcrumb-pill > svg:not(.breadcrumb-home-icon) {
+  width: 11px !important;
+  height: 11px !important;
+  min-width: 11px !important;
+  min-height: 11px !important;
+  max-width: 11px !important;
+  max-height: 11px !important;
+  stroke: #94A3B8 !important;
+  margin: 0 1px !important;
+}
+
 .breadcrumb-chevron-separator {
   color: #94A3B8 !important;
   font-size: 0.725rem !important;
@@ -3548,4 +3583,25 @@ body.mobile-nav-open {
   font-weight: 700 !important;
   display: inline-flex !important;
   align-items: center !important;
+}
+
+/* Dashboard View Panels & Switching */
+.dashboard-view-panel {
+  display: none;
+  animation: fadeInView 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dashboard-view-panel.active {
+  display: block;
+}
+
+@keyframes fadeInView {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

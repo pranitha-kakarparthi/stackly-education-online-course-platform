@@ -9,27 +9,36 @@
 
   <!-- Core Stylesheet -->
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Authentication Guard (Runs Immediately Before Render) -->
   <script>
     (function() {
-      // Check for preview/demo flag in URL to facilitate direct testing if needed
-      var urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('demo') === 'true') {
-        localStorage.setItem('stackly_isLoggedIn', 'true');
-        if (!localStorage.getItem('stackly_user')) {
-          localStorage.setItem('stackly_user', JSON.stringify({
-            name: activeName,
-            role: 'student',
-            email: 'sophia.martinez@stackly.edu'
-          }));
+      try {
+        var urlParams = new URLSearchParams(window.location.search);
+        var roleParam = urlParams.get('role');
+        if (roleParam) {
+          localStorage.setItem('stackly_role', roleParam);
+          localStorage.setItem('stackly_isLoggedIn', 'true');
         }
-      }
-
-      // Strict Authentication Guard
-      var isLoggedIn = localStorage.getItem('stackly_isLoggedIn');
-      if (isLoggedIn !== 'true') {
-        window.location.replace('sign-in.html');
+        var isLoggedIn = localStorage.getItem('stackly_isLoggedIn');
+        if (isLoggedIn !== 'true') {
+          // If demo access requested via ?demo=true, auto-authenticate as student
+          if (urlParams.get('demo') === 'true') {
+            localStorage.setItem('stackly_isLoggedIn', 'true');
+            localStorage.setItem('stackly_role', 'Student');
+            localStorage.setItem('stackly_currentUser', JSON.stringify({
+              name: 'Elena Rostova',
+              role: 'Student',
+              email: 'elena.rostova@stackly.edu',
+              avatar: '../assets/images/student-elena-rostova.webp'
+            }));
+          } else {
+            window.location.replace('sign-in.html');
+          }
+        }
+      } catch (e) {
+        console.warn('Auth guard error:', e);
       }
     })();
   </script>
@@ -45,7 +54,7 @@
         left: 0 !important;
         bottom: 0 !important;
         width: 100% !important;
-        max-width: 100% !important;
+        max-width: 320px !important;
         height: 100vh !important;
         transform: translateX(-100%);
         z-index: 99999 !important;
@@ -83,56 +92,6 @@
       color: var(--color-danger);
     }
 
-    /* Role Switcher Pills */
-    .role-switcher-container {
-      background: #FFFFFF;
-      border: 1.5px solid var(--border-color-subtle);
-      border-radius: var(--radius-xl);
-      padding: 0.85rem 1.25rem;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      box-shadow: var(--shadow-xs);
-    }
-
-    .role-switcher-nav {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .role-btn {
-      padding: 0.45rem 1rem;
-      border-radius: var(--radius-full);
-      font-size: 0.85rem;
-      font-weight: 600;
-      border: 1.5px solid var(--border-color-medium);
-      background-color: #FFFFFF;
-      color: var(--color-text-body);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      transition: all var(--transition-fast);
-    }
-
-    .role-btn:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-      background-color: var(--color-primary-light);
-    }
-
-    .role-btn.active {
-      background-color: var(--color-primary);
-      border-color: var(--color-primary);
-      color: #FFFFFF;
-      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.28);
-    }
-
     /* SVG Chart Styles */
     .chart-container {
       width: 100%;
@@ -161,7 +120,8 @@
 
     /* Certificate Card Styling */
     .certificate-card-wrapper {
-      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); border: 1.5px solid rgba(245, 158, 11, 0.3);
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.3);
       color: #FFFFFF;
       border-radius: var(--radius-2xl);
       padding: 2.25rem 2rem;
@@ -210,6 +170,7 @@
       transition: all var(--transition-normal);
       text-decoration: none;
       color: inherit;
+      cursor: pointer;
     }
     .quick-action-card:hover {
       transform: translateY(-4px);
@@ -240,6 +201,10 @@
       background-color: #E0F2FE;
       color: #075985;
     }
+    .status-badge.pending {
+      background-color: #FEE2E2;
+      color: #991B1B;
+    }
 
     /* User Profile Chip */
     .user-profile-header-chip {
@@ -258,12 +223,38 @@
       object-fit: cover;
       border: 2px solid var(--color-primary);
     }
+
+    /* View panels */
+    .dashboard-view-panel {
+      display: none;
+      animation: fadeInView 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .dashboard-view-panel.active {
+      display: block;
+    }
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .sidebar-link {
+      cursor: pointer;
+    }
+    .sidebar-link.active {
+      background-color: var(--color-primary-light);
+      color: var(--color-primary-dark);
+      font-weight: 700;
+      border-left: 3px solid var(--color-primary);
+    }
+    .sidebar-link.active svg {
+      color: var(--color-primary);
+    }
   </style>
 </head>
 <body class="dashboard-body">
 
   <!-- =========================================================================
-       GLOBAL UNIFIED PRELOADER (Consistent centered viewport loading spinner)
+       GLOBAL UNIFIED PRELOADER
        ========================================================================= -->
   <div id="app-loader" class="global-page-loader" role="status" aria-live="polite" aria-label="Loading Stackly Education">
     <div class="loader-centered-content">
@@ -308,129 +299,9 @@
         </div>
       </div>
 
-      <!-- Sidebar Role Switcher (Compact) -->
-      <div style="padding: 1rem 1rem 0.25rem;">
-        <div style="font-size: 0.725rem; font-weight: 700; color: var(--color-text-subtle); text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em;">
-          Active Role View
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem;">
-          <button type="button" class="role-btn active" data-role="student" style="font-size: 0.75rem; padding: 0.35rem 0.6rem; justify-content: center;">
-            Student
-          </button>
-          <button type="button" class="role-btn" data-role="instructor" style="font-size: 0.75rem; padding: 0.35rem 0.6rem; justify-content: center;">
-            Instructor
-          </button>
-          <button type="button" class="role-btn" data-role="manager" style="font-size: 0.75rem; padding: 0.35rem 0.6rem; justify-content: center;">
-            Manager
-          </button>
-          <button type="button" class="role-btn" data-role="admin" style="font-size: 0.75rem; padding: 0.35rem 0.6rem; justify-content: center;">
-            Admin
-          </button>
-          <button type="button" class="role-btn" data-role="customer" style="font-size: 0.75rem; padding: 0.35rem 0.6rem; justify-content: center;">
-            Customer
-          </button>
-          <button type="button" class="role-btn" data-role="vendor" style="font-size: 0.75rem; padding: 0.35rem 0.6rem; justify-content: center;">
-            Vendor
-          </button>
-        </div>
-      </div>
-
-      <!-- Sidebar Navigation Menu -->
-      <nav class="sidebar-nav">
-        <div class="sidebar-section-title">Navigation</div>
-        
-        <div class="sidebar-menu-item">
-          <a href="#" class="sidebar-link active" data-tooltip="Overview">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="7" height="7"></rect>
-              <rect x="14" y="3" width="7" height="7"></rect>
-              <rect x="14" y="14" width="7" height="7"></rect>
-              <rect x="3" y="14" width="7" height="7"></rect>
-            </svg>
-            <span class="sidebar-link-text">Overview</span>
-          </a>
-        </div>
-
-        <div class="sidebar-menu-item">
-          <a href="404.html" class="sidebar-link" data-tooltip="My Courses / Classes">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-            </svg>
-            <span class="sidebar-link-text" id="navCoursesText">My Courses</span>
-            <span class="badge badge-emerald" style="margin-left: auto; font-size: 0.7rem; padding: 0.15rem 0.5rem;" id="navCoursesBadge">4</span>
-          </a>
-        </div>
-
-        <div class="sidebar-menu-item">
-          <a href="404.html" class="sidebar-link" data-tooltip="Live Sessions">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="23 7 16 12 23 17 23 7"></polygon>
-              <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-            </svg>
-            <span class="sidebar-link-text">Live Sessions</span>
-            <span class="badge badge-peach" style="margin-left: auto; font-size: 0.7rem; padding: 0.15rem 0.5rem;">LIVE</span>
-          </a>
-        </div>
-
-        <div class="sidebar-menu-item">
-          <a href="404.html" class="sidebar-link" data-tooltip="Assignments & Grading">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            <span class="sidebar-link-text" id="navAssignmentsText">Assignments</span>
-            <span class="badge badge-yellow" style="margin-left: auto; font-size: 0.7rem; padding: 0.15rem 0.5rem;" id="navAssignmentsBadge">2</span>
-          </a>
-        </div>
-
-        <div class="sidebar-menu-item">
-          <a href="404.html" class="sidebar-link" data-tooltip="Analytics & Progress">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="20" x2="18" y2="10"></line>
-              <line x1="12" y1="20" x2="12" y2="4"></line>
-              <line x1="6" y1="20" x2="6" y2="14"></line>
-            </svg>
-            <span class="sidebar-link-text">Analytics & Progress</span>
-          </a>
-        </div>
-
-        <div class="sidebar-menu-item">
-          <a href="404.html" class="sidebar-link" data-tooltip="Certificates">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="8" r="7"></circle>
-              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-            </svg>
-            <span class="sidebar-link-text">Certificates</span>
-            <span class="badge badge-lilac" style="margin-left: auto; font-size: 0.7rem; padding: 0.15rem 0.5rem;" id="navCertificatesBadge">3</span>
-          </a>
-        </div>
-
-        <div class="sidebar-section-title" style="margin-top: 1rem;">System</div>
-
-        <div class="sidebar-menu-item">
-          <a href="404.html" class="sidebar-link" data-tooltip="Settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-            </svg>
-            <span class="sidebar-link-text">Account Settings</span>
-          </a>
-        </div>
-
-        <div class="sidebar-menu-item">
-          <a href="404.html" class="sidebar-link" data-tooltip="Help & Support">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-              <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
-            <span class="sidebar-link-text">Help Desk</span>
-          </a>
-        </div>
+      <!-- Sidebar Dynamic Navigation Container (Rendered by role) -->
+      <nav class="sidebar-nav" id="sidebarNavContainer">
+        <!-- Injected via JavaScript based on active role -->
       </nav>
 
       <!-- Sidebar User Footer -->
@@ -442,41 +313,42 @@
             <div class="user-mini-role" id="sidebarUserRole">Student Account</div>
           </div>
         </div>
+        <button type="button" class="btn btn-outline btn-sm signout-action-btn" id="sidebarSignOutBtn" onclick="handleStacklySignOut(event);" title="Sign out of Stackly" style="width: 100%; margin-top: 0.75rem; border-color: #EF4444; color: #DC2626; display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; padding: 0.4rem 0.6rem; font-size: 0.8rem; cursor: pointer; border-radius: var(--radius-md);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Sign Out</span>
+        </button>
       </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="dashboard-main">
-
-      <!-- 3. TOP HEADER -->
-      <header class="dashboard-topbar" aria-label="Dashboard Top Navigation">
+    <!-- 5. MAIN CONTENT AREA -->
+    <div class="dashboard-main">
+      
+      <!-- Topbar Header -->
+      <header class="dashboard-topbar">
         <!-- Left: Mobile Toggle & Dynamic Greeting -->
         <div style="display: flex; align-items: center; gap: 1rem;">
-          <button type="button" class="btn-icon mobile-toggle" id="mobileSidebarToggle" title="Open Navigation Menu" aria-label="Toggle navigation menu" style="display: none;">
+          <button type="button" class="mobile-toggle-btn" id="mobileSidebarToggle" aria-label="Open Sidebar Menu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
           </button>
-
-          <!-- Top Brand Logo (Strict Redirect to index.html) -->
-          <a href="../index.html" title="Back to Stackly Homepage" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none;">
-            <img src="../assets/images/logoStackly.webp" alt="Stackly Logo" style="height: 32px; width: auto; object-fit: contain;">
-          </a>
-
-          <!-- Dynamic Greeting Banner -->
-          <div style="margin-left: 0.5rem;">
-            <div style="font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; color: var(--color-text-main); line-height: 1.2;" id="dynamicGreeting">
-              Good morning, Sophia!
-            </div>
-            <div style="font-size: 0.75rem; color: var(--color-text-muted);" id="currentDateDisplay">
-              Wednesday, November 11, 2026
+          <div>
+            <h1 class="dashboard-greeting-title" id="dynamicGreeting" style="font-size: 1.25rem; font-weight: 800; color: var(--color-text-main); margin: 0;">
+              Welcome to Stackly
+            </h1>
+            <div class="dashboard-date-subtext" id="currentDateDisplay" style="font-size: 0.75rem; color: var(--color-text-muted);">
+              Today
             </div>
           </div>
         </div>
 
-        <!-- Center: Search Input -->
+        <!-- Center: Search Input Bar -->
         <div class="dashboard-search-wrap">
           <svg class="dashboard-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
             <circle cx="11" cy="11" r="8"></circle>
@@ -487,7 +359,7 @@
 
         <!-- Right: Actions & Profile -->
         <div class="dashboard-topbar-actions">
-          <!-- Notification Bell with Ping Badge (Strict Redirect to 404.html) -->
+          <!-- Notification Bell -->
           <a href="404.html" class="notification-bell-btn" title="Notifications" aria-label="View notifications">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -498,18 +370,17 @@
 
           <!-- User Profile Chip Area -->
           <div class="user-profile-header-chip">
-            <img src="../assets/images/student-elena-rostova.webp" alt="Learner Avatar" id="topbarAvatar">
+            <img src="../assets/images/student-elena-rostova.webp" alt="Avatar" id="topbarAvatar">
             <div style="line-height: 1.2;">
               <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-main);" id="topbarUserName">Learner</div>
               <div style="display: flex; align-items: center; gap: 0.35rem;">
                 <span class="badge badge-emerald" id="topbarRoleBadge" style="font-size: 0.65rem; padding: 0.1rem 0.45rem;">Student</span>
-                <span style="font-size: 0.68rem; color: var(--color-text-muted); display: none;" class="desktop-only-text" id="topbarLastLogin">09:42 AM</span>
               </div>
             </div>
           </div>
 
-          <!-- Prominent Primary CTA: Sign Out Button (Clears session & redirects to sign-in.html) -->
-          <button type="button" class="btn btn-outline btn-sm" id="signOutBtn" title="Sign out of Stackly" style="border-color: #EF4444; color: #DC2626; display: inline-flex; align-items: center; gap: 0.4rem;">
+          <!-- Prominent Sign Out Button -->
+          <button type="button" class="btn btn-outline btn-sm signout-action-btn" id="signOutBtn" onclick="handleStacklySignOut(event);" title="Sign out of Stackly" style="border-color: #EF4444; color: #DC2626; display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; border-radius: var(--radius-md);">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
               <polyline points="16 17 21 12 16 7"></polyline>
@@ -520,548 +391,228 @@
         </div>
       </header>
 
-      <!-- Dashboard Content Body -->
-      <div class="dashboard-content">
+      <!-- Dashboard Content Body (Contains Independent Panels for All Roles) -->
+      <div class="dashboard-content" id="dashboardContent">
 
-        <!-- Role Previewer Banner & Interactive Switcher -->
-        <div class="role-switcher-container">
-          <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div style="width: 38px; height: 38px; border-radius: var(--radius-md); background: var(--color-primary-light); display: flex; align-items: center; justify-content: center; color: var(--color-primary);">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="8.5" cy="7.5" r="4"></circle>
-                <line x1="20" y1="8" x2="20" y2="14"></line>
-                <line x1="23" y1="11" x2="17" y2="11"></line>
-              </svg>
+        <!-- ===================================================================
+             STUDENT PANELS
+             =================================================================== -->
+        
+        <!-- 1. Student Overview View -->
+        <div class="dashboard-view-panel" id="view-student-overview">
+          <section aria-labelledby="student-kpi-heading" style="margin-bottom: 2rem;">
+            <h2 id="student-kpi-heading" class="sr-only">Student Key Statistics</h2>
+            <div class="stat-card-grid" id="studentKpiGrid">
+              <!-- Rendered via JS -->
             </div>
+          </section>
+
+          <!-- Continue Learning Banner -->
+          <div style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border: 1.5px solid #FDE68A; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
             <div>
-              <div style="font-size: 0.875rem; font-weight: 700; color: var(--color-text-main);">Role-Adaptive Workspace Switcher</div>
-              <div style="font-size: 0.775rem; color: var(--color-text-muted);">Experience live dashboard views tailored for all 4 educational roles:</div>
+              <span class="badge badge-yellow" style="margin-bottom: 0.5rem;">In Progress Sprint</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #78350F; margin-bottom: 0.35rem;">
+                Fullstack Web Development with Modern React & Node.js
+              </h3>
+              <p style="color: #92400E; font-size: 0.9rem; margin-bottom: 0.75rem;">
+                Current Unit: <strong>Module 7 &bull; GraphQL Architecture & Apollo Client</strong>
+              </p>
+              <div style="display: flex; align-items: center; gap: 1rem; width: 100%; max-width: 420px;">
+                <div class="progress-track" style="flex: 1; height: 8px; background: rgba(245, 158, 11, 0.2);">
+                  <div class="progress-fill" style="width: 72%; background: #D97706;"></div>
+                </div>
+                <span style="font-weight: 700; color: #B45309; font-size: 0.85rem;">72%</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+              <button type="button" class="btn btn-primary" onclick="switchView('student-courses');">Resume Lesson &rarr;</button>
             </div>
           </div>
 
-          <div class="role-switcher-nav" id="roleSwitcherNav">
-            <button type="button" class="role-btn active" data-role="student">
-              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#10B981;"></span>
-              Student
-            </button>
-            <button type="button" class="role-btn" data-role="instructor">
-              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#8B5CF6;"></span>
-              Instructor / Employee
-            </button>
-            <button type="button" class="role-btn" data-role="manager">
-              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#EC4899;"></span>
-              Manager
-            </button>
-            <button type="button" class="role-btn" data-role="admin">
-              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#0284C7;"></span>
-              Admin
-            </button>
-            <button type="button" class="role-btn" data-role="customer">
-              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#F59E0B;"></span>
-              Customer
-            </button>
-            <button type="button" class="role-btn" data-role="vendor">
-              <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#64748B;"></span>
-              Vendor
-            </button>
+          <!-- Quick Navigation Cards Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+            <div class="quick-action-card" onclick="switchView('student-courses');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase;">Curriculum</span>
+                <span class="badge badge-emerald">4 Enrolled</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">My Active Courses</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Access lectures, syllabus, downloadable exercises and lab environments.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: var(--color-primary); margin-top: auto;">Open Courses &rarr;</span>
+            </div>
+
+            <div class="quick-action-card" onclick="switchView('student-assignments');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #D97706; text-transform: uppercase;">Submissions</span>
+                <span class="badge badge-yellow">2 Due Soon</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Assignments & Quizzes</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Review pending project deliverables, grader feedback, and score reports.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: #D97706; margin-top: auto;">View Homework &rarr;</span>
+            </div>
+
+            <div class="quick-action-card" onclick="switchView('student-mentorship');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #0284C7; text-transform: uppercase;">Live Desk</span>
+                <span class="badge badge-peach">Live 4:30 PM</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">1-on-1 Mentorship</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Schedule office hours and join live mentoring video rooms with senior engineers.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: #0284C7; margin-top: auto;">Connect with Mentors &rarr;</span>
+            </div>
           </div>
         </div>
 
-        <!-- ===================================================================
-             SECTION 1: KPI STATISTICS CARDS (ROLE-ADAPTIVE)
-             =================================================================== -->
-        <section aria-labelledby="kpi-heading" style="margin-bottom: 2rem;">
-          <h2 id="kpi-heading" class="sr-only">Key Performance Indicators</h2>
-          <div class="stat-card-grid" id="kpiCardsGrid">
-            <!-- Dynamically injected via JavaScript for the active role -->
-          </div>
-        </section>
-
-        <!-- ===================================================================
-             SECTION 2: ACTIVE COURSES & PROGRESS / COURSE MANAGEMENT
-             =================================================================== -->
-        <section aria-labelledby="courses-heading" style="margin-bottom: 2.5rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+        <!-- 2. Student Courses View -->
+        <div class="dashboard-view-panel" id="view-student-courses">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
             <div>
-              <h2 id="courses-heading" style="font-size: 1.35rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.2rem;">
-                Active Courses & Current Modules
-              </h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted);">
-                Continue right where you left off with verified syllabus tracking.
-              </p>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Enrolled Courses</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Manage your ongoing learning journeys and access module resources.</p>
             </div>
-            <a href="404.html" class="btn btn-outline btn-sm" title="Explore course catalog">
-              View All Courses
-            </a>
+            <a href="courses.html" class="btn btn-outline btn-sm">Explore More Courses</a>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;" id="coursesContainer">
-            <!-- Course Card 1: Fullstack Development -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+            <!-- Course 1 -->
             <div class="course-card">
               <div class="course-thumbnail-wrap">
                 <img src="../assets/images/course-fullstack-dev.webp" alt="Fullstack Web Development" class="course-thumbnail">
-                <span class="badge badge-emerald course-badge-overlay">In Progress</span>
+                <span class="badge badge-emerald course-badge-overlay">In Progress (72%)</span>
               </div>
               <div class="course-body">
                 <div class="course-meta">
-                  <span class="course-meta-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    Module 7 of 10
-                  </span>
-                  <span class="course-meta-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    4.9 (420 reviews)
-                  </span>
+                  <span>Module 7 of 10</span>
+                  <span>4.9 (420 reviews)</span>
                 </div>
                 <h3 class="course-title">Fullstack Web Development with Modern React & Node.js</h3>
-                <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.85rem;">
-                  Current: <strong style="color: var(--color-text-main);">GraphQL Architecture & Apollo Client</strong>
-                </div>
-                <!-- Progress Bar -->
-                <div class="progress-container">
-                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem;">
-                    <span>Overall Progress</span>
-                    <span style="color: var(--color-primary);">72%</span>
-                  </div>
-                  <div class="progress-track">
-                    <div class="progress-fill" style="width: 72%;"></div>
-                  </div>
+                <div class="progress-container" style="margin-bottom: 1rem;">
+                  <div class="progress-track"><div class="progress-fill" style="width: 72%;"></div></div>
                 </div>
                 <div class="course-instructor">
                   <img src="../assets/images/mentor-alex-chen.webp" alt="Alex Chen" class="instructor-avatar">
-                  <div class="instructor-name">Lead: Alex Chen (Senior DevOps)</div>
-                  <a href="404.html" class="btn btn-primary btn-sm" style="margin-left: auto;">Resume Learning</a>
+                  <div class="instructor-name">Lead: Alex Chen</div>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;">Continue Lesson</button>
                 </div>
               </div>
             </div>
 
-            <!-- Course Card 2: UI/UX Design Masterclass -->
+            <!-- Course 2 -->
             <div class="course-card">
               <div class="course-thumbnail-wrap">
                 <img src="../assets/images/course-ui-ux-design.webp" alt="UI/UX Design Masterclass" class="course-thumbnail">
-                <span class="badge badge-yellow course-badge-overlay">Sprint Active</span>
+                <span class="badge badge-yellow course-badge-overlay">In Progress (45%)</span>
               </div>
               <div class="course-body">
                 <div class="course-meta">
-                  <span class="course-meta-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    Module 4 of 8
-                  </span>
-                  <span class="course-meta-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    5.0 (310 reviews)
-                  </span>
+                  <span>Module 4 of 8</span>
+                  <span>4.95 (310 reviews)</span>
                 </div>
-                <h3 class="course-title">UI/UX Design Masterclass: Tokens, Variables & Bento Grids</h3>
-                <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.85rem;">
-                  Current: <strong style="color: var(--color-text-main);">Atomic Component Architecture in Figma</strong>
-                </div>
-                <!-- Progress Bar -->
-                <div class="progress-container">
-                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem;">
-                    <span>Overall Progress</span>
-                    <span style="color: #D97706;">45%</span>
-                  </div>
-                  <div class="progress-track">
-                    <div class="progress-fill yellow" style="width: 45%;"></div>
-                  </div>
+                <h3 class="course-title">UI/UX Design Masterclass & Comprehensive Design Systems</h3>
+                <div class="progress-container" style="margin-bottom: 1rem;">
+                  <div class="progress-track"><div class="progress-fill" style="width: 45%;"></div></div>
                 </div>
                 <div class="course-instructor">
                   <img src="../assets/images/mentor-sarah-jenkins.webp" alt="Sarah Jenkins" class="instructor-avatar">
-                  <div class="instructor-name">Lead: Sarah Jenkins (Design Principal)</div>
-                  <a href="404.html" class="btn btn-primary btn-sm" style="margin-left: auto;">Resume Learning</a>
+                  <div class="instructor-name">Lead: Sarah Jenkins</div>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;">Continue Lesson</button>
                 </div>
               </div>
             </div>
 
-            <!-- Course Card 3: Cloud & DevOps -->
+            <!-- Course 3 -->
             <div class="course-card">
               <div class="course-thumbnail-wrap">
                 <img src="../assets/images/course-cloud-devops.webp" alt="Cloud Architecture & DevOps" class="course-thumbnail">
-                <span class="badge badge-lilac course-badge-overlay">Foundation</span>
+                <span class="badge badge-emerald course-badge-overlay">Near Completion (88%)</span>
               </div>
               <div class="course-body">
                 <div class="course-meta">
-                  <span class="course-meta-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    Module 2 of 6
-                  </span>
-                  <span class="course-meta-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    4.8 (180 reviews)
-                  </span>
+                  <span>Module 9 of 10</span>
+                  <span>4.88 (280 reviews)</span>
                 </div>
-                <h3 class="course-title">Cloud Infrastructure & Kubernetes Multi-Cluster Deployment</h3>
-                <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 0.85rem;">
-                  Current: <strong style="color: var(--color-text-main);">Helm Chart Automation & CI/CD Pipelines</strong>
+                <h3 class="course-title">Cloud Architecture, Docker & Production Kubernetes</h3>
+                <div class="progress-container" style="margin-bottom: 1rem;">
+                  <div class="progress-track"><div class="progress-fill" style="width: 88%;"></div></div>
                 </div>
-                <!-- Progress Bar -->
-                <div class="progress-container">
-                  <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem;">
-                    <span>Overall Progress</span>
-                    <span style="color: #9333EA;">28%</span>
-                  </div>
-                  <div class="progress-track">
-                    <div class="progress-fill lilac" style="width: 28%;"></div>
-                  </div>
+                <div class="course-instructor">
+                  <img src="../assets/images/mentor-priya-sharma.webp" alt="Priya Sharma" class="instructor-avatar">
+                  <div class="instructor-name">Lead: Priya Sharma</div>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;">Continue Lesson</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course 4 -->
+            <div class="course-card">
+              <div class="course-thumbnail-wrap">
+                <img src="../assets/images/course-ai-data-science.webp" alt="AI & Prompt Engineering" class="course-thumbnail">
+                <span class="badge badge-peach course-badge-overlay">New Sprint (20%)</span>
+              </div>
+              <div class="course-body">
+                <div class="course-meta">
+                  <span>Module 2 of 10</span>
+                  <span>4.98 (560 reviews)</span>
+                </div>
+                <h3 class="course-title">Applied Generative AI, LLMs & Prompt Engineering</h3>
+                <div class="progress-container" style="margin-bottom: 1rem;">
+                  <div class="progress-track"><div class="progress-fill" style="width: 20%;"></div></div>
                 </div>
                 <div class="course-instructor">
                   <img src="../assets/images/mentor-marcus-vance.webp" alt="Marcus Vance" class="instructor-avatar">
                   <div class="instructor-name">Lead: Dr. Marcus Vance</div>
-                  <a href="404.html" class="btn btn-primary btn-sm" style="margin-left: auto;">Resume Learning</a>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;">Continue Lesson</button>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
 
-        <!-- ===================================================================
-             SECTION 3: UPCOMING LIVE MENTORSHIP & MASTERCLASSES
-             =================================================================== -->
-        <section aria-labelledby="live-heading" style="margin-bottom: 2.5rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+        <!-- 3. Student Assignments View -->
+        <div class="dashboard-view-panel" id="view-student-assignments">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
             <div>
-              <h2 id="live-heading" style="font-size: 1.35rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.2rem;">
-                Upcoming Live Mentorship & Masterclasses
-              </h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted);">
-                Interactive video rooms, peer code reviews, and industry office hours.
-              </p>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Assignments & Quizzes</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Submit project code repositories, view test scores, and read mentor reviews.</p>
             </div>
-            <a href="404.html" class="btn btn-outline btn-sm" title="Open live session calendar">
-              Full Schedule
-            </a>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Submission portal ready. Drag and drop your project repository link or ZIP.');">+ Submit Project</button>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-            <!-- Session Card 1 -->
-            <div style="background-color: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-xs);">
-              <div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                  <span class="badge badge-peach" style="font-weight: 700; animation: pulse 2s infinite;">
-                    ● Starting in 45 Min
-                  </span>
-                  <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted);">Room #STK-LIVE-1</span>
-                </div>
-                <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
-                  Architecting High-Scale GraphQL APIs
-                </h3>
-                <p style="font-size: 0.85rem; color: var(--color-text-body); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Live code teardown: schema federation, caching strategies, and N+1 resolver mitigations with Apollo Engine.
-                </p>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border-color-subtle);">
-                <div style="display: flex; align-items: center; gap: 0.65rem;">
-                  <img src="../assets/images/mentor-alex-chen.webp" alt="Alex Chen" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
-                  <div>
-                    <div style="font-size: 0.85rem; font-weight: 700;">Alex Chen</div>
-                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">Cloud Architect</div>
-                  </div>
-                </div>
-                <!-- Action Button strictly redirects to 404.html -->
-                <a href="404.html" class="btn btn-emerald btn-sm" title="Join Live Room">
-                  Join Live Room
-                </a>
-              </div>
-            </div>
-
-            <!-- Session Card 2 -->
-            <div style="background-color: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-xs);">
-              <div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                  <span class="badge badge-blue" style="font-weight: 700;">
-                    Tomorrow, 15:00 UTC
-                  </span>
-                  <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted);">Mentorship Circle</span>
-                </div>
-                <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
-                  1-on-1 Design System Audit & Feedback
-                </h3>
-                <p style="font-size: 0.85rem; color: var(--color-text-body); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Direct inspection of Figma files, color contrast compliance, and responsive auto-layout refactoring.
-                </p>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border-color-subtle);">
-                <div style="display: flex; align-items: center; gap: 0.65rem;">
-                  <img src="../assets/images/mentor-sarah-jenkins.webp" alt="Sarah Jenkins" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
-                  <div>
-                    <div style="font-size: 0.85rem; font-weight: 700;">Sarah Jenkins</div>
-                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">Staff Designer</div>
-                  </div>
-                </div>
-                <!-- Action Button strictly redirects to 404.html -->
-                <a href="404.html" class="btn btn-outline btn-sm" title="Add to Calendar">
-                  View Invite
-                </a>
-              </div>
-            </div>
-
-            <!-- Session Card 3 -->
-            <div style="background-color: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-xs);">
-              <div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                  <span class="badge badge-mint" style="font-weight: 700;">
-                    Friday, 18:30 UTC
-                  </span>
-                  <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted);">Masterclass</span>
-                </div>
-                <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
-                  AI Prompt Engineering & Production LLMs
-                </h3>
-                <p style="font-size: 0.85rem; color: var(--color-text-body); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Deep dive into semantic retrieval, vector index embeddings, and evaluation loops for production bots.
-                </p>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border-color-subtle);">
-                <div style="display: flex; align-items: center; gap: 0.65rem;">
-                  <img src="../assets/images/mentor-priya-sharma.webp" alt="Priya Sharma" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
-                  <div>
-                    <div style="font-size: 0.85rem; font-weight: 700;">Priya Sharma</div>
-                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">AI Research Lead</div>
-                  </div>
-                </div>
-                <!-- Action Button strictly redirects to 404.html -->
-                <a href="404.html" class="btn btn-outline btn-sm" title="Reserve Seat">
-                  Reserve Seat
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===================================================================
-             SECTION 4: PERFORMANCE & LEARNING ANALYTICS (SVG CHARTS)
-             =================================================================== -->
-        <section aria-labelledby="analytics-heading" style="margin-bottom: 2.5rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
-            <div>
-              <h2 id="analytics-heading" style="font-size: 1.35rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.2rem;">
-                Performance & Study Analytics
-              </h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted);">
-                Detailed telemetry of active study hours and verified skill distribution.
-              </p>
-            </div>
-            <span class="badge badge-yellow">Weekly Streak: 18 Days 🔥</span>
-          </div>
-
-          <div class="dashboard-grid-2">
-            <!-- Left Chart: Weekly Hours Histogram -->
-            <div style="grid-column: span 7; background-color: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.75rem; box-shadow: var(--shadow-xs);" class="col-span-7">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
-                <div>
-                  <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--color-text-main);">Weekly Study Velocity</h3>
-                  <p style="font-size: 0.8rem; color: var(--color-text-muted);">Total: 22.2 hrs completed this week (+14% vs avg)</p>
-                </div>
-                <div style="font-size: 0.8rem; font-weight: 600; color: var(--color-primary); background: var(--color-primary-light); padding: 0.25rem 0.65rem; border-radius: var(--radius-full);">
-                  Goal: 20 hrs/week
-                </div>
-              </div>
-
-              <!-- Pure SVG Bar Histogram -->
-              <div class="chart-container">
-                <svg class="chart-svg" viewBox="0 0 500 200" preserveAspectRatio="none">
-                  <!-- Grid Lines -->
-                  <line x1="40" y1="30" x2="480" y2="30" stroke="#F1F5F9" stroke-width="1.5" stroke-dasharray="4 4" />
-                  <line x1="40" y1="80" x2="480" y2="80" stroke="#F1F5F9" stroke-width="1.5" stroke-dasharray="4 4" />
-                  <line x1="40" y1="130" x2="480" y2="130" stroke="#F1F5F9" stroke-width="1.5" stroke-dasharray="4 4" />
-                  <line x1="40" y1="170" x2="480" y2="170" stroke="#E2E8F0" stroke-width="1.5" />
-
-                  <!-- Y-Axis Labels -->
-                  <text x="25" y="34" font-size="10" fill="#94A3B8" text-anchor="end">6h</text>
-                  <text x="25" y="84" font-size="10" fill="#94A3B8" text-anchor="end">4h</text>
-                  <text x="25" y="134" font-size="10" fill="#94A3B8" text-anchor="end">2h</text>
-                  <text x="25" y="174" font-size="10" fill="#94A3B8" text-anchor="end">0h</text>
-
-                  <!-- Bars (Mon to Sun) -->
-                  <!-- Mon: 2.5h (h = 58) -->
-                  <g class="bar-group">
-                    <rect x="65" y="112" width="34" height="58" fill="#FEF3C7" rx="4" class="bar-rect" />
-                    <rect x="65" y="112" width="34" height="58" fill="#F59E0B" rx="4" opacity="0.85" />
-                    <text x="82" y="188" font-size="11" fill="#64748B" font-weight="600" text-anchor="middle">Mon</text>
-                    <text x="82" y="104" font-size="10" fill="#92400E" font-weight="700" text-anchor="middle">2.5h</text>
-                  </g>
-
-                  <!-- Tue: 3.8h (h = 88) -->
-                  <g class="bar-group">
-                    <rect x="125" y="82" width="34" height="88" fill="#F59E0B" rx="4" class="bar-rect" />
-                    <text x="142" y="188" font-size="11" fill="#64748B" font-weight="600" text-anchor="middle">Tue</text>
-                    <text x="142" y="74" font-size="10" fill="#92400E" font-weight="700" text-anchor="middle">3.8h</text>
-                  </g>
-
-                  <!-- Wed: 4.0h (h = 94) -->
-                  <g class="bar-group">
-                    <rect x="185" y="76" width="34" height="94" fill="#F59E0B" rx="4" class="bar-rect" />
-                    <text x="202" y="188" font-size="11" fill="#64748B" font-weight="600" text-anchor="middle">Wed</text>
-                    <text x="202" y="68" font-size="10" fill="#92400E" font-weight="700" text-anchor="middle">4.0h</text>
-                  </g>
-
-                  <!-- Thu: 1.5h (h = 35) -->
-                  <g class="bar-group">
-                    <rect x="245" y="135" width="34" height="35" fill="#FBBF24" rx="4" class="bar-rect" opacity="0.7" />
-                    <text x="262" y="188" font-size="11" fill="#64748B" font-weight="600" text-anchor="middle">Thu</text>
-                    <text x="262" y="127" font-size="10" fill="#92400E" font-weight="700" text-anchor="middle">1.5h</text>
-                  </g>
-
-                  <!-- Fri: 3.2h (h = 75) -->
-                  <g class="bar-group">
-                    <rect x="305" y="95" width="34" height="75" fill="#F59E0B" rx="4" class="bar-rect" />
-                    <text x="322" y="188" font-size="11" fill="#64748B" font-weight="600" text-anchor="middle">Fri</text>
-                    <text x="322" y="87" font-size="10" fill="#92400E" font-weight="700" text-anchor="middle">3.2h</text>
-                  </g>
-
-                  <!-- Sat: 5.0h (h = 118) -->
-                  <g class="bar-group">
-                    <rect x="365" y="52" width="34" height="118" fill="#F59E0B" rx="4" class="bar-rect" />
-                    <text x="382" y="188" font-size="11" fill="#64748B" font-weight="600" text-anchor="middle">Sat</text>
-                    <text x="382" y="44" font-size="10" fill="#B45309" font-weight="700" text-anchor="middle">5.0h</text>
-                  </g>
-
-                  <!-- Sun: 2.2h (h = 52) -->
-                  <g class="bar-group">
-                    <rect x="425" y="118" width="34" height="52" fill="#F59E0B" rx="4" class="bar-rect" opacity="0.85" />
-                    <text x="442" y="188" font-size="11" fill="#64748B" font-weight="600" text-anchor="middle">Sun</text>
-                    <text x="442" y="110" font-size="10" fill="#92400E" font-weight="700" text-anchor="middle">2.2h</text>
-                  </g>
-                </svg>
-              </div>
-            </div>
-
-            <!-- Right Chart: Skill Distribution & Mastery -->
-            <div style="grid-column: span 5; background-color: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.75rem; box-shadow: var(--shadow-xs);" class="col-span-5">
-              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.2rem;">Skill Competency Distribution</h3>
-              <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">Assessed via code challenges & capstone audits</p>
-
-              <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <!-- Skill 1 -->
-                <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">
-                    <span>Frontend Architecture (React, TS)</span>
-                    <span style="color: var(--color-primary); font-weight: 700;">88% (Senior)</span>
-                  </div>
-                  <div class="progress-track" style="height: 7px;">
-                    <div class="progress-fill" style="width: 88%;"></div>
-                  </div>
-                </div>
-
-                <!-- Skill 2 -->
-                <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">
-                    <span>UI/UX & Design Systems</span>
-                    <span style="color: #D97706; font-weight: 700;">76% (Proficient)</span>
-                  </div>
-                  <div class="progress-track" style="height: 7px;">
-                    <div class="progress-fill yellow" style="width: 76%;"></div>
-                  </div>
-                </div>
-
-                <!-- Skill 3 -->
-                <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">
-                    <span>GraphQL & Backend APIs</span>
-                    <span style="color: #0284C7; font-weight: 700;">70% (Proficient)</span>
-                  </div>
-                  <div class="progress-track" style="height: 7px;">
-                    <div class="progress-fill" style="width: 70%; background: #0284C7;"></div>
-                  </div>
-                </div>
-
-                <!-- Skill 4 -->
-                <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">
-                    <span>DevOps & Containerization</span>
-                    <span style="color: #9333EA; font-weight: 700;">62% (Intermediate)</span>
-                  </div>
-                  <div class="progress-track" style="height: 7px;">
-                    <div class="progress-fill lilac" style="width: 62%;"></div>
-                  </div>
-                </div>
-
-                <!-- Skill 5 -->
-                <div>
-                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">
-                    <span>AI Integration & Prompts</span>
-                    <span style="color: #059669; font-weight: 700;">54% (Growing)</span>
-                  </div>
-                  <div class="progress-track" style="height: 7px;">
-                    <div class="progress-fill" style="width: 54%; background: #059669;"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- ===================================================================
-             SECTION 5: ASSIGNMENTS & CAPSTONE SUBMISSIONS
-             =================================================================== -->
-        <section aria-labelledby="assignments-heading" style="margin-bottom: 2.5rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
-            <div>
-              <h2 id="assignments-heading" style="font-size: 1.35rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.2rem;">
-                Assignments & Capstone Submissions
-              </h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted);">
-                Review mentor annotations, automated lint grading, and revision requests.
-              </p>
-            </div>
-            <a href="404.html" class="btn btn-outline btn-sm" title="Upload new assignment">
-              Upload Assignment
-            </a>
-          </div>
-
-          <div class="table-responsive">
+          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
             <table class="dashboard-table">
               <thead>
                 <tr>
-                  <th>Project / Assignment Title</th>
+                  <th>Assignment / Project</th>
                   <th>Course Track</th>
-                  <th>Submitted On</th>
-                  <th>Current Status</th>
-                  <th>Score / Grade</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th>Grade</th>
                   <th style="text-align: right;">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
-                    <div style="font-weight: 700; color: var(--color-text-main);">E-Commerce GraphQL Federation</div>
-                    <div style="font-size: 0.775rem; color: var(--color-text-muted);">Repo: github.com/sophia-m/apollo-subgraphs</div>
+                    <div style="font-weight: 700; color: var(--color-text-main);">React State Management Capstone</div>
+                    <div style="font-size: 0.775rem; color: var(--color-text-muted);">Redux Toolkit vs Zustand Performance Benchmark</div>
                   </td>
-                  <td>Fullstack Web Development</td>
-                  <td>Yesterday, 14:20</td>
-                  <td>
-                    <span class="status-badge review">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                      Under Review
-                    </span>
-                  </td>
-                  <td><strong style="color: var(--color-text-muted);">Pending Review</strong></td>
-                  <td style="text-align: right;">
-                    <a href="404.html" class="btn btn-ghost btn-sm" title="View Submission details">View Specs</a>
-                  </td>
+                  <td>Fullstack React Track</td>
+                  <td>Nov 15, 2026</td>
+                  <td><span class="status-badge approved">Approved</span></td>
+                  <td><strong style="color: var(--color-success); font-weight: 800;">96 / 100</strong></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Grade breakdown: Architecture (38/40), Unit Tests (30/30), Documentation (28/30).');">View Report</button></td>
                 </tr>
-
                 <tr>
                   <td>
-                    <div style="font-weight: 700; color: var(--color-text-main);">Enterprise Design System Variables</div>
-                    <div style="font-size: 0.775rem; color: var(--color-text-muted);">Figma File: v2.4-stable tokens</div>
+                    <div style="font-weight: 700; color: var(--color-text-main);">Next.js SSR vs SSG Project</div>
+                    <div style="font-size: 0.775rem; color: var(--color-text-muted);">Production E-Commerce Rendering Engine</div>
                   </td>
-                  <td>UI/UX Design Masterclass</td>
-                  <td>Nov 06, 2026</td>
-                  <td>
-                    <span class="status-badge approved">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      Approved
-                    </span>
-                  </td>
-                  <td><strong style="color: var(--color-success); font-weight: 800;">98 / 100</strong></td>
-                  <td style="text-align: right;">
-                    <a href="404.html" class="btn btn-outline btn-sm" title="View Grade Report">Grade Report</a>
-                  </td>
+                  <td>Fullstack React Track</td>
+                  <td>Nov 18, 2026</td>
+                  <td><span class="status-badge review">Pending Upload</span></td>
+                  <td><span style="color: var(--color-text-muted);">&mdash;</span></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Select your GitHub repository to submit.');">Upload Now</button></td>
                 </tr>
-
                 <tr>
                   <td>
                     <div style="font-weight: 700; color: var(--color-text-main);">Dockerized Microservices Helm Chart</div>
@@ -1069,686 +620,1022 @@
                   </td>
                   <td>Cloud & DevOps Track</td>
                   <td>Oct 29, 2026</td>
-                  <td>
-                    <span class="status-badge feedback">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                      Feedback Ready
-                    </span>
-                  </td>
+                  <td><span class="status-badge feedback">Feedback Ready</span></td>
                   <td><strong style="color: #075985; font-weight: 800;">91 / 100</strong></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Mentor Feedback: Great Kubernetes manifests. Add ingress cert-manager annotations for production.');">Read Feedback</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 700; color: var(--color-text-main);">Design System Token System in Figma</div>
+                    <div style="font-size: 0.775rem; color: var(--color-text-muted);">Accessible color contrast and semantic tokens</div>
+                  </td>
+                  <td>UI/UX Masterclass</td>
+                  <td>Oct 12, 2026</td>
+                  <td><span class="status-badge approved">Approved</span></td>
+                  <td><strong style="color: var(--color-success); font-weight: 800;">98 / 100</strong></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Grade: 98/100. Excellent WCAG AAA conformance.');">View Report</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Student Mentorship View -->
+        <div class="dashboard-view-panel" id="view-student-mentorship">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Live Mentorship & Office Hours</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Book personalized 1-on-1 code reviews, career guidance, and architectural consultations.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening calendar. Select your preferred date and time slot.');">Schedule 1-on-1 Call</button>
+          </div>
+
+          <!-- Active Room Card -->
+          <div style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); color: #FFFFFF; border-radius: var(--radius-2xl); padding: 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+            <div>
+              <span class="badge" style="background: rgba(255,255,255,0.2); color: #FFFFFF; margin-bottom: 0.5rem;">Next Scheduled Call &bull; Today at 4:30 PM EST</span>
+              <h3 style="font-size: 1.45rem; font-weight: 800; margin: 0 0 0.5rem 0;">AI Architecture & Portfolio Review with Dr. Marcus Vance</h3>
+              <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Topic: Fine-tuning evaluation metrics and production agent orchestration.</p>
+            </div>
+            <button type="button" class="btn btn-white" onclick="alert('Launching secure mentor video bridge...');">Join Video Call (Starts in 42m)</button>
+          </div>
+
+          <!-- Mentors List -->
+          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 1rem;">Your Dedicated Faculty Mentors</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <img src="../assets/images/mentor-marcus-vance.webp" alt="Marcus Vance" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover;">
+                <div>
+                  <h4 style="margin: 0; font-size: 1rem; font-weight: 800;">Dr. Marcus Vance</h4>
+                  <div style="font-size: 0.775rem; color: var(--color-text-muted);">AI & Machine Learning Director</div>
+                  <div style="font-size: 0.8rem; color: #D97706; font-weight: 700;">★ 4.96 (180 mentorships)</div>
+                </div>
+              </div>
+              <p style="font-size: 0.825rem; color: var(--color-text-muted); margin: 0;">Specializes in PyTorch, LLM agents, vector indexes, and applied deep learning pipelines.</p>
+              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots for Dr. Marcus Vance: Tomorrow 3:00 PM, Thursday 10:00 AM.');">Book 30-min Slot</button>
+            </div>
+
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <img src="../assets/images/mentor-sarah-jenkins.webp" alt="Sarah Jenkins" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover;">
+                <div>
+                  <h4 style="margin: 0; font-size: 1rem; font-weight: 800;">Sarah Jenkins</h4>
+                  <div style="font-size: 0.775rem; color: var(--color-text-muted);">VP of Product Design</div>
+                  <div style="font-size: 0.8rem; color: #D97706; font-weight: 700;">★ 4.95 (240 mentorships)</div>
+                </div>
+              </div>
+              <p style="font-size: 0.825rem; color: var(--color-text-muted); margin: 0;">Specializes in design systems, micro-interactions, Figma component tokens, and usability audits.</p>
+              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots for Sarah Jenkins: Wednesday 2:00 PM, Friday 11:30 AM.');">Book 30-min Slot</button>
+            </div>
+
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <img src="../assets/images/mentor-alex-chen.webp" alt="Alex Chen" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover;">
+                <div>
+                  <h4 style="margin: 0; font-size: 1rem; font-weight: 800;">Alex Chen</h4>
+                  <div style="font-size: 0.775rem; color: var(--color-text-muted);">Senior DevOps & Fullstack Lead</div>
+                  <div style="font-size: 0.8rem; color: #D97706; font-weight: 700;">★ 4.92 (310 mentorships)</div>
+                </div>
+              </div>
+              <p style="font-size: 0.825rem; color: var(--color-text-muted); margin: 0;">Specializes in React performance, Next.js hydration, Node.js microservices, and Docker CI/CD.</p>
+              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots for Alex Chen: Thursday 4:00 PM, Friday 1:00 PM.');">Book 30-min Slot</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Student Certificates View -->
+        <div class="dashboard-view-panel" id="view-student-certificates">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Verified Digital Certificates</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Official credentials cryptographically signed and verifiable by employers globally.</p>
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" onclick="alert('All credentials are cryptographic tokens verified on the Stackly Verification Registry.');">Verify Registry</button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+            <!-- Certificate 1 -->
+            <div class="certificate-card-wrapper">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <span class="certificate-badge-gold">★ Verified Credential</span>
+                <span style="font-size: 0.75rem; color: rgba(255,255,255,0.8); font-family: monospace;">ID: STK-2026-CERT-88492</span>
+              </div>
+              <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-pastel-mint); margin-bottom: 0.35rem;">Stackly Certified Professional</div>
+              <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; color: #FFFFFF;">Advanced TypeScript & React Ecosystem</h3>
+              <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.5rem;">
+                Demonstrated mastery in strict typing, state machines, performance profiling, and accessible design systems.
+              </p>
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
+                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Oct 14, 2026</div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF (STK-88492)...');">Download PDF</button>
+                  <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Copied verification URL to clipboard!');">Share</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Certificate 2 -->
+            <div class="certificate-card-wrapper" style="background: linear-gradient(135deg, #064E3B 0%, #065F46 100%); border-color: rgba(16, 185, 129, 0.3);">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <span class="certificate-badge-gold">★ Verified Credential</span>
+                <span style="font-size: 0.75rem; color: rgba(255,255,255,0.8); font-family: monospace;">ID: STK-2026-CERT-51920</span>
+              </div>
+              <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: #A7F3D0; margin-bottom: 0.35rem;">Stackly Cloud Academy</div>
+              <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; color: #FFFFFF;">Certified Cloud Native Practitioner</h3>
+              <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.5rem;">
+                Demonstrated mastery in containerized workloads, Docker optimization, and Helm Kubernetes deployment configurations.
+              </p>
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
+                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Sep 20, 2026</div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF (STK-51920)...');">Download PDF</button>
+                  <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Copied verification URL to clipboard!');">Share</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Certificate 3 -->
+            <div class="certificate-card-wrapper" style="background: linear-gradient(135deg, #4C1D95 0%, #5B21B6 100%); border-color: rgba(139, 92, 246, 0.3);">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <span class="certificate-badge-gold">★ Verified Credential</span>
+                <span style="font-size: 0.75rem; color: rgba(255,255,255,0.8); font-family: monospace;">ID: STK-2026-CERT-32014</span>
+              </div>
+              <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: #DDD6FE; margin-bottom: 0.35rem;">Stackly Design Guild</div>
+              <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; color: #FFFFFF;">UI/UX System Design Specialist</h3>
+              <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.5rem;">
+                Demonstrated end-to-end user research, accessibility heuristics, interactive prototyping, and design token architectures.
+              </p>
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
+                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Aug 18, 2026</div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF (STK-32014)...');">Download PDF</button>
+                  <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Copied verification URL to clipboard!');">Share</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Student Settings View -->
+        <div class="dashboard-view-panel" id="view-student-settings">
+          <div style="margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Account Settings & Preferences</h2>
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Manage your student profile, email notifications, and security credentials.</p>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 2rem; max-width: 720px; box-shadow: var(--shadow-xs);">
+            <form onsubmit="event.preventDefault(); alert('Student profile preferences saved successfully!');">
+              <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Full Name</label>
+                <input type="text" class="form-input" id="settingStudentName" value="Elena Rostova" style="width: 100%;">
+              </div>
+              <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Email Address</label>
+                <input type="email" class="form-input" id="settingStudentEmail" value="elena.rostova@stackly.edu" style="width: 100%;">
+              </div>
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Learning Pace Goal</label>
+                <select class="form-input" style="width: 100%;">
+                  <option selected>Target 10 hours / week (Standard Professional)</option>
+                  <option>Target 20 hours / week (Intensive Bootcamp)</option>
+                  <option>Target 5 hours / week (Casual Self-paced)</option>
+                </select>
+              </div>
+              <div style="margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                <label style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-main);">Notifications</label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                  <input type="checkbox" checked> Email me when mentor grades an assignment
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                  <input type="checkbox" checked> 15-minute reminders before live 1-on-1 office hours
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                  <input type="checkbox"> Weekly curriculum digest and recommended labs
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+            </form>
+          </div>
+        </div>
+
+
+        <!-- ===================================================================
+             INSTRUCTOR PANELS
+             =================================================================== -->
+
+        <!-- 1. Instructor Overview View -->
+        <div class="dashboard-view-panel" id="view-instructor-overview">
+          <section aria-labelledby="instructor-kpi-heading" style="margin-bottom: 2rem;">
+            <h2 id="instructor-kpi-heading" class="sr-only">Instructor Performance</h2>
+            <div class="stat-card-grid" id="instructorKpiGrid">
+              <!-- Rendered via JS -->
+            </div>
+          </section>
+
+          <!-- Banner Action -->
+          <div style="background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%); border: 1.5px solid #DDD6FE; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+            <div>
+              <span class="badge badge-lilac" style="margin-bottom: 0.5rem;">Instructor Portal</span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: #4C1D95; margin-bottom: 0.35rem;">
+                Welcome to your Faculty Console, Dr. Marcus Vance
+              </h3>
+              <p style="color: #6D28D9; font-size: 0.9rem; margin: 0;">
+                You have <strong>7 student submissions</strong> awaiting grading and a live webinar tomorrow at 5:00 PM EST.
+              </p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+              <button type="button" class="btn btn-primary" onclick="switchView('instructor-grading');">Review Submissions (7)</button>
+              <button type="button" class="btn btn-outline" onclick="switchView('instructor-live');">Start Live Session</button>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Cards Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+            <div class="quick-action-card" onclick="switchView('instructor-courses');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #7C3AED; text-transform: uppercase;">Curriculum</span>
+                <span class="badge badge-lilac">4 Published</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">My Published Courses</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Update modules, upload video lectures, and publish interactive code playgrounds.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: #7C3AED; margin-top: auto;">Manage Courses &rarr;</span>
+            </div>
+
+            <div class="quick-action-card" onclick="switchView('instructor-grading');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #D97706; text-transform: uppercase;">Grading</span>
+                <span class="badge badge-yellow">7 In Queue</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Submissions & Grading</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Grade student capstone repositories, annotate code snippets, and post feedback.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: #D97706; margin-top: auto;">Open Grading Queue &rarr;</span>
+            </div>
+
+            <div class="quick-action-card" onclick="switchView('instructor-analytics');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #059669; text-transform: uppercase;">Revenue</span>
+                <span class="badge badge-emerald">$7,420 / mo</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Earnings & Analytics</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Track monthly student enrollments, course retention rates, and payout history.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: #059669; margin-top: auto;">View Analytics &rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Instructor Courses View -->
+        <div class="dashboard-view-panel" id="view-instructor-courses">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">My Courses & Curriculum</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Author, edit syllabus modules, and inspect learner completion metrics.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Creator Studio opened. Define title, modules, and video assets.');">+ Create New Course</button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+            <div class="course-card">
+              <div class="course-thumbnail-wrap">
+                <img src="../assets/images/course-ai-data-science.webp" alt="Course Thumbnail" class="course-thumbnail">
+                <span class="badge badge-emerald course-badge-overlay">Published &bull; 820 Students</span>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Applied Generative AI, LLMs & Prompt Engineering</h3>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">10 Modules &bull; 48 Video Lessons &bull; 12 Lab Quizzes</p>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: #059669;">
+                  <span>Monthly Revenue: $3,280</span>
+                  <span>Avg Rating: 4.98 ★</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" class="btn btn-outline btn-sm" onclick="alert('Curriculum Editor opened for GenAI.');">Edit Modules</button>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('Viewing 820 enrolled students roster.');">Roster (820)</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-card">
+              <div class="course-thumbnail-wrap">
+                <img src="../assets/images/course-fullstack-dev.webp" alt="Course Thumbnail" class="course-thumbnail">
+                <span class="badge badge-emerald course-badge-overlay">Published &bull; 640 Students</span>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Modern Python for Machine Learning & Deep Neural Nets</h3>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">8 Modules &bull; 36 Video Lessons &bull; 8 Jupyter Labs</p>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: #059669;">
+                  <span>Monthly Revenue: $2,560</span>
+                  <span>Avg Rating: 4.90 ★</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" class="btn btn-outline btn-sm" onclick="alert('Curriculum Editor opened.');">Edit Modules</button>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('Viewing 640 enrolled students.');">Roster (640)</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-card">
+              <div class="course-thumbnail-wrap">
+                <img src="../assets/images/course-cloud-devops.webp" alt="Course Thumbnail" class="course-thumbnail">
+                <span class="badge badge-emerald course-badge-overlay">Published &bull; 380 Students</span>
+              </div>
+              <div class="course-body">
+                <h3 class="course-title">Autonomous Agent Architectures & LangGraph Orchestration</h3>
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">6 Modules &bull; 24 Video Lessons &bull; 6 Multi-Agent Labs</p>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: #059669;">
+                  <span>Monthly Revenue: $1,580</span>
+                  <span>Avg Rating: 4.94 ★</span>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" class="btn btn-outline btn-sm" onclick="alert('Curriculum Editor opened.');">Edit Modules</button>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('Viewing 380 enrolled students.');">Roster (380)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Instructor Grading View -->
+        <div class="dashboard-view-panel" id="view-instructor-grading">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Submissions & Grading Queue</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Review student code submissions, assign grades, and issue verified completion marks.</p>
+            </div>
+            <span class="badge badge-yellow">7 Pending Review</span>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
+            <table class="dashboard-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Assignment / Capstone</th>
+                  <th>Submitted</th>
+                  <th>Status</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <img src="../assets/images/student-amara-okafor.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                      <div>
+                        <div style="font-weight: 700; color: var(--color-text-main);">Amara Okafor</div>
+                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">amara@stackly.edu</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>LangChain RAG Pipeline Capstone</td>
+                  <td>2 hours ago</td>
+                  <td><span class="status-badge review">Needs Review</span></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening code review environment for Amara Okafor...');">Grade & Review</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <img src="../assets/images/student-lucas-silva.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                      <div>
+                        <div style="font-weight: 700; color: var(--color-text-main);">Lucas Silva</div>
+                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">lucas@stackly.edu</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Fine-Tuning Llama 3 on Domain Dataset</td>
+                  <td>5 hours ago</td>
+                  <td><span class="status-badge review">Needs Review</span></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening code review environment for Lucas Silva...');">Grade & Review</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <img src="../assets/images/student-david-kim.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                      <div>
+                        <div style="font-weight: 700; color: var(--color-text-main);">David Kim</div>
+                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">david@stackly.edu</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Vector Search with ChromaDB</td>
+                  <td>Yesterday</td>
+                  <td><span class="status-badge approved">Graded 94/100</span></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Score: 94/100. Feedback: Clean embeddings integration.');">Edit Grade</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <img src="../assets/images/student-elena-rostova.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                      <div>
+                        <div style="font-weight: 700; color: var(--color-text-main);">Elena Rostova</div>
+                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">elena.rostova@stackly.edu</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Fullstack AI Copilot React UI</td>
+                  <td>Yesterday</td>
+                  <td><span class="status-badge review">Needs Review</span></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening code review environment for Elena Rostova...');">Grade & Review</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4. Instructor Live Sessions View -->
+        <div class="dashboard-view-panel" id="view-instructor-live">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Live Sessions & Webinar Studio</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Broadcast live lectures, answer student questions in real-time, and manage office hours.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Launching live instructor broadcast studio...');">Launch Live Room Now</button>
+          </div>
+
+          <div style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%); color: #FFFFFF; border-radius: var(--radius-2xl); padding: 2rem; margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+              <span class="badge badge-peach">Upcoming Broadcast</span>
+              <span style="font-size: 0.85rem; opacity: 0.8;">Room ID: STK-LIVE-AI-901</span>
+            </div>
+            <h3 style="font-size: 1.5rem; font-weight: 800; margin: 0 0 0.5rem 0;">GenAI Prompt Tuning & Agent Architecture Q&A</h3>
+            <p style="opacity: 0.9; margin: 0 0 1.5rem 0;">Scheduled: <strong>Tomorrow, Nov 13 at 5:00 PM EST</strong> &bull; 142 Learners Registered</p>
+            <div style="display: flex; gap: 0.75rem;">
+              <button type="button" class="btn btn-white btn-sm" onclick="alert('Camera & Microphone test: OK. Latency: 14ms.');">Test AV Equipment</button>
+              <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Shared broadcast invite link to registered students.');">Share Invite Link</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Instructor Analytics View -->
+        <div class="dashboard-view-panel" id="view-instructor-analytics">
+          <div style="margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Earnings & Growth Analytics</h2>
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Detailed revenue breakdown, student retention curves, and payout statements.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">November Payout (Pending)</div>
+              <div style="font-size: 2rem; font-weight: 800; color: #059669; margin: 0.5rem 0;">$7,420.00</div>
+              <div style="font-size: 0.8rem; color: #059669; font-weight: 600;">+12.4% vs October</div>
+            </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Course Completion Rate</div>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-primary); margin: 0.5rem 0;">91.4%</div>
+              <div style="font-size: 0.8rem; color: var(--color-text-muted);">Benchmark: Top 5% of Faculty</div>
+            </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Student Satisfaction</div>
+              <div style="font-size: 2rem; font-weight: 800; color: #D97706; margin: 0.5rem 0;">4.92 / 5.0</div>
+              <div style="font-size: 0.8rem; color: #D97706; font-weight: 600;">Based on 1,420 student reviews</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Instructor Settings View -->
+        <div class="dashboard-view-panel" id="view-instructor-settings">
+          <div style="margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Instructor Profile & Payouts</h2>
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Configure your public bio, credentials, office hours schedule, and Stripe payout accounts.</p>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 2rem; max-width: 720px; box-shadow: var(--shadow-xs);">
+            <form onsubmit="event.preventDefault(); alert('Instructor profile updated successfully!');">
+              <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Instructor Name</label>
+                <input type="text" class="form-input" value="Dr. Marcus Vance" style="width: 100%;">
+              </div>
+              <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Academic Title</label>
+                <input type="text" class="form-input" value="Director of Artificial Intelligence & Machine Learning" style="width: 100%;">
+              </div>
+              <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Payout Account (Stripe Connected)</label>
+                <input type="text" class="form-input" value="Stripe Express (acct_1M***992) &bull; Active" disabled style="width: 100%; background: #F8FAFC;">
+              </div>
+              <button type="submit" class="btn btn-primary">Update Instructor Profile</button>
+            </form>
+          </div>
+        </div>
+
+
+        <!-- ===================================================================
+             ADMIN PANELS
+             =================================================================== -->
+
+        <!-- 1. Admin Overview View -->
+        <div class="dashboard-view-panel" id="view-admin-overview">
+          <section aria-labelledby="admin-kpi-heading" style="margin-bottom: 2rem;">
+            <h2 id="admin-kpi-heading" class="sr-only">Platform Statistics</h2>
+            <div class="stat-card-grid" id="adminKpiGrid">
+              <!-- Rendered via JS -->
+            </div>
+          </section>
+
+          <!-- System Status Bar -->
+          <div style="background: #0F172A; color: #FFFFFF; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #10B981;"></span>
+                <span style="font-size: 0.85rem; color: #10B981; font-weight: 700; text-transform: uppercase;">Infrastructure Operational</span>
+              </div>
+              <h3 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 0.25rem 0;">System Health & Platform SLA: 99.98%</h3>
+              <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Core API Latency: 18ms &bull; Database Clusters: Healthy &bull; CDN Edge: Optimal</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+              <button type="button" class="btn btn-white btn-sm" onclick="switchView('admin-users');">Manage Users</button>
+              <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.3); color: #FFF;" onclick="switchView('admin-approvals');">Review Approvals (5)</button>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Cards Grid -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+            <div class="quick-action-card" onclick="switchView('admin-users');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #0284C7; text-transform: uppercase;">Directory</span>
+                <span class="badge badge-peach">24,850 Total</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">User Management</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Search, edit roles (Student, Instructor, Admin), or suspend user accounts.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: #0284C7; margin-top: auto;">Open User Directory &rarr;</span>
+            </div>
+
+            <div class="quick-action-card" onclick="switchView('admin-approvals');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #D97706; text-transform: uppercase;">Quality</span>
+                <span class="badge badge-yellow">5 New</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Course Approvals</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Audit syllabus compliance, check video lecture standards, and approve new courses.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: #D97706; margin-top: auto;">Open Approvals Queue &rarr;</span>
+            </div>
+
+            <div class="quick-action-card" onclick="switchView('admin-finance');">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-size: 0.8rem; font-weight: 700; color: #059669; text-transform: uppercase;">Ledger</span>
+                <span class="badge badge-emerald">$184.2k Gross</span>
+              </div>
+              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Platform Financials</h4>
+              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Manage platform 15% commissions, release instructor payouts, and review refunds.</p>
+              <span style="font-weight: 600; font-size: 0.85rem; color: #059669; margin-top: auto;">View Financials &rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Admin Users View -->
+        <div class="dashboard-view-panel" id="view-admin-users">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">User Management</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Directory of learners, instructors, and administrators across the platform.</p>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Creating new user invitation link...');">+ Add New User</button>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
+            <table class="dashboard-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Joined Date</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <img src="../assets/images/student-elena-rostova.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                      <div>
+                        <div style="font-weight: 700; color: var(--color-text-main);">Elena Rostova</div>
+                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">elena.rostova@stackly.edu</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-emerald">Student</span></td>
+                  <td><span class="status-badge approved">Active</span></td>
+                  <td>Sep 12, 2026</td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Editing Elena Rostova role permissions.');">Edit Role</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <img src="../assets/images/mentor-marcus-vance.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                      <div>
+                        <div style="font-weight: 700; color: var(--color-text-main);">Dr. Marcus Vance</div>
+                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">marcus.vance@stackly.edu</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-lilac">Instructor</span></td>
+                  <td><span class="status-badge approved">Active</span></td>
+                  <td>Aug 04, 2026</td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Editing Dr. Marcus Vance role permissions.');">Edit Role</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <img src="../assets/images/mentor-sarah-jenkins.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                      <div>
+                        <div style="font-weight: 700; color: var(--color-text-main);">Sarah Jenkins</div>
+                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">sarah.admin@stackly.edu</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-peach">Admin</span></td>
+                  <td><span class="status-badge approved">Superadmin</span></td>
+                  <td>Jun 01, 2026</td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" disabled>Protected</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                      <img src="../assets/images/mentor-alex-chen.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
+                      <div>
+                        <div style="font-weight: 700; color: var(--color-text-main);">Alex Chen</div>
+                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">alex.chen@stackly.edu</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="badge badge-lilac">Instructor</span></td>
+                  <td><span class="status-badge approved">Active</span></td>
+                  <td>Jul 19, 2026</td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Editing Alex Chen permissions.');">Edit Role</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Admin Course Approvals View -->
+        <div class="dashboard-view-panel" id="view-admin-approvals">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Course Catalog Approvals</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Curriculum compliance queue submitted by instructors for global publishing.</p>
+            </div>
+            <span class="badge badge-yellow">5 Pending Moderation</span>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
+            <table class="dashboard-table">
+              <thead>
+                <tr>
+                  <th>Course Title</th>
+                  <th>Submitted By</th>
+                  <th>Compliance Score</th>
+                  <th>Status</th>
+                  <th style="text-align: right;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div style="font-weight: 700; color: var(--color-text-main);">Distributed Systems with Rust</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">12 Modules &bull; 40 Hours Content</div>
+                  </td>
+                  <td>Dr. Marcus Vance</td>
+                  <td><strong style="color: #059669;">96% Pass</strong></td>
+                  <td><span class="status-badge review">Pending Approval</span></td>
                   <td style="text-align: right;">
-                    <a href="404.html" class="btn btn-primary btn-sm" title="View Mentor Feedback">Read Feedback</a>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Distributed Systems with Rust approved and published!');">Approve</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="font-weight: 700; color: var(--color-text-main);">Zero Trust Cloud Security Architecture</div>
+                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">8 Modules &bull; 24 Hours Content</div>
+                  </td>
+                  <td>Alex Chen</td>
+                  <td><strong style="color: #059669;">92% Pass</strong></td>
+                  <td><span class="status-badge review">Pending Approval</span></td>
+                  <td style="text-align: right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Zero Trust Cloud Security approved!');">Approve</button>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </section>
+        </div>
 
-        <!-- ===================================================================
-             SECTION 6: VERIFIED CREDENTIALS & DIGITAL CERTIFICATES
-             =================================================================== -->
-        <section aria-labelledby="certificates-heading" style="margin-bottom: 2.5rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem;">
+        <!-- 4. Admin Finance View -->
+        <div class="dashboard-view-panel" id="view-admin-finance">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
             <div>
-              <h2 id="certificates-heading" style="font-size: 1.35rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.2rem;">
-                Verified Credentials & Official Certificates
-              </h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted);">
-                Cryptographically signed credentials verifiable by employers worldwide.
-              </p>
+              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Platform Financials</h2>
+              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Commission takerate, gross platform merchandise value, and instructor payouts.</p>
             </div>
-            <a href="404.html" class="btn btn-outline btn-sm" title="View all earned credentials">
-              View All (3)
-            </a>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Initiating batch payout to 142 instructors via Stripe Connect...');">Process Monthly Payouts</button>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-            <!-- Official Certificate Showcase -->
-            <div class="certificate-card-wrapper">
-              <svg class="certificate-watermark" viewBox="0 0 24 24" fill="currentColor">
-                <circle cx="12" cy="8" r="7"></circle>
-                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-              </svg>
-              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-                <span class="certificate-badge-gold">
-                  ★ Verified Credential
-                </span>
-                <span style="font-size: 0.75rem; color: rgba(255,255,255,0.8); font-family: monospace;">ID: STK-2026-CERT-88492</span>
-              </div>
-              <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-pastel-mint); margin-bottom: 0.35rem;">
-                Stackly Certified Professional
-              </div>
-              <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 0.75rem; color: #FFFFFF;">
-                Advanced TypeScript & React Ecosystem
-              </h3>
-              <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.5rem;">
-                Awarded to Learner for demonstrating mastery in strict typing, state machines, performance profiling, and accessible component architectures.
-              </p>
-              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1.25rem;">
-                <div>
-                  <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Oct 14, 2026</div>
-                  <div style="font-size: 0.75rem; color: rgba(255,255,255,0.9); font-weight: 600;">Status: Permanently Verified</div>
-                </div>
-                <div style="display: flex; gap: 0.5rem;">
-                  <!-- Action buttons redirect to 404.html -->
-                  <a href="404.html" class="btn btn-white btn-sm" title="Download Official Certificate PDF">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    Download PDF
-                  </a>
-                  <a href="404.html" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFFFFF;" title="Share to LinkedIn">
-                    Share Link
-                  </a>
-                </div>
-              </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Gross Platform Volume</div>
+              <div style="font-size: 2rem; font-weight: 800; color: var(--color-text-main); margin: 0.5rem 0;">$184,200</div>
+              <div style="font-size: 0.8rem; color: #059669; font-weight: 600;">+18.2% MoM growth</div>
             </div>
-
-            <!-- Secondary Certificate Card -->
-            <div style="background-color: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-2xl); padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: var(--shadow-xs);">
-              <div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                  <span class="badge badge-mint">Verified</span>
-                  <span style="font-size: 0.75rem; color: var(--color-text-muted); font-family: monospace;">STK-2026-CERT-72109</span>
-                </div>
-                <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.4rem;">
-                  Modern UI Foundations & Accessibility (WCAG 2.2)
-                </h3>
-                <p style="font-size: 0.85rem; color: var(--color-text-body); margin-bottom: 1.25rem; line-height: 1.5;">
-                  Verification of color contrast compliance, screen-reader navigation paradigms, and keyboard accessibility patterns.
-                </p>
-              </div>
-              <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color-subtle); padding-top: 1rem;">
-                <span style="font-size: 0.8rem; color: var(--color-text-muted);">Issued: August 2026</span>
-                <a href="404.html" class="btn btn-outline btn-sm" title="View Certificate">View Credential</a>
-              </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Platform Net Commissions (15%)</div>
+              <div style="font-size: 2rem; font-weight: 800; color: #0284C7; margin: 0.5rem 0;">$27,630</div>
+              <div style="font-size: 0.8rem; color: #0284C7; font-weight: 600;">Net retained revenue</div>
+            </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Disbursed to Faculty</div>
+              <div style="font-size: 2rem; font-weight: 800; color: #059669; margin: 0.5rem 0;">$156,570</div>
+              <div style="font-size: 0.8rem; color: #059669; font-weight: 600;">Distributed across 142 mentors</div>
             </div>
           </div>
-        </section>
+        </div>
 
-        <!-- ===================================================================
-             SECTION 7: RECENT ACTIVITY FEED & NOTIFICATION TIMELINE
-             =================================================================== -->
-        <section aria-labelledby="activity-heading" style="margin-bottom: 2.5rem;">
-          <div style="background-color: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.75rem; box-shadow: var(--shadow-xs);">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
-              <div>
-                <h2 id="activity-heading" style="font-size: 1.25rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.2rem;">
-                  Recent Learning Activity & Audit Log
-                </h2>
-                <p style="font-size: 0.8rem; color: var(--color-text-muted);">Real-time events logged across courses, forums, and live sessions.</p>
-              </div>
-              <a href="404.html" class="btn btn-ghost btn-sm" title="View all activity logs">Full Log</a>
+        <!-- 5. Admin Settings View -->
+        <div class="dashboard-view-panel" id="view-admin-settings">
+          <div style="margin-bottom: 1.5rem;">
+            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Platform Settings & Audit Logs</h2>
+            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">System maintenance controls, security audit trail, and compliance flags.</p>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 2rem; max-width: 720px; box-shadow: var(--shadow-xs);">
+            <div style="margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+              <label style="display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 0.9rem;">
+                <span>New Student Registration</span>
+                <input type="checkbox" checked style="transform: scale(1.2);">
+              </label>
+              <label style="display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 0.9rem;">
+                <span>Require 2FA for Instructors & Admins</span>
+                <input type="checkbox" checked style="transform: scale(1.2);">
+              </label>
+              <label style="display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 0.9rem;">
+                <span>Platform Maintenance Mode</span>
+                <input type="checkbox" style="transform: scale(1.2);">
+              </label>
             </div>
-
-            <div class="timeline-list">
-              <!-- Item 1 -->
-              <div class="timeline-item completed">
-                <div class="timeline-dot"></div>
-                <div class="timeline-title">Completed Lesson: GraphQL Subscriptions & WebSocket Handshakes</div>
-                <div class="timeline-meta">Fullstack Web Development • Today at 08:30 AM • 45 XP Earned</div>
-              </div>
-
-              <!-- Item 2 -->
-              <div class="timeline-item completed">
-                <div class="timeline-dot" style="border-color: #F59E0B; background-color: #F59E0B;"></div>
-                <div class="timeline-title">Submitted Assignment: E-Commerce Apollo Federation Architecture</div>
-                <div class="timeline-meta">Course Project • Yesterday at 14:20 PM • Status: Under Review by Alex Chen</div>
-              </div>
-
-              <!-- Item 3 -->
-              <div class="timeline-item completed">
-                <div class="timeline-dot" style="border-color: #9333EA; background-color: #9333EA;"></div>
-                <div class="timeline-title">Booked 1-on-1 Mentorship with Sarah Jenkins</div>
-                <div class="timeline-meta">Design System Critique • Scheduled for Tomorrow at 15:00 UTC</div>
-              </div>
-
-              <!-- Item 4 -->
-              <div class="timeline-item completed">
-                <div class="timeline-dot" style="border-color: #10B981; background-color: #10B981;"></div>
-                <div class="timeline-title">Grade Released: Enterprise Design System Variables (98/100)</div>
-                <div class="timeline-meta">UI/UX Track • Nov 06, 2026 • Feedback: "Flawless token structure."</div>
-              </div>
-            </div>
+            <button type="button" class="btn btn-primary" onclick="alert('Platform security parameters applied.');">Save System Settings</button>
           </div>
-        </section>
+        </div>
 
-        <!-- ===================================================================
-             SECTION 8: QUICK ACTION RESOURCE BAR & SUPPORT HUB
-             =================================================================== -->
-        <section aria-labelledby="resources-heading" style="margin-bottom: 2.5rem;">
-          <h2 id="resources-heading" style="font-size: 1.35rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.2rem;">
-            Quick Action Resource Hub
-          </h2>
-          <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">
-            Immediate shortcuts to student services, support ticketing, and offline study materials.
-          </p>
+      </div>
+    </div>
+  </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem;">
-            <!-- Action 1: Book Mentor Session -->
-            <a href="404.html" class="quick-action-card" title="Book 1-on-1 Mentor">
-              <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--color-primary-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-              </div>
-              <div style="font-weight: 700; font-size: 1rem; color: var(--color-text-main);">Book 1-on-1 Mentor</div>
-              <div style="font-size: 0.825rem; color: var(--color-text-muted);">Schedule dedicated office hours with verified industry experts.</div>
-            </a>
-
-            <!-- Action 2: Submit Ticket -->
-            <a href="404.html" class="quick-action-card" title="Open Support Ticket">
-              <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--color-pastel-peach); color: var(--color-danger); display: flex; align-items: center; justify-content: center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-              </div>
-              <div style="font-weight: 700; font-size: 1rem; color: var(--color-text-main);">Submit Support Ticket</div>
-              <div style="font-size: 0.825rem; color: var(--color-text-muted);">Get technical assistance or billing support within 2 hours.</div>
-            </a>
-
-            <!-- Action 3: Download Offline Syllabus -->
-            <a href="404.html" class="quick-action-card" title="Download Offline Materials">
-              <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--color-pastel-yellow); color: #B45309; display: flex; align-items: center; justify-content: center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-              </div>
-              <div style="font-weight: 700; font-size: 1rem; color: var(--color-text-main);">Download Offline Syllabus</div>
-              <div style="font-size: 0.825rem; color: var(--color-text-muted);">Grab comprehensive PDFs, cheatsheets, and starter repos.</div>
-            </a>
-
-            <!-- Action 4: Community Discord -->
-            <a href="404.html" class="quick-action-card" title="Join Stackly Community">
-              <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: var(--color-pastel-lilac); color: var(--color-pastel-lilac-dark); display: flex; align-items: center; justify-content: center;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-              </div>
-              <div style="font-weight: 700; font-size: 1rem; color: var(--color-text-main);">Community Discord</div>
-              <div style="font-size: 0.825rem; color: var(--color-text-muted);">Connect with over 12,000 active learners, alumni, and mentors.</div>
-            </a>
-          </div>
-        </section>
-
-        <!-- Dashboard Footer -->
-        <footer style="padding: 1.5rem 0; border-top: 1px solid var(--border-color-subtle); font-size: 0.825rem; color: var(--color-text-muted);">
-          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
-            <div>&copy; 2026 Stackly Education &amp; Online Course Platform. All rights reserved.</div>
-            <div>MMR Complex, Chinna Thirupathi, Salem, Tamil Nadu 636008</div>
-          </div>
-          <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; padding-top: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.05);">
-            <a href="404.html" style="color: inherit; text-decoration: none; transition: color 0.2s;">Privacy Policy</a>
-            <a href="404.html" style="color: inherit; text-decoration: none; transition: color 0.2s;">Terms &amp; Conditions</a>
-            <a href="404.html" style="color: inherit; text-decoration: none; transition: color 0.2s;">Honor Code &amp; Conduct</a>
-            <a href="404.html" style="color: inherit; text-decoration: none; transition: color 0.2s;">Academic Accreditation</a>
-          </div>
-        </footer>
-
-      </div> <!-- /dashboard-content -->
-    </main>
-  </div> <!-- /dashboard-layout -->
-
-  <!-- ===================================================================
-       CLIENT LOGIC & ROLE-ADAPTIVE CONTROLLER
-       =================================================================== -->
+  <!-- =========================================================================
+       GLOBAL SCRIPT & CONTROLLERS
+       ========================================================================= -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // 1. DISMISS PURE CSS LOADER
-      const loader = document.getElementById('app-loader');
-      if (loader) {
-        setTimeout(function() {
-          loader.classList.add('loaded');
-        }, 300);
+    // 1. GLOBAL SIGNOUT HANDLER (Attached to window, immune to ready state)
+    window.handleStacklySignOut = function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (e && e.stopPropagation) e.stopPropagation();
+      try {
+        localStorage.removeItem('stackly_isLoggedIn');
+        localStorage.removeItem('stackly_currentUser');
+        localStorage.removeItem('stackly_role');
+        localStorage.removeItem('stackly_user');
+        localStorage.removeItem('stackly_user_role');
+        localStorage.removeItem('stackly_authToken');
+        localStorage.removeItem('stackly_session');
+        sessionStorage.clear();
+      } catch (err) {
+        console.warn('Storage cleanup issue:', err);
+      }
+      window.location.replace('sign-in.html');
+      return false;
+    };
+
+    // 2. VIEW SWITCHER HELPER
+    window.switchView = function(viewKey) {
+      // Deactivate all views
+      document.querySelectorAll('.dashboard-view-panel').forEach(p => p.classList.remove('active'));
+      
+      const targetPanel = document.getElementById('view-' + viewKey);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
       }
 
-      // 2. TIME-OF-DAY DYNAMIC GREETING
-      const greetingEl = document.getElementById('dynamicGreeting');
-      const dateEl = document.getElementById('currentDateDisplay');
-      
-      const now = new Date();
-      const hour = now.getHours();
-      let greetingPrefix = "Good morning";
-      if (hour >= 12 && hour < 17) {
-        greetingPrefix = "Good afternoon";
-      } else if (hour >= 17) {
-        greetingPrefix = "Good evening";
+      // Update active state in sidebar
+      document.querySelectorAll('#sidebarNavContainer .sidebar-link').forEach(link => {
+        if (link.getAttribute('data-view') === viewKey) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+
+      // Close mobile sidebar if open
+      if (window.innerWidth <= 1024) {
+        document.getElementById('dashboardSidebar').classList.remove('sidebar-mobile-open');
+        document.body.classList.remove('sidebar-open');
+        document.documentElement.classList.remove('sidebar-open');
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Dismiss Loader
+      const loader = document.getElementById('app-loader');
+      if (loader) {
+        setTimeout(() => loader.classList.add('loaded'), 250);
       }
 
       // Format Date
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const dateEl = document.getElementById('currentDateDisplay');
       if (dateEl) {
-        dateEl.textContent = now.toLocaleDateString('en-US', options);
+        dateEl.textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       }
 
-      // 3. ROLE DATA DEFINITIONS
+      // Read current logged-in role & user
+      let roleRaw = localStorage.getItem('stackly_role') || 'Student';
+      let roleLower = roleRaw.toLowerCase().trim();
+      if (roleLower.includes('admin')) {
+        roleLower = 'admin';
+      } else if (roleLower.includes('instructor')) {
+        roleLower = 'instructor';
+      } else {
+        roleLower = 'student';
+      }
+
+      let currentUser = {};
+      try {
+        currentUser = JSON.parse(localStorage.getItem('stackly_currentUser') || '{}');
+      } catch (e) {
+        currentUser = {};
+      }
+
+      // Define Role Data Profiles (Strictly Student, Instructor, Admin)
       const roleProfiles = {
         student: {
-          name: activeName,
+          name: currentUser.name || "Elena Rostova",
           roleTitle: "Student",
           roleBadgeClass: "badge-emerald",
-          avatar: "../assets/images/student-elena-rostova.webp",
-          kpi: [
-            {
-              title: "Courses In Progress",
-              value: "4",
-              trend: "+2 this month",
-              trendType: "positive",
-              bg: "var(--color-primary-light)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>'
-            },
-            {
-              title: "Hours Completed",
-              value: "86h",
-              trend: "+14h this week",
-              trendType: "positive",
-              bg: "var(--color-pastel-yellow)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'
-            },
-            {
-              title: "Completed Projects",
-              value: "12",
-              trend: "100% submission rate",
-              trendType: "positive",
-              bg: "var(--color-pastel-mint)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>'
-            },
-            {
-              title: "Certificates Earned",
-              value: "3",
-              trend: "+1 newly verified",
-              trendType: "positive",
-              bg: "var(--color-pastel-lilac)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>'
-            }
+          avatar: currentUser.avatar || "../assets/images/student-elena-rostova.webp",
+          kpis: [
+            { title: "Courses In Progress", value: "4", trend: "+2 this month", bg: "var(--color-primary-light)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>' },
+            { title: "Hours Completed", value: "86h", trend: "+14h this week", bg: "var(--color-pastel-yellow)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>' },
+            { title: "Completed Projects", value: "12", trend: "100% submission rate", bg: "var(--color-pastel-mint)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>' },
+            { title: "Certificates Earned", value: "3", trend: "Verified Credentials", bg: "var(--color-pastel-lilac)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>' }
+          ],
+          navItems: [
+            { id: 'student-overview', label: 'Overview', icon: '<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>' },
+            { id: 'student-courses', label: 'My Courses', badge: '4', icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>' },
+            { id: 'student-assignments', label: 'Assignments & Quizzes', badge: '2', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>' },
+            { id: 'student-mentorship', label: 'Live Mentorship', badge: 'LIVE', icon: '<polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>' },
+            { id: 'student-certificates', label: 'Certificates', badge: '3', icon: '<circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>' },
+            { id: 'student-settings', label: 'Account Settings', icon: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>' }
           ]
         },
         instructor: {
-          name: "Dr. Marcus Vance",
+          name: currentUser.name || "Dr. Marcus Vance",
           roleTitle: "Instructor",
           roleBadgeClass: "badge-lilac",
-          avatar: "../assets/images/mentor-marcus-vance.webp",
-          kpi: [
-            {
-              title: "Active Students",
-              value: "1,420",
-              trend: "+18% enrollment",
-              trendType: "positive",
-              bg: "var(--color-pastel-lilac)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
-            },
-            {
-              title: "Course Revenue",
-              value: "€14,850",
-              trend: "+12.4% vs last mo.",
-              trendType: "positive",
-              bg: "var(--color-pastel-yellow)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>'
-            },
-            {
-              title: "Average Rating",
-              value: "4.9★",
-              trend: "98% 5-star reviews",
-              trendType: "positive",
-              bg: "var(--color-pastel-mint)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
-            },
-            {
-              title: "Submitted Assignments",
-              value: "38",
-              trend: "14 awaiting grading",
-              trendType: "positive",
-              bg: "var(--color-primary-light)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line></svg>'
-            }
-          ]
-        },
-        mentor: {
-          name: "Sarah Jenkins",
-          roleTitle: "Mentor",
-          roleBadgeClass: "badge-yellow",
-          avatar: "../assets/images/mentor-sarah-jenkins.webp",
-          kpi: [
-            {
-              title: "1-on-1 Sessions Completed",
-              value: "64",
-              trend: "+8 this week",
-              trendType: "positive",
-              bg: "var(--color-pastel-mint)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 10"></polyline></svg>'
-            },
-            {
-              title: "Upcoming Bookings",
-              value: "8",
-              trend: "Next session in 2h",
-              trendType: "positive",
-              bg: "var(--color-pastel-yellow)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>'
-            },
-            {
-              title: "Mentee Satisfaction",
-              value: "99%",
-              trend: "Top 1% mentor rank",
-              trendType: "positive",
-              bg: "var(--color-pastel-peach)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>'
-            },
-            {
-              title: "Hours Mentored",
-              value: "120h",
-              trend: "+16h this month",
-              trendType: "positive",
-              bg: "var(--color-primary-light)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'
-            }
+          avatar: currentUser.avatar || "../assets/images/mentor-marcus-vance.webp",
+          kpis: [
+            { title: "Active Students", value: "1,840", trend: "+140 this month", bg: "var(--color-pastel-lilac)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>' },
+            { title: "Published Courses", value: "4", trend: "1 in review", bg: "var(--color-primary-light)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>' },
+            { title: "Faculty Rating", value: "4.92 ★", trend: "1,420 reviews", bg: "var(--color-pastel-yellow)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>' },
+            { title: "Monthly Earnings", value: "$7,420", trend: "+12.4% vs last mo", bg: "var(--color-pastel-mint)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>' }
+          ],
+          navItems: [
+            { id: 'instructor-overview', label: 'Instructor Overview', icon: '<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>' },
+            { id: 'instructor-courses', label: 'My Courses & Curriculum', badge: '4', icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>' },
+            { id: 'instructor-grading', label: 'Submissions & Grading', badge: '7 Pending', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>' },
+            { id: 'instructor-live', label: 'Live Sessions', badge: 'TOMORROW', icon: '<polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>' },
+            { id: 'instructor-analytics', label: 'Earnings & Analytics', icon: '<line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>' },
+            { id: 'instructor-settings', label: 'Instructor Profile', icon: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>' }
           ]
         },
         admin: {
-          name: "Alex Chen",
-          roleTitle: "Administrator",
-          roleBadgeClass: "badge-blue",
-          avatar: "../assets/images/mentor-alex-chen.webp",
-          kpi: [
-            {
-              title: "Total Learners",
-              value: "12,840",
-              trend: "+840 new this week",
-              trendType: "positive",
-              bg: "var(--color-pastel-blue)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
-            },
-            {
-              title: "Platform Courses",
-              value: "184",
-              trend: "12 pending review",
-              trendType: "positive",
-              bg: "var(--color-pastel-mint)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>'
-            },
-            {
-              title: "System Uptime",
-              value: "99.98%",
-              trend: "Zero incidents logged",
-              trendType: "positive",
-              bg: "var(--color-pastel-yellow)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>'
-            },
-            {
-              title: "Monthly Revenue",
-              value: "€86,400",
-              trend: "+16.2% MRR growth",
-              trendType: "positive",
-              bg: "var(--color-primary-light)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>'
-            }
-          ]
-        },
-        manager: {
-          name: "Elena Rostova",
-          roleTitle: "Curriculum Manager",
-          roleBadgeClass: "badge-yellow",
-          avatar: "../assets/images/student-elena-rostova.webp",
-          kpi: [
-            {
-              title: "Active Cohorts",
-              value: "14",
-              trend: "+3 this quarter",
-              trendType: "positive",
-              bg: "var(--color-pastel-mint)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>'
-            },
-            {
-              title: "Faculty Utilization",
-              value: "94.2%",
-              trend: "Optimal operational load",
-              trendType: "positive",
-              bg: "var(--color-pastel-blue)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
-            },
-            {
-              title: "Curriculum Health",
-              value: "98.8%",
-              trend: "All modules accredited",
-              trendType: "positive",
-              bg: "var(--color-pastel-yellow)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>'
-            },
-            {
-              title: "Learner Retention",
-              value: "92.4%",
-              trend: "+4.1% YoY increase",
-              trendType: "positive",
-              bg: "var(--color-primary-light)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>'
-            }
-          ]
-        },
-        customer: {
-          name: "David Kim",
-          roleTitle: "Enterprise Client",
-          roleBadgeClass: "badge-blue",
-          avatar: "../assets/images/student-david-kim.webp",
-          kpi: [
-            {
-              title: "Allocated Seats",
-              value: "85 / 100",
-              trend: "15 seats available",
-              trendType: "positive",
-              bg: "var(--color-pastel-blue)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>'
-            },
-            {
-              title: "Team Completion Rate",
-              value: "88.4%",
-              trend: "+6.2% this quarter",
-              trendType: "positive",
-              bg: "var(--color-pastel-mint)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
-            },
-            {
-              title: "Certificates Claimed",
-              value: "64",
-              trend: "All verifiable credentials",
-              trendType: "positive",
-              bg: "var(--color-pastel-yellow)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>'
-            },
-            {
-              title: "Upskilling Hours",
-              value: "540h",
-              trend: "Logged this semester",
-              trendType: "positive",
-              bg: "var(--color-primary-light)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>'
-            }
-          ]
-        },
-        vendor: {
-          name: "DevTooling Partner Hub",
-          roleTitle: "Tooling Vendor",
-          roleBadgeClass: "badge-yellow",
-          avatar: "../assets/images/mentor-marcus-vance.webp",
-          kpi: [
-            {
-              title: "Active Sandboxes",
-              value: "16",
-              trend: "Fully integrated labs",
-              trendType: "positive",
-              bg: "var(--color-pastel-mint)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>'
-            },
-            {
-              title: "Monthly Sandbox API Calls",
-              value: "1.42M",
-              trend: "+22% month over month",
-              trendType: "positive",
-              bg: "var(--color-pastel-blue)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>'
-            },
-            {
-              title: "Partner Health Uptime",
-              value: "99.99%",
-              trend: "Zero API downtime",
-              trendType: "positive",
-              bg: "var(--color-pastel-yellow)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>'
-            },
-            {
-              title: "Content Royalty Payout",
-              value: "€24,800",
-              trend: "Disbursed via automated escrow",
-              trendType: "positive",
-              bg: "var(--color-primary-light)",
-              icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>'
-            }
+          name: currentUser.name || "Sarah Jenkins",
+          roleTitle: "Admin",
+          roleBadgeClass: "badge-peach",
+          avatar: currentUser.avatar || "../assets/images/mentor-sarah-jenkins.webp",
+          kpis: [
+            { title: "Total Platform Users", value: "24,850", trend: "+1,240 this month", bg: "var(--color-pastel-peach)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>' },
+            { title: "Gross Platform Revenue", value: "$184,200", trend: "15% Take-rate", bg: "var(--color-pastel-mint)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>' },
+            { title: "Certified Instructors", value: "142", trend: "Active Faculty", bg: "var(--color-pastel-lilac)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>' },
+            { title: "Infrastructure Uptime", value: "99.98%", trend: "18ms Latency", bg: "var(--color-primary-light)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>' }
+          ],
+          navItems: [
+            { id: 'admin-overview', label: 'System Overview', icon: '<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>' },
+            { id: 'admin-users', label: 'User Management', badge: '24.8k', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>' },
+            { id: 'admin-approvals', label: 'Course Approvals', badge: '5 New', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>' },
+            { id: 'admin-finance', label: 'Platform Financials', badge: '$184k', icon: '<line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>' },
+            { id: 'admin-settings', label: 'Platform Settings & Logs', icon: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>' }
           ]
         }
       };
 
-      // 4. FUNCTION TO APPLY ACTIVE ROLE
-      function applyRole(roleKey) {
-        const profile = roleProfiles[roleKey] || roleProfiles.student;
+      const activeProfile = roleProfiles[roleLower] || roleProfiles.student;
 
-        // Update Greetings & Profile Displays
-        if (greetingEl) {
-          greetingEl.textContent = `${greetingPrefix}, ${userDisplayName.split(' ')[0]}!`;
-        }
+      // Update User Header Info
+      document.getElementById('topbarUserName').textContent = activeProfile.name;
+      document.getElementById('sidebarUserName').textContent = activeProfile.name;
+      document.getElementById('topbarRoleBadge').textContent = activeProfile.roleTitle;
+      document.getElementById('topbarRoleBadge').className = `badge ${activeProfile.roleBadgeClass}`;
+      document.getElementById('sidebarUserRole').textContent = activeProfile.roleTitle + ' Account';
+      document.getElementById('topbarAvatar').src = activeProfile.avatar;
+      document.getElementById('sidebarAvatar').src = activeProfile.avatar;
 
-        const topbarName = document.getElementById('topbarUserName');
-        const topbarRole = document.getElementById('topbarRoleBadge');
-        const topbarAvatar = document.getElementById('topbarAvatar');
-        const sidebarName = document.getElementById('sidebarUserName');
-        const sidebarRole = document.getElementById('sidebarUserRole');
-        const sidebarAvatar = document.getElementById('sidebarAvatar');
+      // Dynamic Greeting prefix
+      const hour = new Date().getHours();
+      let prefix = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+      document.getElementById('dynamicGreeting').textContent = `${prefix}, ${activeProfile.name}`;
 
-        if (topbarName) topbarName.textContent = profile.name;
-        if (sidebarName) sidebarName.textContent = profile.name;
-        if (topbarAvatar) topbarAvatar.src = profile.avatar;
-        if (sidebarAvatar) sidebarAvatar.src = profile.avatar;
+      // Render Dynamic Sidebar Navigation
+      const navContainer = document.getElementById('sidebarNavContainer');
+      navContainer.innerHTML = '';
 
-        if (topbarRole) {
-          topbarRole.textContent = profile.roleTitle;
-          topbarRole.className = `badge ${profile.roleBadgeClass}`;
-        }
-        if (sidebarRole) {
-          sidebarRole.textContent = `${profile.roleTitle} Account`;
-        }
+      const sectionTitle = document.createElement('div');
+      sectionTitle.className = 'sidebar-section-title';
+      sectionTitle.textContent = `${activeProfile.roleTitle} Navigation`;
+      navContainer.appendChild(sectionTitle);
 
-        // Render KPI Cards
-        const kpiGrid = document.getElementById('kpiCardsGrid');
-        if (kpiGrid) {
-          kpiGrid.innerHTML = profile.kpi.map(item => `
-            <div class="stat-card">
-              <div>
-                <div class="stat-title">${item.title}</div>
-                <div class="stat-value">${item.value}</div>
-                <div class="stat-trend ${item.trendType}">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                    <polyline points="17 6 23 6 23 12"></polyline>
-                  </svg>
-                  <span>${item.trend}</span>
-                </div>
-              </div>
-              <div class="stat-icon-wrapper" style="background: ${item.bg}; color: var(--color-primary-dark);">
-                ${item.icon}
-              </div>
-            </div>
-          `).join('');
-        }
+      activeProfile.navItems.forEach((item, index) => {
+        const menuItem = document.createElement('div');
+        menuItem.className = 'sidebar-menu-item';
 
-        // Update all role buttons active state
-        document.querySelectorAll('.role-btn').forEach(btn => {
-          if (btn.getAttribute('data-role') === roleKey) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
+        const link = document.createElement('a');
+        link.className = `sidebar-link ${index === 0 ? 'active' : ''}`;
+        link.setAttribute('data-view', item.id);
+        link.setAttribute('data-tooltip', item.label);
+
+        link.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            ${item.icon}
+          </svg>
+          <span class="sidebar-link-text">${item.label}</span>
+          ${item.badge ? `<span class="badge badge-emerald" style="margin-left: auto; font-size: 0.7rem; padding: 0.15rem 0.5rem;">${item.badge}</span>` : ''}
+        `;
+
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          switchView(item.id);
         });
-      }
 
-      // Initial application
-      applyRole('student');
-
-      // Add click listeners to all role switcher buttons (both sidebar and header)
-      document.querySelectorAll('.role-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          const role = this.getAttribute('data-role');
-          applyRole(role);
-        });
+        menuItem.appendChild(link);
+        navContainer.appendChild(menuItem);
       });
 
-      // 5. SIGN OUT ACTION (Strictly clears session & redirects to sign-in.html)
-      const signOutBtn = document.getElementById('signOutBtn');
-      if (signOutBtn) {
-        signOutBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          localStorage.removeItem('stackly_isLoggedIn');
-          localStorage.removeItem('stackly_user');
-          window.location.replace('sign-in.html');
+      // Render KPI Grid
+      function renderKpis(gridId, kpis) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+        grid.innerHTML = '';
+        kpis.forEach(card => {
+          const c = document.createElement('div');
+          c.className = 'stat-card';
+          c.innerHTML = `
+            <div class="stat-card-header">
+              <span class="stat-card-title">${card.title}</span>
+              <div class="stat-card-icon" style="background: ${card.bg};">${card.icon}</div>
+            </div>
+            <div class="stat-card-value">${card.value}</div>
+            <div class="stat-card-trend"><span>${card.trend}</span></div>
+          `;
+          grid.appendChild(c);
         });
       }
 
-      // 6. SIDEBAR COLLAPSE & MOBILE TOGGLE CONTROLLER
-      const sidebar = document.getElementById('dashboardSidebar');
-      const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
+      if (roleLower === 'student') {
+        renderKpis('studentKpiGrid', activeProfile.kpis);
+      } else if (roleLower === 'instructor') {
+        renderKpis('instructorKpiGrid', activeProfile.kpis);
+      } else if (roleLower === 'admin') {
+        renderKpis('adminKpiGrid', activeProfile.kpis);
+      }
+
+      // Show Initial Default View for the Active Role
+      const initialViewKey = activeProfile.navItems[0].id;
+      switchView(initialViewKey);
+
+      // Mobile Sidebar Toggle
       const mobileToggle = document.getElementById('mobileSidebarToggle');
       const mobileClose = document.getElementById('mobileSidebarCloseBtn');
       const backdrop = document.getElementById('sidebarBackdrop');
+      const sidebar = document.getElementById('dashboardSidebar');
+      const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
 
-      function openMobileSidebar() {
-        if (sidebar) sidebar.classList.add('sidebar-mobile-open');
-        if (backdrop) backdrop.classList.add('active');
-        document.body.classList.add('sidebar-open');
-        document.documentElement.classList.add('sidebar-open');
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', () => {
+          sidebar.classList.add('sidebar-mobile-open');
+          document.body.classList.add('sidebar-open');
+          document.documentElement.classList.add('sidebar-open');
+        });
       }
 
-      function closeMobileSidebar() {
-        if (sidebar) sidebar.classList.remove('sidebar-mobile-open');
-        if (backdrop) backdrop.classList.remove('active');
+      function closeMobile() {
+        sidebar.classList.remove('sidebar-mobile-open');
         document.body.classList.remove('sidebar-open');
         document.documentElement.classList.remove('sidebar-open');
       }
 
-      if (sidebarCollapseBtn && sidebar) {
-        sidebarCollapseBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          if (window.innerWidth <= 1024) {
-            closeMobileSidebar();
-          } else {
-            sidebar.classList.toggle('collapsed');
-          }
+      if (mobileClose) mobileClose.addEventListener('click', closeMobile);
+      if (backdrop) backdrop.addEventListener('click', closeMobile);
+
+      if (sidebarCollapseBtn) {
+        sidebarCollapseBtn.addEventListener('click', () => {
+          sidebar.classList.toggle('sidebar-collapsed');
         });
       }
-
-      if (mobileToggle) mobileToggle.addEventListener('click', openMobileSidebar);
-      if (mobileClose) mobileClose.addEventListener('click', closeMobileSidebar);
-      if (backdrop) backdrop.addEventListener('click', closeMobileSidebar);
-
-      document.querySelectorAll('.dashboard-sidebar .sidebar-link').forEach(link => {
-        link.addEventListener('click', function() {
-          if (window.innerWidth <= 1024) closeMobileSidebar();
-        });
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeMobileSidebar();
-      });
-
-      // 8. STRICT NAVIGATION GUARD FOR ALL ACTION BUTTONS
-      // Any <a> with href="#" or pointing to unimplemented parts redirects to 404.html
-      document.querySelectorAll('a[href="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          window.location.href = '404.html';
-        });
-      });
-
     });
   </script>
-  <!-- Global Application Scripts -->
-    <!-- Back to Top Button -->
-  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Scroll to top">
-    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
-    </svg>
-  </button>
-
-  <!-- GSAP & ScrollTrigger Core Animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="../assets/js/animations.js"></script>
-  <script src="../assets/js/main.js"></script>
 </body>
 </html>

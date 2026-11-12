@@ -169,12 +169,12 @@
     {
       id: "usr_003",
       name: "Alex Chen",
-      email: "mentor@stackly.edu",
+      email: "alex.instructor@stackly.edu",
       password: "Password@123",
       phone: "9876543212",
-      role: "mentor",
+      role: "instructor",
       avatar: "assets/images/mentor-alex-chen.webp",
-      headline: "Staff Product Designer & Career Strategy Coach",
+      headline: "Senior Cloud Architect & Faculty Instructor",
       stats: {
         sessionsCompleted: 142,
         upcomingSessions: 8,
@@ -602,12 +602,24 @@
     },
 
     logout() {
-      localStorage.removeItem(CONFIG.STORAGE_KEYS.CURRENT_USER);
-      localStorage.removeItem(CONFIG.STORAGE_KEYS.ROLE);
+      try {
+        localStorage.removeItem(CONFIG.STORAGE_KEYS.CURRENT_USER);
+        localStorage.removeItem(CONFIG.STORAGE_KEYS.ROLE);
+        localStorage.removeItem("stackly_isLoggedIn");
+        localStorage.removeItem("stackly_currentUser");
+        localStorage.removeItem("stackly_role");
+        localStorage.removeItem("stackly_user");
+        localStorage.removeItem("stackly_user_role");
+        localStorage.removeItem("stackly_authToken");
+        localStorage.removeItem("stackly_session");
+        sessionStorage.clear();
+      } catch (e) {
+        console.warn("Storage logout error:", e);
+      }
       Toast.show("You have been signed out safely.", "info");
       setTimeout(() => {
-        window.location.href = getPageUrl("sign-in.html");
-      }, 500);
+        window.location.replace(getPageUrl("sign-in.html"));
+      }, 250);
     },
   };
 
@@ -1468,7 +1480,7 @@
 
     initLogoutButtons() {
       const logoutBtns = document.querySelectorAll(
-        '[data-action="logout"], .logout-btn, #logoutBtn, a[href*="logout"]'
+        '[data-action="logout"], .logout-btn, #logoutBtn, a[href*="logout"], #signOutBtn, .signout-action-btn, #sidebarSignOutBtn'
       );
       logoutBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
