@@ -11,6 +11,9 @@
 
   // Initialize Animation System
   function initAnimations() {
+    // 0. BRAND LOGO SELF-DRAWING LINE ANIMATION (Runs across all pages & roles)
+    initSelfDrawingBrandLogo();
+
     if (prefersReducedMotion) {
       console.log('Reduced motion preferred: animations disabled for accessibility.');
       document.documentElement.classList.add('reduced-motion');
@@ -212,6 +215,114 @@
         strokeDashoffset: 0,
         ease: 'power1.inOut'
       });
+    });
+  }
+
+  // 4b. BRAND LOGO SELF-DRAWING LINE ANIMATION
+  function initSelfDrawingBrandLogo() {
+    const brandElements = document.querySelectorAll(
+      '.brand-logo, .brand-logo-link, .auth-banner-brand-logo, .auth-brand-logo-link, .sidebar-header .brand-logo'
+    );
+
+    brandElements.forEach((el, index) => {
+      // Don't inject multiple times
+      if (el.querySelector('.brand-self-draw-svg')) return;
+
+      const gradId = 'brandDrawGrad_' + index + '_' + Math.floor(Math.random() * 10000);
+      const glowId = 'brandGlowFilter_' + index + '_' + Math.floor(Math.random() * 10000);
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('class', 'brand-self-draw-svg');
+      svg.setAttribute('aria-hidden', 'true');
+
+      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+      defs.innerHTML = `
+        <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#F59E0B" />
+          <stop offset="32%" stop-color="#10B981" />
+          <stop offset="68%" stop-color="#3B82F6" />
+          <stop offset="100%" stop-color="#F59E0B" />
+        </linearGradient>
+        <filter id="${glowId}" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      `;
+      svg.appendChild(defs);
+
+      // Glow Rect (ambient blurred contour)
+      const glowRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      glowRect.setAttribute('class', 'brand-line-glow');
+      glowRect.setAttribute('fill', 'none');
+      glowRect.setAttribute('stroke', `url(#${gradId})`);
+      glowRect.setAttribute('stroke-width', '4');
+      glowRect.setAttribute('filter', `url(#${glowId})`);
+      glowRect.setAttribute('pathLength', '100');
+      svg.appendChild(glowRect);
+
+      // Sharp Crisp Drawing Line Rect (top)
+      const drawRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      drawRect.setAttribute('class', 'brand-line-path');
+      drawRect.setAttribute('fill', 'none');
+      drawRect.setAttribute('stroke', `url(#${gradId})`);
+      drawRect.setAttribute('stroke-width', '2.2');
+      drawRect.setAttribute('stroke-linecap', 'round');
+      drawRect.setAttribute('stroke-linejoin', 'round');
+      drawRect.setAttribute('pathLength', '100');
+      svg.appendChild(drawRect);
+
+      function updateMetrics() {
+        const rect = el.getBoundingClientRect();
+        const w = Math.round(rect.width || el.offsetWidth);
+        const h = Math.round(rect.height || el.offsetHeight);
+        if (w === 0 || h === 0) return;
+
+        svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+        const strokeInset = 1.5;
+        const rw = Math.max(0, w - strokeInset * 2);
+        const rh = Math.max(0, h - strokeInset * 2);
+        const style = window.getComputedStyle(el);
+        const parsedRadius = parseFloat(style.borderRadius) || 14;
+        const cornerR = Math.min(parsedRadius, Math.floor(rh / 2));
+
+        [glowRect, drawRect].forEach(r => {
+          r.setAttribute('x', strokeInset);
+          r.setAttribute('y', strokeInset);
+          r.setAttribute('width', rw);
+          r.setAttribute('height', rh);
+          r.setAttribute('rx', cornerR);
+          r.setAttribute('ry', cornerR);
+        });
+      }
+
+      el.appendChild(svg);
+      updateMetrics();
+
+      // Trigger self-drawing animation
+      requestAnimationFrame(() => {
+        drawRect.classList.add('is-animating');
+        glowRect.classList.add('is-animating');
+      });
+
+      // Interactive replay on hover
+      el.addEventListener('mouseenter', () => {
+        drawRect.classList.remove('is-animating');
+        glowRect.classList.remove('is-animating');
+        void drawRect.offsetWidth; // trigger reflow
+        drawRect.classList.add('is-animating');
+        glowRect.classList.add('is-animating');
+      });
+
+      // Responsive updates
+      if (window.ResizeObserver) {
+        const ro = new ResizeObserver(() => updateMetrics());
+        ro.observe(el);
+      } else {
+        window.addEventListener('resize', updateMetrics, { passive: true });
+      }
     });
   }
 
