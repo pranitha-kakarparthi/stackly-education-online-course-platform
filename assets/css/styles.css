@@ -3328,16 +3328,21 @@ body.mobile-nav-open {
   perspective: 600px;
   overflow: hidden;
   height: 1.25em;
-  min-width: 130px;
+  min-width: auto;
+  box-sizing: content-box;
+  padding: 0 4px;
+  margin: 0 2px;
+  transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: width;
 }
 
 .flip-words-inner {
   display: inline-flex;
   flex-direction: column;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  right: 0;
+  width: max-content;
   transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
   will-change: transform;
 }
@@ -3352,6 +3357,8 @@ body.mobile-nav-open {
   transform-origin: center center -15px;
   transition: opacity 0.4s ease, transform 0.65s ease;
   opacity: 0.2;
+  padding: 0 4px;
+  box-sizing: content-box;
 }
 
 .flip-word.active {

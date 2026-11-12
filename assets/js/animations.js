@@ -484,17 +484,55 @@
   // 10. WORD ROTATION / 3D FLIP ANIMATION
   function initWordRotationFlip() {
     const flipWrappers = document.querySelectorAll('.word-flip-carousel');
+    if (!flipWrappers.length) return;
+
     flipWrappers.forEach(carousel => {
       const inner = carousel.querySelector('.flip-words-inner');
-      const words = carousel.querySelectorAll('.flip-word');
+      const words = Array.from(carousel.querySelectorAll('.flip-word'));
       if (!inner || words.length <= 1) return;
 
       let currentIndex = 0;
       const totalWords = words.length;
 
+      // Accurately measure and dynamically apply width to carousel with safety padding
+      function syncCarouselWidth(index) {
+        const activeWord = words[index];
+        if (!activeWord) return;
+        
+        // Measure unclipped rendered content width
+        const rect = activeWord.getBoundingClientRect();
+        const measuredWidth = Math.ceil(rect.width) || activeWord.scrollWidth || activeWord.offsetWidth;
+        if (measuredWidth > 0) {
+          // Add 8px safety buffer for font kerning, bold font weight, and italic terminals
+          carousel.style.width = (measuredWidth + 8) + 'px';
+        }
+      }
+
+      // Initial active state synchronization
+      words.forEach((w, i) => {
+        if (i === 0) {
+          w.classList.add('active');
+        } else {
+          w.classList.remove('active');
+        }
+      });
+
+      // Synchronize immediately and after web fonts settle
+      syncCarouselWidth(0);
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => syncCarouselWidth(0));
+      }
+      setTimeout(() => syncCarouselWidth(0), 60);
+      setTimeout(() => syncCarouselWidth(0), 300);
+
+      window.addEventListener('resize', () => {
+        syncCarouselWidth(currentIndex);
+      });
+
       setInterval(() => {
         currentIndex = (currentIndex + 1) % totalWords;
         inner.style.transform = `translateY(-${currentIndex * 1.25}em)`;
+        
         words.forEach((w, i) => {
           if (i === currentIndex) {
             w.classList.add('active');
@@ -502,6 +540,8 @@
             w.classList.remove('active');
           }
         });
+
+        syncCarouselWidth(currentIndex);
       }, 2600);
     });
   }
