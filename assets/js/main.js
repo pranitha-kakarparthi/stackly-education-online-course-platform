@@ -1971,6 +1971,21 @@
           return; // Never intercept back-to-top button
         }
 
+        // 1d. In dashboard pages content, redirect every button to 404 page
+        if (isDashboard && !is404Page) {
+          const dashContent = e.target.closest("#dashboardContent, .dashboard-content");
+          if (dashContent) {
+            const clickable = e.target.closest("button, a, .btn, [role='button']");
+            if (clickable) {
+              e.preventDefault();
+              e.stopPropagation();
+              e.stopImmediatePropagation();
+              window.location.href = getPageUrl("404.html");
+              return;
+            }
+          }
+        }
+
         // 2. In non-dashboard and non-auth pages (except 404 page itself), all action buttons & links outside navbar and footer redirect to 404
         if (!isDashboard && !is404Page && !isAuthPage) {
           const clickable = e.target.closest("a, button");
