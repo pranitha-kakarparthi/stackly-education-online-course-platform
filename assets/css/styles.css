@@ -1957,6 +1957,52 @@ body.mobile-nav-open {
   margin-left: var(--sidebar-collapsed-width);
 }
 
+.dashboard-sidebar.collapsed .sidebar-header {
+  padding: 0 0.5rem;
+  justify-content: center;
+}
+
+.dashboard-sidebar.collapsed .brand-logo {
+  display: none;
+}
+
+.dashboard-sidebar.collapsed .sidebar-toggle-btn svg {
+  transform: rotate(180deg);
+}
+
+.dashboard-sidebar.collapsed .sidebar-nav {
+  padding: 1.25rem 0.4rem;
+}
+
+.dashboard-sidebar.collapsed .sidebar-link {
+  justify-content: center;
+  padding: 0.75rem 0;
+  gap: 0;
+}
+
+.dashboard-sidebar.collapsed .sidebar-link .badge,
+.dashboard-sidebar.collapsed .sidebar-menu-item .badge {
+  display: none !important;
+}
+
+.dashboard-sidebar.collapsed .sidebar-footer {
+  padding: 0.75rem 0.35rem;
+}
+
+.dashboard-sidebar.collapsed .user-mini-profile {
+  justify-content: center;
+  padding: 0;
+}
+
+.dashboard-sidebar.collapsed .signout-action-btn span {
+  display: none;
+}
+
+.dashboard-sidebar.collapsed .signout-action-btn {
+  padding: 0.45rem;
+  justify-content: center;
+}
+
 .dashboard-topbar {
   height: var(--header-height);
   background-color: #ffffff;

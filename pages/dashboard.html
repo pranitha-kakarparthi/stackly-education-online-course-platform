@@ -30,7 +30,7 @@
             localStorage.setItem('stackly_currentUser', JSON.stringify({
               name: 'Elena Rostova',
               role: 'Student',
-              email: 'elena.rostova@stackly.edu',
+              email: 'elena.rostova@gmail.com',
               avatar: '../assets/images/student-elena-rostova.webp'
             }));
           } else {
@@ -54,7 +54,7 @@
         left: 0 !important;
         bottom: 0 !important;
         width: 100% !important;
-        max-width: 320px !important;
+        max-width: 300px !important;
         height: 100vh !important;
         transform: translateX(-100%);
         z-index: 99999 !important;
@@ -150,14 +150,6 @@
       font-size: 0.8rem;
     }
 
-    /* Section Cards Grid */
-    .dashboard-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
     /* Quick Action Buttons */
     .quick-action-card {
       background-color: #FFFFFF;
@@ -249,6 +241,38 @@
     .sidebar-link.active svg {
       color: var(--color-primary);
     }
+
+    /* Section Styling */
+    .dashboard-section {
+      margin-bottom: 2.75rem;
+    }
+    .dashboard-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .dashboard-section-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--color-text-main);
+      margin: 0 0 0.25rem 0;
+    }
+    .dashboard-section-subtitle {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      margin: 0;
+    }
+
+    /* Smooth sidebar transition */
+    .dashboard-sidebar {
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dashboard-main {
+      transition: margin-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
   </style>
 </head>
 <body class="dashboard-body">
@@ -283,8 +307,8 @@
         </a>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
           <!-- Desktop Collapse Toggle -->
-          <button type="button" class="sidebar-toggle-btn" id="sidebarCollapseBtn" title="Collapse Sidebar" aria-label="Toggle sidebar width">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+          <button type="button" class="sidebar-toggle-btn" id="sidebarCollapseBtn" title="Collapse / Expand Sidebar" aria-label="Toggle sidebar width" style="cursor: pointer;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" style="transition: transform 0.25s ease;">
               <polyline points="11 17 6 12 11 7"></polyline>
               <polyline points="18 17 13 12 18 7"></polyline>
             </svg>
@@ -395,100 +419,288 @@
       <div class="dashboard-content" id="dashboardContent">
 
         <!-- ===================================================================
-             STUDENT PANELS
+             STUDENT PANELS (AT LEAST 5 RICH SECTIONS OF CONTENT)
              =================================================================== -->
         
         <!-- 1. Student Overview View -->
         <div class="dashboard-view-panel" id="view-student-overview">
-          <section aria-labelledby="student-kpi-heading" style="margin-bottom: 2rem;">
-            <h2 id="student-kpi-heading" class="sr-only">Student Key Statistics</h2>
+          
+          <!-- SECTION 1: Key Performance Indicators (KPIs) -->
+          <section class="dashboard-section" aria-labelledby="student-kpi-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="student-kpi-heading" class="dashboard-section-title">Academic & Progress Overview</h2>
+                <p class="dashboard-section-subtitle">Real-time metrics tracking your course velocity, completed hours, and milestones.</p>
+              </div>
+              <span class="badge badge-emerald">Spring Term Active</span>
+            </div>
             <div class="stat-card-grid" id="studentKpiGrid">
-              <!-- Rendered via JS -->
+              <!-- Injected via JS -->
             </div>
           </section>
 
-          <!-- Continue Learning Banner -->
-          <div style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border: 1.5px solid #FDE68A; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
-            <div>
-              <span class="badge badge-yellow" style="margin-bottom: 0.5rem;">In Progress Sprint</span>
-              <h3 style="font-size: 1.35rem; font-weight: 800; color: #78350F; margin-bottom: 0.35rem;">
-                Fullstack Web Development with Modern React & Node.js
-              </h3>
-              <p style="color: #92400E; font-size: 0.9rem; margin-bottom: 0.75rem;">
-                Current Unit: <strong>Module 7 &bull; GraphQL Architecture & Apollo Client</strong>
-              </p>
-              <div style="display: flex; align-items: center; gap: 1rem; width: 100%; max-width: 420px;">
-                <div class="progress-track" style="flex: 1; height: 8px; background: rgba(245, 158, 11, 0.2);">
-                  <div class="progress-fill" style="width: 72%; background: #D97706;"></div>
+          <!-- SECTION 2: Active Courses & Current Sprint -->
+          <section class="dashboard-section" aria-labelledby="student-courses-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="student-courses-sec-heading" class="dashboard-section-title">Active Courses & In-Progress Modules</h2>
+                <p class="dashboard-section-subtitle">Resume your current learning sprints and access module assets.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('student-courses');">View All Courses (4)</button>
+            </div>
+
+            <!-- Spotlight Card -->
+            <div style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border: 1.5px solid #FDE68A; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+              <div>
+                <span class="badge badge-yellow" style="margin-bottom: 0.5rem;">Sprint Active &bull; 72% Complete</span>
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: #78350F; margin-bottom: 0.35rem;">
+                  Fullstack Web Development with Modern React & Node.js
+                </h3>
+                <p style="color: #92400E; font-size: 0.9rem; margin-bottom: 0.75rem;">
+                  Current Unit: <strong>Module 7 &bull; GraphQL Architecture & Apollo Client</strong>
+                </p>
+                <div style="display: flex; align-items: center; gap: 1rem; width: 100%; max-width: 420px;">
+                  <div class="progress-track" style="flex: 1; height: 8px; background: rgba(245, 158, 11, 0.2);">
+                    <div class="progress-fill" style="width: 72%; background: #D97706;"></div>
+                  </div>
+                  <span style="font-weight: 700; color: #B45309; font-size: 0.85rem;">72%</span>
                 </div>
-                <span style="font-weight: 700; color: #B45309; font-size: 0.85rem;">72%</span>
               </div>
-            </div>
-            <div style="display: flex; gap: 0.75rem; align-items: center;">
-              <button type="button" class="btn btn-primary" onclick="switchView('student-courses');">Resume Lesson &rarr;</button>
-            </div>
-          </div>
-
-          <!-- Quick Navigation Cards Grid -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
-            <div class="quick-action-card" onclick="switchView('student-courses');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase;">Curriculum</span>
-                <span class="badge badge-emerald">4 Enrolled</span>
-              </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">My Active Courses</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Access lectures, syllabus, downloadable exercises and lab environments.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: var(--color-primary); margin-top: auto;">Open Courses &rarr;</span>
+              <button type="button" class="btn btn-primary" onclick="switchView('student-courses');">Resume Module 7 &rarr;</button>
             </div>
 
-            <div class="quick-action-card" onclick="switchView('student-assignments');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: #D97706; text-transform: uppercase;">Submissions</span>
-                <span class="badge badge-yellow">2 Due Soon</span>
+            <!-- Courses Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+              <div class="course-card">
+                <div class="course-thumbnail-wrap">
+                  <img src="../assets/images/course-ui-ux-design.webp" alt="UI/UX Design Masterclass" class="course-thumbnail">
+                  <span class="badge badge-yellow course-badge-overlay">In Progress (45%)</span>
+                </div>
+                <div class="course-body">
+                  <div class="course-meta"><span>Module 4 of 8</span><span>★ 4.95</span></div>
+                  <h3 class="course-title">UI/UX Design Masterclass & Comprehensive Design Systems</h3>
+                  <div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width: 45%;"></div></div></div>
+                  <div class="course-instructor">
+                    <img src="../assets/images/mentor-sarah-jenkins.webp" alt="Sarah Jenkins" class="instructor-avatar">
+                    <div class="instructor-name">Lead: Sarah Jenkins</div>
+                    <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="switchView('student-courses');">Resume</button>
+                  </div>
+                </div>
               </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Assignments & Quizzes</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Review pending project deliverables, grader feedback, and score reports.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: #D97706; margin-top: auto;">View Homework &rarr;</span>
+
+              <div class="course-card">
+                <div class="course-thumbnail-wrap">
+                  <img src="../assets/images/course-cloud-devops.webp" alt="Cloud Architecture" class="course-thumbnail">
+                  <span class="badge badge-emerald course-badge-overlay">Near Completion (88%)</span>
+                </div>
+                <div class="course-body">
+                  <div class="course-meta"><span>Module 9 of 10</span><span>★ 4.88</span></div>
+                  <h3 class="course-title">Cloud Architecture, Docker & Production Kubernetes</h3>
+                  <div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width: 88%;"></div></div></div>
+                  <div class="course-instructor">
+                    <img src="../assets/images/mentor-priya-sharma.webp" alt="Priya Sharma" class="instructor-avatar">
+                    <div class="instructor-name">Lead: Priya Sharma</div>
+                    <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="switchView('student-courses');">Resume</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 3: Assignments & Quizzes Management Queue -->
+          <section class="dashboard-section" aria-labelledby="student-assignments-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="student-assignments-sec-heading" class="dashboard-section-title">Assignments & Project Milestones</h2>
+                <p class="dashboard-section-subtitle">Track pending deadlines, review grader feedback, and view score reports.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('student-assignments');">View All Assignments &rarr;</button>
+            </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
+              <table class="dashboard-table">
+                <thead>
+                  <tr>
+                    <th>Deliverable</th>
+                    <th>Course Track</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                    <th>Grade</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div style="font-weight: 700; color: var(--color-text-main);">React State Management Capstone</div>
+                      <div style="font-size: 0.775rem; color: var(--color-text-muted);">Redux Toolkit vs Zustand Performance Benchmark</div>
+                    </td>
+                    <td>Fullstack React Track</td>
+                    <td>Nov 15, 2026</td>
+                    <td><span class="status-badge approved">Approved</span></td>
+                    <td><strong style="color: var(--color-success); font-weight: 800;">96 / 100</strong></td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Score: 96/100. Excellent component isolation.');">Grade Report</button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="font-weight: 700; color: var(--color-text-main);">Next.js SSR vs SSG Project</div>
+                      <div style="font-size: 0.775rem; color: var(--color-text-muted);">Production E-Commerce Rendering Engine</div>
+                    </td>
+                    <td>Fullstack React Track</td>
+                    <td>Nov 18, 2026</td>
+                    <td><span class="status-badge review">Pending Upload</span></td>
+                    <td><span style="color: var(--color-text-muted);">&mdash;</span></td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Upload repository link or ZIP.');">Upload Now</button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="font-weight: 700; color: var(--color-text-main);">Design System Token System in Figma</div>
+                      <div style="font-size: 0.775rem; color: var(--color-text-muted);">Accessible color contrast and semantic tokens</div>
+                    </td>
+                    <td>UI/UX Masterclass</td>
+                    <td>Oct 12, 2026</td>
+                    <td><span class="status-badge approved">Approved</span></td>
+                    <td><strong style="color: var(--color-success); font-weight: 800;">98 / 100</strong></td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Score: 98/100. Outstanding WCAG compliance.');">Grade Report</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- SECTION 4: Live Mentorship & Office Hours Hub -->
+          <section class="dashboard-section" aria-labelledby="student-mentorship-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="student-mentorship-sec-heading" class="dashboard-section-title">Live Mentorship & 1-on-1 Office Hours</h2>
+                <p class="dashboard-section-subtitle">Schedule 30-min consultations with senior engineers and portfolio directors.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('student-mentorship');">View Mentors Desk &rarr;</button>
             </div>
 
-            <div class="quick-action-card" onclick="switchView('student-mentorship');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: #0284C7; text-transform: uppercase;">Live Desk</span>
-                <span class="badge badge-peach">Live 4:30 PM</span>
+            <div style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); color: #FFFFFF; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+              <div>
+                <span class="badge" style="background: rgba(255,255,255,0.2); color: #FFFFFF; margin-bottom: 0.5rem;">Next Scheduled Session &bull; Today at 4:30 PM EST</span>
+                <h3 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 0.4rem 0;">AI Architecture Consultation with Dr. Marcus Vance</h3>
+                <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">Topic: Vector index optimization and multi-agent coordination pipelines.</p>
               </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">1-on-1 Mentorship</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Schedule office hours and join live mentoring video rooms with senior engineers.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: #0284C7; margin-top: auto;">Connect with Mentors &rarr;</span>
+              <button type="button" class="btn btn-white" onclick="alert('Connecting to mentor video call...');">Join Video Call</button>
             </div>
-          </div>
+          </section>
+
+          <!-- SECTION 5: Verified Digital Credentials & Certifications -->
+          <section class="dashboard-section" aria-labelledby="student-certs-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="student-certs-sec-heading" class="dashboard-section-title">Verified Credentials & Certifications</h2>
+                <p class="dashboard-section-subtitle">Cryptographically verified credentials ready for employer validation.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('student-certificates');">View All (3) &rarr;</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+              <div class="certificate-card-wrapper">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;">
+                  <span class="certificate-badge-gold">★ Verified Credential</span>
+                  <span style="font-size: 0.75rem; color: rgba(255,255,255,0.8); font-family: monospace;">ID: STK-2026-CERT-88492</span>
+                </div>
+                <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-pastel-mint); margin-bottom: 0.35rem;">Stackly Certified Professional</div>
+                <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; color: #FFFFFF;">Advanced TypeScript & React Ecosystem</h3>
+                <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.25rem;">
+                  Demonstrated mastery in strict typing, state machines, performance profiling, and design systems.
+                </p>
+                <div style="display: flex; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
+                  <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF...');">Download PDF</button>
+                  <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Copied verification URL to clipboard!');">Share</button>
+                </div>
+              </div>
+
+              <div class="certificate-card-wrapper" style="background: linear-gradient(135deg, #064E3B 0%, #065F46 100%); border-color: rgba(16, 185, 129, 0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;">
+                  <span class="certificate-badge-gold">★ Verified Credential</span>
+                  <span style="font-size: 0.75rem; color: rgba(255,255,255,0.8); font-family: monospace;">ID: STK-2026-CERT-51920</span>
+                </div>
+                <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #A7F3D0; margin-bottom: 0.35rem;">Stackly Cloud Academy</div>
+                <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; color: #FFFFFF;">Certified Cloud Native Practitioner</h3>
+                <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.25rem;">
+                  Demonstrated mastery in containerized workloads, Docker optimization, and Helm Kubernetes deployment.
+                </p>
+                <div style="display: flex; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
+                  <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF...');">Download PDF</button>
+                  <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Copied verification URL to clipboard!');">Share</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 6: Weekly Study Hours & Learning Velocity -->
+          <section class="dashboard-section" aria-labelledby="student-hours-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="student-hours-sec-heading" class="dashboard-section-title">Weekly Study Hours & Activity Velocity</h2>
+                <p class="dashboard-section-subtitle">Visualizing daily hours spent on video lessons, code labs, and quizzes.</p>
+              </div>
+              <span class="badge badge-emerald">Goal: 10 hrs / week (86% Met)</span>
+            </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.75rem; box-shadow: var(--shadow-xs);">
+              <div style="display: flex; align-items: flex-end; justify-content: space-between; height: 160px; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border-color-subtle);">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1;">
+                  <div style="width: 100%; max-width: 42px; height: 75px; background: var(--color-primary-light); border-radius: 6px; border: 1.5px solid var(--color-primary);"></div>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted);">Mon (2.5h)</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1;">
+                  <div style="width: 100%; max-width: 42px; height: 90px; background: var(--color-primary-light); border-radius: 6px; border: 1.5px solid var(--color-primary);"></div>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted);">Tue (3.0h)</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1;">
+                  <div style="width: 100%; max-width: 42px; height: 45px; background: var(--color-primary-light); border-radius: 6px; border: 1.5px solid var(--color-primary);"></div>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted);">Wed (1.5h)</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1;">
+                  <div style="width: 100%; max-width: 42px; height: 120px; background: var(--color-primary); border-radius: 6px;"></div>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary-dark);">Thu (4.0h)</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1;">
+                  <div style="width: 100%; max-width: 42px; height: 90px; background: var(--color-primary-light); border-radius: 6px; border: 1.5px solid var(--color-primary);"></div>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted);">Fri (3.0h)</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1;">
+                  <div style="width: 100%; max-width: 42px; height: 140px; background: var(--color-primary); border-radius: 6px;"></div>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-primary-dark);">Sat (5.0h)</span>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1;">
+                  <div style="width: 100%; max-width: 42px; height: 60px; background: var(--color-primary-light); border-radius: 6px; border: 1.5px solid var(--color-primary);"></div>
+                  <span style="font-size: 0.75rem; font-weight: 700; color: var(--color-text-muted);">Sun (2.0h)</span>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; font-size: 0.85rem;">
+                <span style="color: var(--color-text-muted);">Total Weekly Learning Time: <strong style="color: var(--color-text-main);">21.0 Hours</strong></span>
+                <span style="color: var(--color-success); font-weight: 700;">+4.5 hrs over weekly goal</span>
+              </div>
+            </div>
+          </section>
+
         </div>
 
-        <!-- 2. Student Courses View -->
+        <!-- 2. Student Courses View (Full view) -->
         <div class="dashboard-view-panel" id="view-student-courses">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Enrolled Courses</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Manage your ongoing learning journeys and access module resources.</p>
+              <h2 class="dashboard-section-title">Enrolled Courses Catalog</h2>
+              <p class="dashboard-section-subtitle">Manage your registered curriculums, syllabus units, and code playgrounds.</p>
             </div>
-            <a href="courses.html" class="btn btn-outline btn-sm">Explore More Courses</a>
+            <a href="courses.html" class="btn btn-outline btn-sm">Explore Course Catalog</a>
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-            <!-- Course 1 -->
             <div class="course-card">
               <div class="course-thumbnail-wrap">
                 <img src="../assets/images/course-fullstack-dev.webp" alt="Fullstack Web Development" class="course-thumbnail">
                 <span class="badge badge-emerald course-badge-overlay">In Progress (72%)</span>
               </div>
               <div class="course-body">
-                <div class="course-meta">
-                  <span>Module 7 of 10</span>
-                  <span>4.9 (420 reviews)</span>
-                </div>
+                <div class="course-meta"><span>Module 7 of 10</span><span>4.9 (420 reviews)</span></div>
                 <h3 class="course-title">Fullstack Web Development with Modern React & Node.js</h3>
-                <div class="progress-container" style="margin-bottom: 1rem;">
-                  <div class="progress-track"><div class="progress-fill" style="width: 72%;"></div></div>
-                </div>
+                <div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width: 72%;"></div></div></div>
                 <div class="course-instructor">
                   <img src="../assets/images/mentor-alex-chen.webp" alt="Alex Chen" class="instructor-avatar">
                   <div class="instructor-name">Lead: Alex Chen</div>
@@ -497,21 +709,15 @@
               </div>
             </div>
 
-            <!-- Course 2 -->
             <div class="course-card">
               <div class="course-thumbnail-wrap">
                 <img src="../assets/images/course-ui-ux-design.webp" alt="UI/UX Design Masterclass" class="course-thumbnail">
                 <span class="badge badge-yellow course-badge-overlay">In Progress (45%)</span>
               </div>
               <div class="course-body">
-                <div class="course-meta">
-                  <span>Module 4 of 8</span>
-                  <span>4.95 (310 reviews)</span>
-                </div>
+                <div class="course-meta"><span>Module 4 of 8</span><span>4.95 (310 reviews)</span></div>
                 <h3 class="course-title">UI/UX Design Masterclass & Comprehensive Design Systems</h3>
-                <div class="progress-container" style="margin-bottom: 1rem;">
-                  <div class="progress-track"><div class="progress-fill" style="width: 45%;"></div></div>
-                </div>
+                <div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width: 45%;"></div></div></div>
                 <div class="course-instructor">
                   <img src="../assets/images/mentor-sarah-jenkins.webp" alt="Sarah Jenkins" class="instructor-avatar">
                   <div class="instructor-name">Lead: Sarah Jenkins</div>
@@ -520,21 +726,15 @@
               </div>
             </div>
 
-            <!-- Course 3 -->
             <div class="course-card">
               <div class="course-thumbnail-wrap">
-                <img src="../assets/images/course-cloud-devops.webp" alt="Cloud Architecture & DevOps" class="course-thumbnail">
+                <img src="../assets/images/course-cloud-devops.webp" alt="Cloud Architecture" class="course-thumbnail">
                 <span class="badge badge-emerald course-badge-overlay">Near Completion (88%)</span>
               </div>
               <div class="course-body">
-                <div class="course-meta">
-                  <span>Module 9 of 10</span>
-                  <span>4.88 (280 reviews)</span>
-                </div>
+                <div class="course-meta"><span>Module 9 of 10</span><span>4.88 (280 reviews)</span></div>
                 <h3 class="course-title">Cloud Architecture, Docker & Production Kubernetes</h3>
-                <div class="progress-container" style="margin-bottom: 1rem;">
-                  <div class="progress-track"><div class="progress-fill" style="width: 88%;"></div></div>
-                </div>
+                <div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width: 88%;"></div></div></div>
                 <div class="course-instructor">
                   <img src="../assets/images/mentor-priya-sharma.webp" alt="Priya Sharma" class="instructor-avatar">
                   <div class="instructor-name">Lead: Priya Sharma</div>
@@ -543,21 +743,15 @@
               </div>
             </div>
 
-            <!-- Course 4 -->
             <div class="course-card">
               <div class="course-thumbnail-wrap">
                 <img src="../assets/images/course-ai-data-science.webp" alt="AI & Prompt Engineering" class="course-thumbnail">
                 <span class="badge badge-peach course-badge-overlay">New Sprint (20%)</span>
               </div>
               <div class="course-body">
-                <div class="course-meta">
-                  <span>Module 2 of 10</span>
-                  <span>4.98 (560 reviews)</span>
-                </div>
+                <div class="course-meta"><span>Module 2 of 10</span><span>4.98 (560 reviews)</span></div>
                 <h3 class="course-title">Applied Generative AI, LLMs & Prompt Engineering</h3>
-                <div class="progress-container" style="margin-bottom: 1rem;">
-                  <div class="progress-track"><div class="progress-fill" style="width: 20%;"></div></div>
-                </div>
+                <div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width: 20%;"></div></div></div>
                 <div class="course-instructor">
                   <img src="../assets/images/mentor-marcus-vance.webp" alt="Marcus Vance" class="instructor-avatar">
                   <div class="instructor-name">Lead: Dr. Marcus Vance</div>
@@ -568,14 +762,14 @@
           </div>
         </div>
 
-        <!-- 3. Student Assignments View -->
+        <!-- 3. Student Assignments View (Full view) -->
         <div class="dashboard-view-panel" id="view-student-assignments">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Assignments & Quizzes</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Submit project code repositories, view test scores, and read mentor reviews.</p>
+              <h2 class="dashboard-section-title">Assignments & Quizzes Portal</h2>
+              <p class="dashboard-section-subtitle">Submit project code repositories, view test scores, and read mentor reviews.</p>
             </div>
-            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Submission portal ready. Drag and drop your project repository link or ZIP.');">+ Submit Project</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Submission portal ready. Select repository.');">+ Submit Project</button>
           </div>
 
           <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
@@ -600,7 +794,7 @@
                   <td>Nov 15, 2026</td>
                   <td><span class="status-badge approved">Approved</span></td>
                   <td><strong style="color: var(--color-success); font-weight: 800;">96 / 100</strong></td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Grade breakdown: Architecture (38/40), Unit Tests (30/30), Documentation (28/30).');">View Report</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Grade: 96/100.');">View Report</button></td>
                 </tr>
                 <tr>
                   <td>
@@ -611,7 +805,7 @@
                   <td>Nov 18, 2026</td>
                   <td><span class="status-badge review">Pending Upload</span></td>
                   <td><span style="color: var(--color-text-muted);">&mdash;</span></td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Select your GitHub repository to submit.');">Upload Now</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Select your GitHub repository.');">Upload Now</button></td>
                 </tr>
                 <tr>
                   <td>
@@ -622,7 +816,7 @@
                   <td>Oct 29, 2026</td>
                   <td><span class="status-badge feedback">Feedback Ready</span></td>
                   <td><strong style="color: #075985; font-weight: 800;">91 / 100</strong></td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Mentor Feedback: Great Kubernetes manifests. Add ingress cert-manager annotations for production.');">Read Feedback</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Mentor Feedback: Great Kubernetes manifests.');">Read Feedback</button></td>
                 </tr>
                 <tr>
                   <td>
@@ -633,35 +827,23 @@
                   <td>Oct 12, 2026</td>
                   <td><span class="status-badge approved">Approved</span></td>
                   <td><strong style="color: var(--color-success); font-weight: 800;">98 / 100</strong></td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Grade: 98/100. Excellent WCAG AAA conformance.');">View Report</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Grade: 98/100.');">View Report</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- 4. Student Mentorship View -->
+        <!-- 4. Student Mentorship View (Full view) -->
         <div class="dashboard-view-panel" id="view-student-mentorship">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Live Mentorship & Office Hours</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Book personalized 1-on-1 code reviews, career guidance, and architectural consultations.</p>
+              <h2 class="dashboard-section-title">Faculty Mentorship & Advisory Desk</h2>
+              <p class="dashboard-section-subtitle">Book personalized 1-on-1 code reviews and career strategy consultations.</p>
             </div>
-            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening calendar. Select your preferred date and time slot.');">Schedule 1-on-1 Call</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Select available date and time slot.');">Schedule 1-on-1 Call</button>
           </div>
 
-          <!-- Active Room Card -->
-          <div style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); color: #FFFFFF; border-radius: var(--radius-2xl); padding: 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
-            <div>
-              <span class="badge" style="background: rgba(255,255,255,0.2); color: #FFFFFF; margin-bottom: 0.5rem;">Next Scheduled Call &bull; Today at 4:30 PM EST</span>
-              <h3 style="font-size: 1.45rem; font-weight: 800; margin: 0 0 0.5rem 0;">AI Architecture & Portfolio Review with Dr. Marcus Vance</h3>
-              <p style="margin: 0; opacity: 0.9; font-size: 0.9rem;">Topic: Fine-tuning evaluation metrics and production agent orchestration.</p>
-            </div>
-            <button type="button" class="btn btn-white" onclick="alert('Launching secure mentor video bridge...');">Join Video Call (Starts in 42m)</button>
-          </div>
-
-          <!-- Mentors List -->
-          <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 1rem;">Your Dedicated Faculty Mentors</h3>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
             <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
               <div style="display: flex; gap: 1rem; align-items: center;">
@@ -672,8 +854,8 @@
                   <div style="font-size: 0.8rem; color: #D97706; font-weight: 700;">★ 4.96 (180 mentorships)</div>
                 </div>
               </div>
-              <p style="font-size: 0.825rem; color: var(--color-text-muted); margin: 0;">Specializes in PyTorch, LLM agents, vector indexes, and applied deep learning pipelines.</p>
-              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots for Dr. Marcus Vance: Tomorrow 3:00 PM, Thursday 10:00 AM.');">Book 30-min Slot</button>
+              <p style="font-size: 0.825rem; color: var(--color-text-muted); margin: 0;">Specializes in PyTorch, LLM agents, vector indexes, and deep learning pipelines.</p>
+              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots: Tomorrow 3:00 PM, Thursday 10:00 AM.');">Book 30-min Slot</button>
             </div>
 
             <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
@@ -685,8 +867,8 @@
                   <div style="font-size: 0.8rem; color: #D97706; font-weight: 700;">★ 4.95 (240 mentorships)</div>
                 </div>
               </div>
-              <p style="font-size: 0.825rem; color: var(--color-text-muted); margin: 0;">Specializes in design systems, micro-interactions, Figma component tokens, and usability audits.</p>
-              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots for Sarah Jenkins: Wednesday 2:00 PM, Friday 11:30 AM.');">Book 30-min Slot</button>
+              <p style="font-size: 0.825rem; color: var(--color-text-muted); margin: 0;">Specializes in design systems, micro-interactions, Figma component tokens, and usability.</p>
+              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots: Wednesday 2:00 PM, Friday 11:30 AM.');">Book 30-min Slot</button>
             </div>
 
             <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
@@ -699,23 +881,22 @@
                 </div>
               </div>
               <p style="font-size: 0.825rem; color: var(--color-text-muted); margin: 0;">Specializes in React performance, Next.js hydration, Node.js microservices, and Docker CI/CD.</p>
-              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots for Alex Chen: Thursday 4:00 PM, Friday 1:00 PM.');">Book 30-min Slot</button>
+              <button type="button" class="btn btn-outline btn-sm" style="margin-top: auto;" onclick="alert('Available Slots: Thursday 4:00 PM, Friday 1:00 PM.');">Book 30-min Slot</button>
             </div>
           </div>
         </div>
 
-        <!-- 5. Student Certificates View -->
+        <!-- 5. Student Certificates View (Full view) -->
         <div class="dashboard-view-panel" id="view-student-certificates">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Verified Digital Certificates</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Official credentials cryptographically signed and verifiable by employers globally.</p>
+              <h2 class="dashboard-section-title">Verified Digital Certificates & Credentials</h2>
+              <p class="dashboard-section-subtitle">Official credentials cryptographically signed and verifiable by employers globally.</p>
             </div>
-            <button type="button" class="btn btn-outline btn-sm" onclick="alert('All credentials are cryptographic tokens verified on the Stackly Verification Registry.');">Verify Registry</button>
+            <button type="button" class="btn btn-outline btn-sm" onclick="alert('Stackly Verification Registry: Status Valid.');">Verification Registry</button>
           </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
-            <!-- Certificate 1 -->
             <div class="certificate-card-wrapper">
               <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
                 <span class="certificate-badge-gold">★ Verified Credential</span>
@@ -724,18 +905,14 @@
               <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-pastel-mint); margin-bottom: 0.35rem;">Stackly Certified Professional</div>
               <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; color: #FFFFFF;">Advanced TypeScript & React Ecosystem</h3>
               <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.5rem;">
-                Demonstrated mastery in strict typing, state machines, performance profiling, and accessible design systems.
+                Demonstrated mastery in strict typing, state machines, performance profiling, and design systems.
               </p>
-              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
-                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Oct 14, 2026</div>
-                <div style="display: flex; gap: 0.5rem;">
-                  <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF (STK-88492)...');">Download PDF</button>
-                  <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Copied verification URL to clipboard!');">Share</button>
-                </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
+                <span style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Oct 14, 2026</span>
+                <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF...');">Download PDF</button>
               </div>
             </div>
 
-            <!-- Certificate 2 -->
             <div class="certificate-card-wrapper" style="background: linear-gradient(135deg, #064E3B 0%, #065F46 100%); border-color: rgba(16, 185, 129, 0.3);">
               <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
                 <span class="certificate-badge-gold">★ Verified Credential</span>
@@ -744,335 +921,374 @@
               <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: #A7F3D0; margin-bottom: 0.35rem;">Stackly Cloud Academy</div>
               <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; color: #FFFFFF;">Certified Cloud Native Practitioner</h3>
               <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.5rem;">
-                Demonstrated mastery in containerized workloads, Docker optimization, and Helm Kubernetes deployment configurations.
+                Demonstrated mastery in containerized workloads, Docker optimization, and Helm Kubernetes deployment.
               </p>
-              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
-                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Sep 20, 2026</div>
-                <div style="display: flex; gap: 0.5rem;">
-                  <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF (STK-51920)...');">Download PDF</button>
-                  <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Copied verification URL to clipboard!');">Share</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Certificate 3 -->
-            <div class="certificate-card-wrapper" style="background: linear-gradient(135deg, #4C1D95 0%, #5B21B6 100%); border-color: rgba(139, 92, 246, 0.3);">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
-                <span class="certificate-badge-gold">★ Verified Credential</span>
-                <span style="font-size: 0.75rem; color: rgba(255,255,255,0.8); font-family: monospace;">ID: STK-2026-CERT-32014</span>
-              </div>
-              <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: #DDD6FE; margin-bottom: 0.35rem;">Stackly Design Guild</div>
-              <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; color: #FFFFFF;">UI/UX System Design Specialist</h3>
-              <p style="font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 1.5rem;">
-                Demonstrated end-to-end user research, accessibility heuristics, interactive prototyping, and design token architectures.
-              </p>
-              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
-                <div style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Aug 18, 2026</div>
-                <div style="display: flex; gap: 0.5rem;">
-                  <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF (STK-32014)...');">Download PDF</button>
-                  <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Copied verification URL to clipboard!');">Share</button>
-                </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">
+                <span style="font-size: 0.75rem; color: rgba(255,255,255,0.7);">Issued: Sep 20, 2026</span>
+                <button type="button" class="btn btn-white btn-sm" onclick="alert('Downloading Certificate PDF...');">Download PDF</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 6. Student Settings View -->
+        <!-- 6. Student Account Settings View (Populated with Gmail Details) -->
         <div class="dashboard-view-panel" id="view-student-settings">
-          <div style="margin-bottom: 1.5rem;">
-            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Account Settings & Preferences</h2>
-            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Manage your student profile, email notifications, and security credentials.</p>
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title">Account Settings & Profile Details</h2>
+              <p class="dashboard-section-subtitle">Name and email credentials automatically linked with your authentication account.</p>
+            </div>
           </div>
 
           <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 2rem; max-width: 720px; box-shadow: var(--shadow-xs);">
-            <form onsubmit="event.preventDefault(); alert('Student profile preferences saved successfully!');">
+            <form id="studentSettingsForm" onsubmit="handleSettingsUpdate(event, 'student');">
               <div style="margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Full Name</label>
-                <input type="text" class="form-input" id="settingStudentName" value="Elena Rostova" style="width: 100%;">
+                <label for="settingStudentName" style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Full Name (Derived from Login Email)
+                </label>
+                <input type="text" class="form-input" id="settingStudentName" required style="width: 100%;">
+                <span style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.25rem; display: block;">
+                  Extracted automatically from your login credentials. You may refine your display name here.
+                </span>
               </div>
+              
               <div style="margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Email Address</label>
-                <input type="email" class="form-input" id="settingStudentEmail" value="elena.rostova@stackly.edu" style="width: 100%;">
+                <label for="settingStudentEmail" style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Login Gmail / Email Address
+                </label>
+                <input type="email" class="form-input" id="settingStudentEmail" required style="width: 100%;">
+                <span style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.25rem; display: block;">
+                  Primary authentication email used to sign into your Stackly workspace.
+                </span>
               </div>
+
               <div style="margin-bottom: 1.5rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Learning Pace Goal</label>
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Weekly Study Commitment
+                </label>
                 <select class="form-input" style="width: 100%;">
                   <option selected>Target 10 hours / week (Standard Professional)</option>
-                  <option>Target 20 hours / week (Intensive Bootcamp)</option>
+                  <option>Target 20 hours / week (Intensive Bootcamp Track)</option>
                   <option>Target 5 hours / week (Casual Self-paced)</option>
                 </select>
               </div>
-              <div style="margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
-                <label style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-main);">Notifications</label>
+
+              <div style="margin-bottom: 1.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                <label style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-main);">Email & Platform Notifications</label>
                 <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
-                  <input type="checkbox" checked> Email me when mentor grades an assignment
+                  <input type="checkbox" checked> Send grade notifications when instructor reviews an assignment
                 </label>
                 <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
-                  <input type="checkbox" checked> 15-minute reminders before live 1-on-1 office hours
+                  <input type="checkbox" checked> Send 15-minute reminders before live 1-on-1 office hours
                 </label>
                 <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
-                  <input type="checkbox"> Weekly curriculum digest and recommended labs
+                  <input type="checkbox"> Weekly curriculum digest and lab recommendations
                 </label>
               </div>
-              <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+
+              <button type="submit" class="btn btn-primary" id="saveStudentSettingsBtn">Save Profile Changes</button>
             </form>
           </div>
         </div>
 
 
         <!-- ===================================================================
-             INSTRUCTOR PANELS
+             INSTRUCTOR PANELS (AT LEAST 5 RICH SECTIONS OF CONTENT)
              =================================================================== -->
 
         <!-- 1. Instructor Overview View -->
         <div class="dashboard-view-panel" id="view-instructor-overview">
-          <section aria-labelledby="instructor-kpi-heading" style="margin-bottom: 2rem;">
-            <h2 id="instructor-kpi-heading" class="sr-only">Instructor Performance</h2>
+          
+          <!-- SECTION 1: Faculty Performance KPIs -->
+          <section class="dashboard-section" aria-labelledby="instructor-kpi-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="instructor-kpi-heading" class="dashboard-section-title">Faculty Performance & Analytics</h2>
+                <p class="dashboard-section-subtitle">Real-time metrics on student enrollment, active course load, and revenue generation.</p>
+              </div>
+              <span class="badge badge-lilac">Faculty Member Active</span>
+            </div>
             <div class="stat-card-grid" id="instructorKpiGrid">
-              <!-- Rendered via JS -->
+              <!-- Injected via JS -->
             </div>
           </section>
 
-          <!-- Banner Action -->
-          <div style="background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%); border: 1.5px solid #DDD6FE; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
-            <div>
-              <span class="badge badge-lilac" style="margin-bottom: 0.5rem;">Instructor Portal</span>
-              <h3 style="font-size: 1.35rem; font-weight: 800; color: #4C1D95; margin-bottom: 0.35rem;">
-                Welcome to your Faculty Console, Dr. Marcus Vance
-              </h3>
-              <p style="color: #6D28D9; font-size: 0.9rem; margin: 0;">
-                You have <strong>7 student submissions</strong> awaiting grading and a live webinar tomorrow at 5:00 PM EST.
-              </p>
-            </div>
-            <div style="display: flex; gap: 0.75rem;">
-              <button type="button" class="btn btn-primary" onclick="switchView('instructor-grading');">Review Submissions (7)</button>
-              <button type="button" class="btn btn-outline" onclick="switchView('instructor-live');">Start Live Session</button>
-            </div>
-          </div>
-
-          <!-- Quick Navigation Cards Grid -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-            <div class="quick-action-card" onclick="switchView('instructor-courses');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: #7C3AED; text-transform: uppercase;">Curriculum</span>
-                <span class="badge badge-lilac">4 Published</span>
+          <!-- SECTION 2: Faculty Operations Hub & Quick Actions -->
+          <section class="dashboard-section">
+            <div style="background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%); border: 1.5px solid #DDD6FE; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+              <div>
+                <span class="badge badge-lilac" style="margin-bottom: 0.5rem;">Instructor Faculty Console</span>
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: #4C1D95; margin-bottom: 0.35rem;">
+                  Course Creator & Mentorship Hub
+                </h3>
+                <p style="color: #6D28D9; font-size: 0.9rem; margin: 0;">
+                  You have <strong>7 student submissions</strong> awaiting grading and a live webinar tomorrow at 5:00 PM EST.
+                </p>
               </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">My Published Courses</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Update modules, upload video lectures, and publish interactive code playgrounds.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: #7C3AED; margin-top: auto;">Manage Courses &rarr;</span>
-            </div>
-
-            <div class="quick-action-card" onclick="switchView('instructor-grading');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: #D97706; text-transform: uppercase;">Grading</span>
-                <span class="badge badge-yellow">7 In Queue</span>
+              <div style="display: flex; gap: 0.75rem;">
+                <button type="button" class="btn btn-primary" onclick="switchView('instructor-grading');">Review Submissions (7)</button>
+                <button type="button" class="btn btn-outline" onclick="switchView('instructor-live');">Start Live Studio</button>
               </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Submissions & Grading</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Grade student capstone repositories, annotate code snippets, and post feedback.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: #D97706; margin-top: auto;">Open Grading Queue &rarr;</span>
             </div>
+          </section>
 
-            <div class="quick-action-card" onclick="switchView('instructor-analytics');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: #059669; text-transform: uppercase;">Revenue</span>
-                <span class="badge badge-emerald">$7,420 / mo</span>
+          <!-- SECTION 3: Managed Courses & Curriculum Operations -->
+          <section class="dashboard-section" aria-labelledby="instructor-courses-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="instructor-courses-sec-heading" class="dashboard-section-title">Published Courses & Curriculum Operations</h2>
+                <p class="dashboard-section-subtitle">Manage modules, update video lectures, and monitor student completion.</p>
               </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Earnings & Analytics</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Track monthly student enrollments, course retention rates, and payout history.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: #059669; margin-top: auto;">View Analytics &rarr;</span>
+              <button type="button" class="btn btn-primary btn-sm" onclick="switchView('instructor-courses');">+ Create New Course</button>
             </div>
-          </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+              <div class="course-card">
+                <div class="course-thumbnail-wrap">
+                  <img src="../assets/images/course-ai-data-science.webp" alt="GenAI Course" class="course-thumbnail">
+                  <span class="badge badge-emerald course-badge-overlay">Published &bull; 820 Students</span>
+                </div>
+                <div class="course-body">
+                  <h3 class="course-title">Applied Generative AI, LLMs & Prompt Engineering</h3>
+                  <p style="font-size: 0.85rem; color: var(--color-text-muted);">10 Modules &bull; 48 Video Lessons &bull; 12 Lab Quizzes</p>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: #059669;">
+                    <span>Monthly: $3,280</span><span>Rating: 4.98 ★</span>
+                  </div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button type="button" class="btn btn-outline btn-sm" onclick="switchView('instructor-courses');">Edit Syllabus</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('820 enrolled learners active.');">Roster (820)</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="course-card">
+                <div class="course-thumbnail-wrap">
+                  <img src="../assets/images/course-fullstack-dev.webp" alt="Python ML Course" class="course-thumbnail">
+                  <span class="badge badge-emerald course-badge-overlay">Published &bull; 640 Students</span>
+                </div>
+                <div class="course-body">
+                  <h3 class="course-title">Modern Python for Machine Learning & Deep Neural Nets</h3>
+                  <p style="font-size: 0.85rem; color: var(--color-text-muted);">8 Modules &bull; 36 Video Lessons &bull; 8 Jupyter Labs</p>
+                  <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: #059669;">
+                    <span>Monthly: $2,560</span><span>Rating: 4.90 ★</span>
+                  </div>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button type="button" class="btn btn-outline btn-sm" onclick="switchView('instructor-courses');">Edit Syllabus</button>
+                    <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('640 enrolled learners active.');">Roster (640)</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 4: Student Submissions & Pending Grading Queue -->
+          <section class="dashboard-section" aria-labelledby="instructor-grading-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="instructor-grading-sec-heading" class="dashboard-section-title">Student Submissions & Grading Queue</h2>
+                <p class="dashboard-section-subtitle">Review student capstone projects, grade submissions, and leave feedback.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('instructor-grading');">Open Grading Queue (7) &rarr;</button>
+            </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
+              <table class="dashboard-table">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Project</th>
+                    <th>Submitted</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div style="font-weight: 700; color: var(--color-text-main);">Amara Okafor</div>
+                      <div style="font-size: 0.75rem; color: var(--color-text-muted);">amara@stackly.edu</div>
+                    </td>
+                    <td>LangChain RAG Pipeline Capstone</td>
+                    <td>2 hours ago</td>
+                    <td><span class="status-badge review">Needs Review</span></td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="switchView('instructor-grading');">Grade Project</button></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="font-weight: 700; color: var(--color-text-main);">Lucas Silva</div>
+                      <div style="font-size: 0.75rem; color: var(--color-text-muted);">lucas@stackly.edu</div>
+                    </td>
+                    <td>Fine-Tuning Llama 3 on Domain Dataset</td>
+                    <td>5 hours ago</td>
+                    <td><span class="status-badge review">Needs Review</span></td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="switchView('instructor-grading');">Grade Project</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- SECTION 5: Live Studio & Scheduled Broadcasting -->
+          <section class="dashboard-section" aria-labelledby="instructor-live-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="instructor-live-sec-heading" class="dashboard-section-title">Live Webinar Studio & Office Hours</h2>
+                <p class="dashboard-section-subtitle">Host live Q&A webinars and provide real-time code architecture coaching.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('instructor-live');">Manage Live Rooms &rarr;</button>
+            </div>
+            <div style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%); color: #FFFFFF; border-radius: var(--radius-2xl); padding: 2rem;">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                <span class="badge badge-peach">Upcoming Broadcast</span>
+                <span style="font-size: 0.85rem; opacity: 0.8;">Room ID: STK-LIVE-AI-901</span>
+              </div>
+              <h3 style="font-size: 1.4rem; font-weight: 800; margin: 0 0 0.5rem 0;">GenAI Prompt Tuning & Agent Architecture Q&A</h3>
+              <p style="opacity: 0.9; margin: 0 0 1.25rem 0;">Scheduled: <strong>Tomorrow, Nov 13 at 5:00 PM EST</strong> &bull; 142 Learners Registered</p>
+              <div style="display: flex; gap: 0.75rem;">
+                <button type="button" class="btn btn-white btn-sm" onclick="alert('Camera & Microphone test: OK. Latency: 14ms.');">Test AV Equipment</button>
+                <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="switchView('instructor-live');">Start Broadcast</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 6: Revenue & Growth Analytics Breakdown -->
+          <section class="dashboard-section" aria-labelledby="instructor-rev-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="instructor-rev-sec-heading" class="dashboard-section-title">Earnings, Payouts & Retention Curve</h2>
+                <p class="dashboard-section-subtitle">Financial performance and student retention benchmark reports.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('instructor-analytics');">Detailed Analytics &rarr;</button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+              <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">November Payout (Pending)</div>
+                <div style="font-size: 2rem; font-weight: 800; color: #059669; margin: 0.5rem 0;">$7,420.00</div>
+                <div style="font-size: 0.8rem; color: #059669; font-weight: 600;">+12.4% vs October</div>
+              </div>
+              <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Course Completion Rate</div>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--color-primary); margin: 0.5rem 0;">91.4%</div>
+                <div style="font-size: 0.8rem; color: var(--color-text-muted);">Benchmark: Top 5% of Platform Faculty</div>
+              </div>
+              <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Student Satisfaction Score</div>
+                <div style="font-size: 2rem; font-weight: 800; color: #D97706; margin: 0.5rem 0;">4.92 / 5.0</div>
+                <div style="font-size: 0.8rem; color: #D97706; font-weight: 600;">Based on 1,420 student reviews</div>
+              </div>
+            </div>
+          </section>
+
         </div>
 
-        <!-- 2. Instructor Courses View -->
+        <!-- 2. Instructor Courses View (Full) -->
         <div class="dashboard-view-panel" id="view-instructor-courses">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">My Courses & Curriculum</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Author, edit syllabus modules, and inspect learner completion metrics.</p>
+              <h2 class="dashboard-section-title">My Courses & Curriculum Catalog</h2>
+              <p class="dashboard-section-subtitle">Author, edit syllabus modules, and inspect learner completion metrics.</p>
             </div>
-            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Creator Studio opened. Define title, modules, and video assets.');">+ Create New Course</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Creator Studio opened.');">+ Create New Course</button>
           </div>
-
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
             <div class="course-card">
               <div class="course-thumbnail-wrap">
-                <img src="../assets/images/course-ai-data-science.webp" alt="Course Thumbnail" class="course-thumbnail">
+                <img src="../assets/images/course-ai-data-science.webp" alt="Course" class="course-thumbnail">
                 <span class="badge badge-emerald course-badge-overlay">Published &bull; 820 Students</span>
               </div>
               <div class="course-body">
                 <h3 class="course-title">Applied Generative AI, LLMs & Prompt Engineering</h3>
                 <p style="font-size: 0.85rem; color: var(--color-text-muted);">10 Modules &bull; 48 Video Lessons &bull; 12 Lab Quizzes</p>
-                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: #059669;">
-                  <span>Monthly Revenue: $3,280</span>
-                  <span>Avg Rating: 4.98 ★</span>
-                </div>
-                <div style="display: flex; gap: 0.5rem;">
-                  <button type="button" class="btn btn-outline btn-sm" onclick="alert('Curriculum Editor opened for GenAI.');">Edit Modules</button>
-                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('Viewing 820 enrolled students roster.');">Roster (820)</button>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                  <button type="button" class="btn btn-outline btn-sm" onclick="alert('Curriculum Editor opened.');">Edit Modules</button>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('Roster: 820 students active.');">View Roster</button>
                 </div>
               </div>
             </div>
-
             <div class="course-card">
               <div class="course-thumbnail-wrap">
-                <img src="../assets/images/course-fullstack-dev.webp" alt="Course Thumbnail" class="course-thumbnail">
+                <img src="../assets/images/course-fullstack-dev.webp" alt="Course" class="course-thumbnail">
                 <span class="badge badge-emerald course-badge-overlay">Published &bull; 640 Students</span>
               </div>
               <div class="course-body">
                 <h3 class="course-title">Modern Python for Machine Learning & Deep Neural Nets</h3>
                 <p style="font-size: 0.85rem; color: var(--color-text-muted);">8 Modules &bull; 36 Video Lessons &bull; 8 Jupyter Labs</p>
-                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: #059669;">
-                  <span>Monthly Revenue: $2,560</span>
-                  <span>Avg Rating: 4.90 ★</span>
-                </div>
-                <div style="display: flex; gap: 0.5rem;">
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
                   <button type="button" class="btn btn-outline btn-sm" onclick="alert('Curriculum Editor opened.');">Edit Modules</button>
-                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('Viewing 640 enrolled students.');">Roster (640)</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="course-card">
-              <div class="course-thumbnail-wrap">
-                <img src="../assets/images/course-cloud-devops.webp" alt="Course Thumbnail" class="course-thumbnail">
-                <span class="badge badge-emerald course-badge-overlay">Published &bull; 380 Students</span>
-              </div>
-              <div class="course-body">
-                <h3 class="course-title">Autonomous Agent Architectures & LangGraph Orchestration</h3>
-                <p style="font-size: 0.85rem; color: var(--color-text-muted);">6 Modules &bull; 24 Video Lessons &bull; 6 Multi-Agent Labs</p>
-                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; color: #059669;">
-                  <span>Monthly Revenue: $1,580</span>
-                  <span>Avg Rating: 4.94 ★</span>
-                </div>
-                <div style="display: flex; gap: 0.5rem;">
-                  <button type="button" class="btn btn-outline btn-sm" onclick="alert('Curriculum Editor opened.');">Edit Modules</button>
-                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('Viewing 380 enrolled students.');">Roster (380)</button>
+                  <button type="button" class="btn btn-primary btn-sm" style="margin-left: auto;" onclick="alert('Roster: 640 students active.');">View Roster</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 3. Instructor Grading View -->
+        <!-- 3. Instructor Grading View (Full) -->
         <div class="dashboard-view-panel" id="view-instructor-grading">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Submissions & Grading Queue</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Review student code submissions, assign grades, and issue verified completion marks.</p>
+              <h2 class="dashboard-section-title">Submissions & Grading Review Queue</h2>
+              <p class="dashboard-section-subtitle">Review student capstone projects, grade submissions, and leave feedback.</p>
             </div>
-            <span class="badge badge-yellow">7 Pending Review</span>
+            <span class="badge badge-yellow">7 In Queue</span>
           </div>
-
           <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
             <table class="dashboard-table">
               <thead>
-                <tr>
-                  <th>Student</th>
-                  <th>Assignment / Capstone</th>
-                  <th>Submitted</th>
-                  <th>Status</th>
-                  <th style="text-align: right;">Action</th>
-                </tr>
+                <tr><th>Student</th><th>Project</th><th>Submitted</th><th>Status</th><th style="text-align: right;">Action</th></tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                      <img src="../assets/images/student-amara-okafor.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                      <div>
-                        <div style="font-weight: 700; color: var(--color-text-main);">Amara Okafor</div>
-                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">amara@stackly.edu</div>
-                      </div>
-                    </div>
-                  </td>
+                  <td><strong>Amara Okafor</strong></td>
                   <td>LangChain RAG Pipeline Capstone</td>
                   <td>2 hours ago</td>
                   <td><span class="status-badge review">Needs Review</span></td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening code review environment for Amara Okafor...');">Grade & Review</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening project review editor for Amara Okafor...');">Grade Now</button></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                      <img src="../assets/images/student-lucas-silva.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                      <div>
-                        <div style="font-weight: 700; color: var(--color-text-main);">Lucas Silva</div>
-                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">lucas@stackly.edu</div>
-                      </div>
-                    </div>
-                  </td>
+                  <td><strong>Lucas Silva</strong></td>
                   <td>Fine-Tuning Llama 3 on Domain Dataset</td>
                   <td>5 hours ago</td>
                   <td><span class="status-badge review">Needs Review</span></td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening code review environment for Lucas Silva...');">Grade & Review</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening project review editor for Lucas Silva...');">Grade Now</button></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                      <img src="../assets/images/student-david-kim.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                      <div>
-                        <div style="font-weight: 700; color: var(--color-text-main);">David Kim</div>
-                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">david@stackly.edu</div>
-                      </div>
-                    </div>
-                  </td>
+                  <td><strong>David Kim</strong></td>
                   <td>Vector Search with ChromaDB</td>
                   <td>Yesterday</td>
                   <td><span class="status-badge approved">Graded 94/100</span></td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Score: 94/100. Feedback: Clean embeddings integration.');">Edit Grade</button></td>
-                </tr>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                      <img src="../assets/images/student-elena-rostova.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                      <div>
-                        <div style="font-weight: 700; color: var(--color-text-main);">Elena Rostova</div>
-                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">elena.rostova@stackly.edu</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>Fullstack AI Copilot React UI</td>
-                  <td>Yesterday</td>
-                  <td><span class="status-badge review">Needs Review</span></td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Opening code review environment for Elena Rostova...');">Grade & Review</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Score: 94/100.');">Edit Grade</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- 4. Instructor Live Sessions View -->
+        <!-- 4. Instructor Live View (Full) -->
         <div class="dashboard-view-panel" id="view-instructor-live">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Live Sessions & Webinar Studio</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Broadcast live lectures, answer student questions in real-time, and manage office hours.</p>
+              <h2 class="dashboard-section-title">Live Webinar Studio & Broadcasting</h2>
+              <p class="dashboard-section-subtitle">Broadcast live lectures, answer student questions in real-time, and manage office hours.</p>
             </div>
-            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Launching live instructor broadcast studio...');">Launch Live Room Now</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Starting live broadcast studio...');">Launch Live Room Now</button>
           </div>
-
-          <div style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%); color: #FFFFFF; border-radius: var(--radius-2xl); padding: 2rem; margin-bottom: 2rem;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
-              <span class="badge badge-peach">Upcoming Broadcast</span>
-              <span style="font-size: 0.85rem; opacity: 0.8;">Room ID: STK-LIVE-AI-901</span>
-            </div>
-            <h3 style="font-size: 1.5rem; font-weight: 800; margin: 0 0 0.5rem 0;">GenAI Prompt Tuning & Agent Architecture Q&A</h3>
-            <p style="opacity: 0.9; margin: 0 0 1.5rem 0;">Scheduled: <strong>Tomorrow, Nov 13 at 5:00 PM EST</strong> &bull; 142 Learners Registered</p>
+          <div style="background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%); color: #FFFFFF; border-radius: var(--radius-2xl); padding: 2rem;">
+            <h3 style="font-size: 1.4rem; font-weight: 800; margin: 0 0 0.5rem 0;">GenAI Prompt Tuning & Agent Architecture Q&A</h3>
+            <p style="opacity: 0.9; margin: 0 0 1.25rem 0;">Scheduled: <strong>Tomorrow, Nov 13 at 5:00 PM EST</strong> &bull; 142 Learners Registered</p>
             <div style="display: flex; gap: 0.75rem;">
-              <button type="button" class="btn btn-white btn-sm" onclick="alert('Camera & Microphone test: OK. Latency: 14ms.');">Test AV Equipment</button>
-              <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Shared broadcast invite link to registered students.');">Share Invite Link</button>
+              <button type="button" class="btn btn-white btn-sm" onclick="alert('AV Equipment Check: Optimal (14ms latency).');">Test AV Equipment</button>
+              <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.4); color: #FFF;" onclick="alert('Broadcast link copied to clipboard.');">Share Broadcast Link</button>
             </div>
           </div>
         </div>
 
-        <!-- 5. Instructor Analytics View -->
+        <!-- 5. Instructor Analytics View (Full) -->
         <div class="dashboard-view-panel" id="view-instructor-analytics">
-          <div style="margin-bottom: 1.5rem;">
-            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Earnings & Growth Analytics</h2>
-            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Detailed revenue breakdown, student retention curves, and payout statements.</p>
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title">Earnings & Growth Analytics</h2>
+              <p class="dashboard-section-subtitle">Detailed revenue breakdown, student retention curves, and payout statements.</p>
+            </div>
           </div>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
             <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
               <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">November Payout (Pending)</div>
               <div style="font-size: 2rem; font-weight: 800; color: #059669; margin: 0.5rem 0;">$7,420.00</div>
@@ -1083,294 +1299,346 @@
               <div style="font-size: 2rem; font-weight: 800; color: var(--color-primary); margin: 0.5rem 0;">91.4%</div>
               <div style="font-size: 0.8rem; color: var(--color-text-muted);">Benchmark: Top 5% of Faculty</div>
             </div>
-            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
-              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Student Satisfaction</div>
-              <div style="font-size: 2rem; font-weight: 800; color: #D97706; margin: 0.5rem 0;">4.92 / 5.0</div>
-              <div style="font-size: 0.8rem; color: #D97706; font-weight: 600;">Based on 1,420 student reviews</div>
-            </div>
           </div>
         </div>
 
-        <!-- 6. Instructor Settings View -->
+        <!-- 6. Instructor Account Settings View (Populated with Gmail Details) -->
         <div class="dashboard-view-panel" id="view-instructor-settings">
-          <div style="margin-bottom: 1.5rem;">
-            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Instructor Profile & Payouts</h2>
-            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Configure your public bio, credentials, office hours schedule, and Stripe payout accounts.</p>
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title">Instructor Profile & Credentials</h2>
+              <p class="dashboard-section-subtitle">Name and email credentials automatically linked with your authentication account.</p>
+            </div>
           </div>
-
           <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 2rem; max-width: 720px; box-shadow: var(--shadow-xs);">
-            <form onsubmit="event.preventDefault(); alert('Instructor profile updated successfully!');">
+            <form id="instructorSettingsForm" onsubmit="handleSettingsUpdate(event, 'instructor');">
               <div style="margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Instructor Name</label>
-                <input type="text" class="form-input" value="Dr. Marcus Vance" style="width: 100%;">
+                <label for="settingInstructorName" style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Instructor Full Name (Derived from Login Email)
+                </label>
+                <input type="text" class="form-input" id="settingInstructorName" required style="width: 100%;">
               </div>
               <div style="margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Academic Title</label>
-                <input type="text" class="form-input" value="Director of Artificial Intelligence & Machine Learning" style="width: 100%;">
+                <label for="settingInstructorEmail" style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Login Gmail / Email Address
+                </label>
+                <input type="email" class="form-input" id="settingInstructorEmail" required style="width: 100%;">
               </div>
               <div style="margin-bottom: 1.25rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">Payout Account (Stripe Connected)</label>
-                <input type="text" class="form-input" value="Stripe Express (acct_1M***992) &bull; Active" disabled style="width: 100%; background: #F8FAFC;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Faculty Title & Specialization
+                </label>
+                <input type="text" class="form-input" value="Senior Faculty Lead & AI Architect" style="width: 100%;">
               </div>
-              <button type="submit" class="btn btn-primary">Update Instructor Profile</button>
+              <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Payout Account (Stripe Connected)
+                </label>
+                <input type="text" class="form-input" value="Stripe Express (acct_1M***992) &bull; Verified" disabled style="width: 100%; background: #F8FAFC;">
+              </div>
+              <button type="submit" class="btn btn-primary" id="saveInstructorSettingsBtn">Update Instructor Profile</button>
             </form>
           </div>
         </div>
 
 
         <!-- ===================================================================
-             ADMIN PANELS
+             ADMIN PANELS (AT LEAST 5 RICH SECTIONS OF CONTENT)
              =================================================================== -->
 
         <!-- 1. Admin Overview View -->
         <div class="dashboard-view-panel" id="view-admin-overview">
-          <section aria-labelledby="admin-kpi-heading" style="margin-bottom: 2rem;">
-            <h2 id="admin-kpi-heading" class="sr-only">Platform Statistics</h2>
+          
+          <!-- SECTION 1: Platform-wide Executive KPIs -->
+          <section class="dashboard-section" aria-labelledby="admin-kpi-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="admin-kpi-heading" class="dashboard-section-title">Platform Infrastructure & Global Operations</h2>
+                <p class="dashboard-section-subtitle">Real-time status on registered users, transaction volumes, and instructor headcount.</p>
+              </div>
+              <span class="badge badge-peach">Administrator Operations</span>
+            </div>
             <div class="stat-card-grid" id="adminKpiGrid">
-              <!-- Rendered via JS -->
+              <!-- Injected via JS -->
             </div>
           </section>
 
-          <!-- System Status Bar -->
-          <div style="background: #0F172A; color: #FFFFFF; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #10B981;"></span>
-                <span style="font-size: 0.85rem; color: #10B981; font-weight: 700; text-transform: uppercase;">Infrastructure Operational</span>
+          <!-- SECTION 2: Platform Infrastructure Health & SLA Status -->
+          <section class="dashboard-section">
+            <div style="background: #0F172A; color: #FFFFFF; border-radius: var(--radius-2xl); padding: 1.75rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+              <div>
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #10B981;"></span>
+                  <span style="font-size: 0.85rem; color: #10B981; font-weight: 700; text-transform: uppercase;">Infrastructure Operational</span>
+                </div>
+                <h3 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 0.25rem 0;">System Health & Platform SLA: 99.98%</h3>
+                <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Core API Latency: 18ms &bull; Database Clusters: Healthy &bull; CDN Edge: Optimal</p>
               </div>
-              <h3 style="font-size: 1.35rem; font-weight: 800; margin: 0 0 0.25rem 0;">System Health & Platform SLA: 99.98%</h3>
-              <p style="color: #94A3B8; font-size: 0.85rem; margin: 0;">Core API Latency: 18ms &bull; Database Clusters: Healthy &bull; CDN Edge: Optimal</p>
+              <div style="display: flex; gap: 0.75rem;">
+                <button type="button" class="btn btn-white btn-sm" onclick="switchView('admin-users');">Manage Users</button>
+                <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.3); color: #FFF;" onclick="switchView('admin-approvals');">Review Approvals (5)</button>
+              </div>
             </div>
-            <div style="display: flex; gap: 0.75rem;">
-              <button type="button" class="btn btn-white btn-sm" onclick="switchView('admin-users');">Manage Users</button>
-              <button type="button" class="btn btn-outline btn-sm" style="border-color: rgba(255,255,255,0.3); color: #FFF;" onclick="switchView('admin-approvals');">Review Approvals (5)</button>
-            </div>
-          </div>
+          </section>
 
-          <!-- Quick Navigation Cards Grid -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-            <div class="quick-action-card" onclick="switchView('admin-users');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: #0284C7; text-transform: uppercase;">Directory</span>
-                <span class="badge badge-peach">24,850 Total</span>
+          <!-- SECTION 3: User Directory & Role Management Console -->
+          <section class="dashboard-section" aria-labelledby="admin-users-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="admin-users-sec-heading" class="dashboard-section-title">User Directory & Role Management</h2>
+                <p class="dashboard-section-subtitle">Search, edit role assignments (Student, Instructor, Admin), or manage account states.</p>
               </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">User Management</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Search, edit roles (Student, Instructor, Admin), or suspend user accounts.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: #0284C7; margin-top: auto;">Open User Directory &rarr;</span>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('admin-users');">Open User Directory &rarr;</button>
             </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
+              <table class="dashboard-table">
+                <thead>
+                  <tr><th>User</th><th>Role</th><th>Status</th><th>Joined</th><th style="text-align: right;">Action</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Elena Rostova</strong><div style="font-size: 0.75rem; color: var(--color-text-muted);">elena.rostova@gmail.com</div></td>
+                    <td><span class="badge badge-emerald">Student</span></td>
+                    <td><span class="status-badge approved">Active</span></td>
+                    <td>Sep 12, 2026</td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="switchView('admin-users');">Edit Role</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Dr. Marcus Vance</strong><div style="font-size: 0.75rem; color: var(--color-text-muted);">marcus.vance@gmail.com</div></td>
+                    <td><span class="badge badge-lilac">Instructor</span></td>
+                    <td><span class="status-badge approved">Active</span></td>
+                    <td>Aug 04, 2026</td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="switchView('admin-users');">Edit Role</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-            <div class="quick-action-card" onclick="switchView('admin-approvals');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: #D97706; text-transform: uppercase;">Quality</span>
-                <span class="badge badge-yellow">5 New</span>
+          <!-- SECTION 4: Course Catalog Approvals & Compliance Queue -->
+          <section class="dashboard-section" aria-labelledby="admin-approvals-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="admin-approvals-sec-heading" class="dashboard-section-title">Course Catalog Moderation & Approvals</h2>
+                <p class="dashboard-section-subtitle">Verify curriculum compliance, syllabus completeness, and audio-video quality standards.</p>
               </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Course Approvals</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Audit syllabus compliance, check video lecture standards, and approve new courses.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: #D97706; margin-top: auto;">Open Approvals Queue &rarr;</span>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('admin-approvals');">Review Approvals (5) &rarr;</button>
             </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
+              <table class="dashboard-table">
+                <thead>
+                  <tr><th>Course Title</th><th>Submitted By</th><th>Compliance</th><th>Status</th><th style="text-align: right;">Action</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Distributed Systems with Rust</strong><div style="font-size: 0.75rem; color: var(--color-text-muted);">12 Modules &bull; 40 Hours</div></td>
+                    <td>Dr. Marcus Vance</td>
+                    <td><strong style="color: #059669;">96% Pass</strong></td>
+                    <td><span class="status-badge review">Pending Approval</span></td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Approved!');">Approve</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Zero Trust Cloud Security Architecture</strong><div style="font-size: 0.75rem; color: var(--color-text-muted);">8 Modules &bull; 24 Hours</div></td>
+                    <td>Alex Chen</td>
+                    <td><strong style="color: #059669;">92% Pass</strong></td>
+                    <td><span class="status-badge review">Pending Approval</span></td>
+                    <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Approved!');">Approve</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-            <div class="quick-action-card" onclick="switchView('admin-finance');">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <span style="font-size: 0.8rem; font-weight: 700; color: #059669; text-transform: uppercase;">Ledger</span>
-                <span class="badge badge-emerald">$184.2k Gross</span>
+          <!-- SECTION 5: Platform Financial Operations & Commission Ledger -->
+          <section class="dashboard-section" aria-labelledby="admin-finance-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="admin-finance-sec-heading" class="dashboard-section-title">Platform Financial Operations & Commission Settlement</h2>
+                <p class="dashboard-section-subtitle">Monitor gross marketplace volume, 15% platform take-rate, and instructor disbursements.</p>
               </div>
-              <h4 style="font-size: 1.1rem; font-weight: 800; margin: 0;">Platform Financials</h4>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">Manage platform 15% commissions, release instructor payouts, and review refunds.</p>
-              <span style="font-weight: 600; font-size: 0.85rem; color: #059669; margin-top: auto;">View Financials &rarr;</span>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('admin-finance');">View Ledger &rarr;</button>
             </div>
-          </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+              <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Gross Platform Volume</div>
+                <div style="font-size: 2rem; font-weight: 800; color: var(--color-text-main); margin: 0.5rem 0;">$184,200</div>
+                <div style="font-size: 0.8rem; color: #059669; font-weight: 600;">+18.2% MoM growth</div>
+              </div>
+              <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Platform Net Commissions (15%)</div>
+                <div style="font-size: 2rem; font-weight: 800; color: #0284C7; margin: 0.5rem 0;">$27,630</div>
+                <div style="font-size: 0.8rem; color: #0284C7; font-weight: 600;">Retained revenue</div>
+              </div>
+              <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
+                <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Disbursed to Faculty</div>
+                <div style="font-size: 2rem; font-weight: 800; color: #059669; margin: 0.5rem 0;">$156,570</div>
+                <div style="font-size: 0.8rem; color: #059669; font-weight: 600;">Distributed across 142 mentors</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- SECTION 6: System Configuration & Security Audit Logs -->
+          <section class="dashboard-section" aria-labelledby="admin-audit-sec-heading">
+            <div class="dashboard-section-header">
+              <div>
+                <h2 id="admin-audit-sec-heading" class="dashboard-section-title">System Configuration & Security Audit Logs</h2>
+                <p class="dashboard-section-subtitle">Platform maintenance switches, registration controls, and compliance logging.</p>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('admin-settings');">Platform Settings &rarr;</button>
+            </div>
+            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem; box-shadow: var(--shadow-xs);">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color-subtle); padding-bottom: 0.85rem; margin-bottom: 0.85rem; font-size: 0.85rem;">
+                <span><strong>Admin Action:</strong> Batch payout to 142 instructors approved ($42,100)</span>
+                <span style="color: var(--color-text-muted);">1 hour ago &bull; IP: 192.168.1.1</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color-subtle); padding-bottom: 0.85rem; margin-bottom: 0.85rem; font-size: 0.85rem;">
+                <span><strong>Security Alert:</strong> New Faculty account registered: Dr. Aris Thorne</span>
+                <span style="color: var(--color-text-muted);">2 hours ago &bull; IP: 10.0.4.12</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
+                <span><strong>Database Backup:</strong> Automated hourly snapshot completed</span>
+                <span style="color: var(--color-success); font-weight: 700;">Optimal &bull; 0 errors</span>
+              </div>
+            </div>
+          </section>
+
         </div>
 
-        <!-- 2. Admin Users View -->
+        <!-- 2. Admin Users View (Full) -->
         <div class="dashboard-view-panel" id="view-admin-users">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">User Management</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Directory of learners, instructors, and administrators across the platform.</p>
+              <h2 class="dashboard-section-title">User Management Directory</h2>
+              <p class="dashboard-section-subtitle">Directory of learners, instructors, and administrators across the platform.</p>
             </div>
-            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Creating new user invitation link...');">+ Add New User</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Creating new user invitation...');">+ Add New User</button>
           </div>
-
           <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
             <table class="dashboard-table">
               <thead>
-                <tr>
-                  <th>User</th>
-                  <th>Role</th>
-                  <th>Status</th>
-                  <th>Joined Date</th>
-                  <th style="text-align: right;">Action</th>
-                </tr>
+                <tr><th>User</th><th>Role</th><th>Status</th><th>Joined</th><th style="text-align: right;">Action</th></tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                      <img src="../assets/images/student-elena-rostova.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                      <div>
-                        <div style="font-weight: 700; color: var(--color-text-main);">Elena Rostova</div>
-                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">elena.rostova@stackly.edu</div>
-                      </div>
-                    </div>
-                  </td>
+                  <td><strong>Elena Rostova</strong><div style="font-size: 0.75rem; color: var(--color-text-muted);">elena.rostova@gmail.com</div></td>
                   <td><span class="badge badge-emerald">Student</span></td>
                   <td><span class="status-badge approved">Active</span></td>
                   <td>Sep 12, 2026</td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Editing Elena Rostova role permissions.');">Edit Role</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Editing role for Elena Rostova.');">Edit Role</button></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                      <img src="../assets/images/mentor-marcus-vance.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                      <div>
-                        <div style="font-weight: 700; color: var(--color-text-main);">Dr. Marcus Vance</div>
-                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">marcus.vance@stackly.edu</div>
-                      </div>
-                    </div>
-                  </td>
+                  <td><strong>Dr. Marcus Vance</strong><div style="font-size: 0.75rem; color: var(--color-text-muted);">marcus.vance@gmail.com</div></td>
                   <td><span class="badge badge-lilac">Instructor</span></td>
                   <td><span class="status-badge approved">Active</span></td>
                   <td>Aug 04, 2026</td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Editing Dr. Marcus Vance role permissions.');">Edit Role</button></td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Editing role for Dr. Marcus Vance.');">Edit Role</button></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                      <img src="../assets/images/mentor-sarah-jenkins.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                      <div>
-                        <div style="font-weight: 700; color: var(--color-text-main);">Sarah Jenkins</div>
-                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">sarah.admin@stackly.edu</div>
-                      </div>
-                    </div>
-                  </td>
+                  <td><strong>Sarah Jenkins</strong><div style="font-size: 0.75rem; color: var(--color-text-muted);">sarah.admin@gmail.com</div></td>
                   <td><span class="badge badge-peach">Admin</span></td>
                   <td><span class="status-badge approved">Superadmin</span></td>
                   <td>Jun 01, 2026</td>
                   <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" disabled>Protected</button></td>
                 </tr>
-                <tr>
-                  <td>
-                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                      <img src="../assets/images/mentor-alex-chen.webp" alt="Avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                      <div>
-                        <div style="font-weight: 700; color: var(--color-text-main);">Alex Chen</div>
-                        <div style="font-size: 0.75rem; color: var(--color-text-muted);">alex.chen@stackly.edu</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td><span class="badge badge-lilac">Instructor</span></td>
-                  <td><span class="status-badge approved">Active</span></td>
-                  <td>Jul 19, 2026</td>
-                  <td style="text-align: right;"><button type="button" class="btn btn-outline btn-sm" onclick="alert('Editing Alex Chen permissions.');">Edit Role</button></td>
-                </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- 3. Admin Course Approvals View -->
+        <!-- 3. Admin Approvals View (Full) -->
         <div class="dashboard-view-panel" id="view-admin-approvals">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Course Catalog Approvals</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Curriculum compliance queue submitted by instructors for global publishing.</p>
+              <h2 class="dashboard-section-title">Course Catalog Approvals</h2>
+              <p class="dashboard-section-subtitle">Curriculum compliance queue submitted by instructors for global publishing.</p>
             </div>
             <span class="badge badge-yellow">5 Pending Moderation</span>
           </div>
-
           <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); overflow-x: auto; box-shadow: var(--shadow-xs);">
             <table class="dashboard-table">
               <thead>
-                <tr>
-                  <th>Course Title</th>
-                  <th>Submitted By</th>
-                  <th>Compliance Score</th>
-                  <th>Status</th>
-                  <th style="text-align: right;">Action</th>
-                </tr>
+                <tr><th>Course Title</th><th>Submitted By</th><th>Compliance</th><th>Status</th><th style="text-align: right;">Action</th></tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>
-                    <div style="font-weight: 700; color: var(--color-text-main);">Distributed Systems with Rust</div>
-                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">12 Modules &bull; 40 Hours Content</div>
-                  </td>
+                  <td><strong>Distributed Systems with Rust</strong></td>
                   <td>Dr. Marcus Vance</td>
                   <td><strong style="color: #059669;">96% Pass</strong></td>
                   <td><span class="status-badge review">Pending Approval</span></td>
-                  <td style="text-align: right;">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Distributed Systems with Rust approved and published!');">Approve</button>
-                  </td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Approved!');">Approve</button></td>
                 </tr>
                 <tr>
-                  <td>
-                    <div style="font-weight: 700; color: var(--color-text-main);">Zero Trust Cloud Security Architecture</div>
-                    <div style="font-size: 0.75rem; color: var(--color-text-muted);">8 Modules &bull; 24 Hours Content</div>
-                  </td>
+                  <td><strong>Zero Trust Cloud Security Architecture</strong></td>
                   <td>Alex Chen</td>
                   <td><strong style="color: #059669;">92% Pass</strong></td>
                   <td><span class="status-badge review">Pending Approval</span></td>
-                  <td style="text-align: right;">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Zero Trust Cloud Security approved!');">Approve</button>
-                  </td>
+                  <td style="text-align: right;"><button type="button" class="btn btn-primary btn-sm" onclick="alert('Course Approved!');">Approve</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- 4. Admin Finance View -->
+        <!-- 4. Admin Finance View (Full) -->
         <div class="dashboard-view-panel" id="view-admin-finance">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div class="dashboard-section-header">
             <div>
-              <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Platform Financials</h2>
-              <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">Commission takerate, gross platform merchandise value, and instructor payouts.</p>
+              <h2 class="dashboard-section-title">Platform Financials & Ledger</h2>
+              <p class="dashboard-section-subtitle">Commission takerate, gross platform merchandise value, and instructor payouts.</p>
             </div>
-            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Initiating batch payout to 142 instructors via Stripe Connect...');">Process Monthly Payouts</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="alert('Processing monthly payouts...');">Process Monthly Payouts</button>
           </div>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
             <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
               <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Gross Platform Volume</div>
               <div style="font-size: 2rem; font-weight: 800; color: var(--color-text-main); margin: 0.5rem 0;">$184,200</div>
-              <div style="font-size: 0.8rem; color: #059669; font-weight: 600;">+18.2% MoM growth</div>
             </div>
             <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
-              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Platform Net Commissions (15%)</div>
+              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Retained Net Commission (15%)</div>
               <div style="font-size: 2rem; font-weight: 800; color: #0284C7; margin: 0.5rem 0;">$27,630</div>
-              <div style="font-size: 0.8rem; color: #0284C7; font-weight: 600;">Net retained revenue</div>
-            </div>
-            <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 1.5rem;">
-              <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase;">Disbursed to Faculty</div>
-              <div style="font-size: 2rem; font-weight: 800; color: #059669; margin: 0.5rem 0;">$156,570</div>
-              <div style="font-size: 0.8rem; color: #059669; font-weight: 600;">Distributed across 142 mentors</div>
             </div>
           </div>
         </div>
 
-        <!-- 5. Admin Settings View -->
+        <!-- 5. Admin Settings & Profile View (Populated with Gmail Details) -->
         <div class="dashboard-view-panel" id="view-admin-settings">
-          <div style="margin-bottom: 1.5rem;">
-            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--color-text-main); margin-bottom: 0.25rem;">Platform Settings & Audit Logs</h2>
-            <p style="font-size: 0.875rem; color: var(--color-text-muted); margin: 0;">System maintenance controls, security audit trail, and compliance flags.</p>
-          </div>
-
-          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 2rem; max-width: 720px; box-shadow: var(--shadow-xs);">
-            <div style="margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-              <label style="display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 0.9rem;">
-                <span>New Student Registration</span>
-                <input type="checkbox" checked style="transform: scale(1.2);">
-              </label>
-              <label style="display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 0.9rem;">
-                <span>Require 2FA for Instructors & Admins</span>
-                <input type="checkbox" checked style="transform: scale(1.2);">
-              </label>
-              <label style="display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 0.9rem;">
-                <span>Platform Maintenance Mode</span>
-                <input type="checkbox" style="transform: scale(1.2);">
-              </label>
+          <div class="dashboard-section-header">
+            <div>
+              <h2 class="dashboard-section-title">Administrator Profile & Platform Settings</h2>
+              <p class="dashboard-section-subtitle">Administrator account details and global platform security configuration.</p>
             </div>
-            <button type="button" class="btn btn-primary" onclick="alert('Platform security parameters applied.');">Save System Settings</button>
+          </div>
+          <div style="background: #FFFFFF; border: 1.5px solid var(--border-color-subtle); border-radius: var(--radius-xl); padding: 2rem; max-width: 720px; box-shadow: var(--shadow-xs);">
+            <form id="adminSettingsForm" onsubmit="handleSettingsUpdate(event, 'admin');">
+              <div style="margin-bottom: 1.25rem;">
+                <label for="settingAdminName" style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Administrator Name (Derived from Login Email)
+                </label>
+                <input type="text" class="form-input" id="settingAdminName" required style="width: 100%;">
+              </div>
+              <div style="margin-bottom: 1.25rem;">
+                <label for="settingAdminEmail" style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-text-main); margin-bottom: 0.5rem;">
+                  Administrator Login Gmail / Email Address
+                </label>
+                <input type="email" class="form-input" id="settingAdminEmail" required style="width: 100%;">
+              </div>
+              <div style="margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                <label style="font-size: 0.85rem; font-weight: 700; color: var(--color-text-main);">Global Security Controls</label>
+                <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+                  <span>Allow New Student Registrations</span>
+                  <input type="checkbox" checked style="transform: scale(1.2);">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+                  <span>Enforce Strict 2FA for Instructors & Admins</span>
+                  <input type="checkbox" checked style="transform: scale(1.2);">
+                </label>
+                <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; font-weight: 600;">
+                  <span>Platform Maintenance Mode</span>
+                  <input type="checkbox" style="transform: scale(1.2);">
+                </label>
+              </div>
+              <button type="submit" class="btn btn-primary" id="saveAdminSettingsBtn">Save Administrator Settings</button>
+            </form>
           </div>
         </div>
 
@@ -1382,6 +1650,15 @@
        GLOBAL SCRIPT & CONTROLLERS
        ========================================================================= -->
   <script>
+    // Helper: Derive User Display Name strictly from login email (e.g. alex.chen@gmail.com -> Alex Chen)
+    function getNameFromEmail(emailStr) {
+      if (!emailStr) return "Learner";
+      const namePart = emailStr.split('@')[0];
+      const cleaned = namePart.replace(/[0-9._-]+/g, ' ').trim();
+      if (!cleaned) return "Learner";
+      return cleaned.replace(/\b\w/g, function(char) { return char.toUpperCase(); });
+    }
+
     // 1. GLOBAL SIGNOUT HANDLER (Attached to window, immune to ready state)
     window.handleStacklySignOut = function(e) {
       if (e && e.preventDefault) e.preventDefault();
@@ -1410,6 +1687,7 @@
       const targetPanel = document.getElementById('view-' + viewKey);
       if (targetPanel) {
         targetPanel.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       // Update active state in sidebar
@@ -1426,6 +1704,43 @@
         document.getElementById('dashboardSidebar').classList.remove('sidebar-mobile-open');
         document.body.classList.remove('sidebar-open');
         document.documentElement.classList.remove('sidebar-open');
+      }
+    };
+
+    // 3. SETTINGS FORM SUBMIT HANDLER (Updates localStorage & all UI elements)
+    window.handleSettingsUpdate = function(e, roleType) {
+      e.preventDefault();
+      let nameInput, emailInput;
+      if (roleType === 'student') {
+        nameInput = document.getElementById('settingStudentName');
+        emailInput = document.getElementById('settingStudentEmail');
+      } else if (roleType === 'instructor') {
+        nameInput = document.getElementById('settingInstructorName');
+        emailInput = document.getElementById('settingInstructorEmail');
+      } else {
+        nameInput = document.getElementById('settingAdminName');
+        emailInput = document.getElementById('settingAdminEmail');
+      }
+
+      const updatedName = nameInput ? nameInput.value.trim() : '';
+      const updatedEmail = emailInput ? emailInput.value.trim() : '';
+
+      try {
+        let user = JSON.parse(localStorage.getItem('stackly_currentUser') || '{}');
+        user.name = updatedName || user.name || 'Learner';
+        user.email = updatedEmail || user.email || 'learner@gmail.com';
+        localStorage.setItem('stackly_currentUser', JSON.stringify(user));
+
+        // Update UI
+        document.getElementById('topbarUserName').textContent = user.name;
+        document.getElementById('sidebarUserName').textContent = user.name;
+        const hour = new Date().getHours();
+        let prefix = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+        document.getElementById('dynamicGreeting').textContent = `${prefix}, ${user.name}`;
+
+        alert(`Account details updated successfully!\nName: ${user.name}\nEmail: ${user.email}`);
+      } catch (err) {
+        console.error('Settings update error:', err);
       }
     };
 
@@ -1460,10 +1775,20 @@
         currentUser = {};
       }
 
+      // Compute display name based strictly on the login email
+      let userEmail = currentUser.email || localStorage.getItem('stackly_rememberedEmail') || (
+        roleLower === 'instructor' ? 'marcus.vance@gmail.com' :
+        roleLower === 'admin' ? 'sarah.jenkins@gmail.com' :
+        'elena.rostova@gmail.com'
+      );
+
+      let userName = currentUser.name || getNameFromEmail(userEmail);
+
       // Define Role Data Profiles (Strictly Student, Instructor, Admin)
       const roleProfiles = {
         student: {
-          name: currentUser.name || "Elena Rostova",
+          name: userName,
+          email: userEmail,
           roleTitle: "Student",
           roleBadgeClass: "badge-emerald",
           avatar: currentUser.avatar || "../assets/images/student-elena-rostova.webp",
@@ -1483,7 +1808,8 @@
           ]
         },
         instructor: {
-          name: currentUser.name || "Dr. Marcus Vance",
+          name: userName,
+          email: userEmail,
           roleTitle: "Instructor",
           roleBadgeClass: "badge-lilac",
           avatar: currentUser.avatar || "../assets/images/mentor-marcus-vance.webp",
@@ -1494,16 +1820,17 @@
             { title: "Monthly Earnings", value: "$7,420", trend: "+12.4% vs last mo", bg: "var(--color-pastel-mint)", icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>' }
           ],
           navItems: [
-            { id: 'instructor-overview', label: 'Instructor Overview', icon: '<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>' },
+            { id: 'instructor-overview', label: 'Overview', icon: '<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect>' },
             { id: 'instructor-courses', label: 'My Courses & Curriculum', badge: '4', icon: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>' },
             { id: 'instructor-grading', label: 'Submissions & Grading', badge: '7 Pending', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>' },
             { id: 'instructor-live', label: 'Live Sessions', badge: 'TOMORROW', icon: '<polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>' },
             { id: 'instructor-analytics', label: 'Earnings & Analytics', icon: '<line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>' },
-            { id: 'instructor-settings', label: 'Instructor Profile', icon: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>' }
+            { id: 'instructor-settings', label: 'Account Settings', icon: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>' }
           ]
         },
         admin: {
-          name: currentUser.name || "Sarah Jenkins",
+          name: userName,
+          email: userEmail,
           roleTitle: "Admin",
           roleBadgeClass: "badge-peach",
           avatar: currentUser.avatar || "../assets/images/mentor-sarah-jenkins.webp",
@@ -1518,7 +1845,7 @@
             { id: 'admin-users', label: 'User Management', badge: '24.8k', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>' },
             { id: 'admin-approvals', label: 'Course Approvals', badge: '5 New', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>' },
             { id: 'admin-finance', label: 'Platform Financials', badge: '$184k', icon: '<line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>' },
-            { id: 'admin-settings', label: 'Platform Settings & Logs', icon: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>' }
+            { id: 'admin-settings', label: 'Account Settings', icon: '<circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>' }
           ]
         }
       };
@@ -1533,6 +1860,20 @@
       document.getElementById('sidebarUserRole').textContent = activeProfile.roleTitle + ' Account';
       document.getElementById('topbarAvatar').src = activeProfile.avatar;
       document.getElementById('sidebarAvatar').src = activeProfile.avatar;
+
+      // Populate Account Settings Form with Gmail-based details
+      if (document.getElementById('settingStudentName')) {
+        document.getElementById('settingStudentName').value = activeProfile.name;
+        document.getElementById('settingStudentEmail').value = activeProfile.email;
+      }
+      if (document.getElementById('settingInstructorName')) {
+        document.getElementById('settingInstructorName').value = activeProfile.name;
+        document.getElementById('settingInstructorEmail').value = activeProfile.email;
+      }
+      if (document.getElementById('settingAdminName')) {
+        document.getElementById('settingAdminName').value = activeProfile.name;
+        document.getElementById('settingAdminEmail').value = activeProfile.email;
+      }
 
       // Dynamic Greeting prefix
       const hour = new Date().getHours();
@@ -1606,13 +1947,29 @@
       const initialViewKey = activeProfile.navItems[0].id;
       switchView(initialViewKey);
 
-      // Mobile Sidebar Toggle
+      // Desktop Sidebar Collapse Controller (Toggles 'collapsed' class on dashboard-sidebar)
+      const sidebar = document.getElementById('dashboardSidebar');
+      const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
       const mobileToggle = document.getElementById('mobileSidebarToggle');
       const mobileClose = document.getElementById('mobileSidebarCloseBtn');
       const backdrop = document.getElementById('sidebarBackdrop');
-      const sidebar = document.getElementById('dashboardSidebar');
-      const sidebarCollapseBtn = document.getElementById('sidebarCollapseBtn');
 
+      // Restore collapsed state if saved
+      if (localStorage.getItem('stackly_sidebar_collapsed') === 'true' && window.innerWidth > 1024) {
+        sidebar.classList.add('collapsed');
+      }
+
+      if (sidebarCollapseBtn) {
+        sidebarCollapseBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          sidebar.classList.toggle('collapsed');
+          const isCollapsed = sidebar.classList.contains('collapsed');
+          localStorage.setItem('stackly_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+        });
+      }
+
+      // Mobile Drawer Controller
       if (mobileToggle) {
         mobileToggle.addEventListener('click', () => {
           sidebar.classList.add('sidebar-mobile-open');
@@ -1629,12 +1986,6 @@
 
       if (mobileClose) mobileClose.addEventListener('click', closeMobile);
       if (backdrop) backdrop.addEventListener('click', closeMobile);
-
-      if (sidebarCollapseBtn) {
-        sidebarCollapseBtn.addEventListener('click', () => {
-          sidebar.classList.toggle('sidebar-collapsed');
-        });
-      }
     });
   </script>
 </body>
