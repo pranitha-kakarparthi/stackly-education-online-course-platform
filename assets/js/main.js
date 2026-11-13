@@ -22,6 +22,13 @@
     window.location.pathname.includes("\\pages\\");
   const getPageUrl = (page) => (isInPages ? page : "pages/" + page);
   const getHomeUrl = () => (isInPages ? "../index.html" : "index.html");
+  const getAssetUrl = (path) => {
+    if (!path) return "";
+    if (isInPages && !path.startsWith("../") && !path.startsWith("http") && !path.startsWith("/")) {
+      return "../" + path;
+    }
+    return path;
+  };
 
   // =========================================================================
   // CONSTANTS & CONFIGURATION
@@ -276,6 +283,21 @@
   // UTILITY HELPERS
   // =========================================================================
   const Utils = {
+    // Normalize relative asset paths across root vs /pages/ subdirectories
+    normalizeUserAssets(user) {
+      if (!user) return user;
+      const copy = Object.assign({}, user);
+      if (copy.avatar) copy.avatar = getAssetUrl(copy.avatar);
+      if (Array.isArray(copy.courses)) {
+        copy.courses = copy.courses.map((c) => {
+          const cCopy = Object.assign({}, c);
+          if (cCopy.image) cCopy.image = getAssetUrl(cCopy.image);
+          return cCopy;
+        });
+      }
+      return copy;
+    },
+
     // Escape HTML to prevent injection
     escapeHtml(str) {
       if (!str) return "";
@@ -496,10 +518,11 @@
     getAllUsers() {
       try {
         const data = localStorage.getItem(CONFIG.STORAGE_KEYS.USERS);
-        return data ? JSON.parse(data) : DEFAULT_USERS;
+        const users = data ? JSON.parse(data) : DEFAULT_USERS;
+        return Array.isArray(users) ? users.map((u) => Utils.normalizeUserAssets(u)) : users;
       } catch (e) {
         console.error("Stackly Auth: Failed to parse users storage", e);
-        return DEFAULT_USERS;
+        return DEFAULT_USERS.map((u) => Utils.normalizeUserAssets(u));
       }
     },
 
@@ -507,7 +530,7 @@
       try {
         const data = localStorage.getItem(CONFIG.STORAGE_KEYS.CURRENT_USER);
         if (!data) return null;
-        return JSON.parse(data);
+        return Utils.normalizeUserAssets(JSON.parse(data));
       } catch (e) {
         console.error("Stackly Auth: Failed to parse current user", e);
         return null;
@@ -918,7 +941,7 @@
         userAvatarElements.forEach((el) => {
           if (el.tagName === "IMG") {
             el.src =
-              currentUser.avatar || "assets/images/student-amara-okafor.webp";
+              getAssetUrl(currentUser.avatar || "assets/images/student-amara-okafor.webp");
             el.alt = currentUser.name;
           }
         });
@@ -1633,7 +1656,7 @@
         .forEach((img) => {
           if (img.tagName === "IMG") {
             img.src =
-              currentUser.avatar || "assets/images/student-amara-okafor.webp";
+              getAssetUrl(currentUser.avatar || "assets/images/student-amara-okafor.webp");
             img.alt = currentUser.name;
           }
         });
@@ -1889,7 +1912,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden course-dashboard-card bg-white">
               <div class="position-relative">
-                <img src="${c.image || "assets/images/course-fullstack-dev.webp"}" class="card-img-top" alt="${Utils.escapeHtml(c.title)}" style="height: 180px; object-fit: cover;">
+                <img src="${getAssetUrl(c.image || "assets/images/course-fullstack-dev.webp")}" class="card-img-top" alt="${Utils.escapeHtml(c.title)}" style="height: 180px; object-fit: cover;">
               </div>
               <div class="card-body p-4 d-flex flex-column justify-content-between">
                 <div>
@@ -1989,12 +2012,12 @@
           return; // Allow normal navigation to sign-in / sign-up
         }
 
-        // 1c. Allow Back to Top floating button to smoothly scroll without 404 redirection
+        // 1c. Allow Back to Top, billing switch, and non-intercept elements without 404 redirection
         const backToTopTarget = e.target.closest(
-          "#back-to-top, .back-to-top-btn, [data-back-to-top], [data-no-intercept='true']"
+          "#back-to-top, .back-to-top-btn, [data-back-to-top], [data-no-intercept='true'], #billing-toggle, .toggle-switch-btn, .billing-toggle-wrap, [role='switch']"
         );
         if (backToTopTarget) {
-          return; // Never intercept back-to-top button
+          return; // Never intercept back-to-top or non-intercept switch controls
         }
 
         // 1d. In dashboard pages content, redirect every button to 404 page
@@ -2027,7 +2050,8 @@
               clickable.closest(
                 "#back-to-top, .back-to-top-btn, [data-back-to-top]"
               ) ||
-              clickable.getAttribute("data-no-intercept") === "true"
+              clickable.getAttribute("data-no-intercept") === "true" ||
+              clickable.closest("[data-no-intercept='true']")
             ) {
               return;
             }
@@ -2048,7 +2072,7 @@
             if (clickable.type === "submit" && clickable.closest("form")) {
               return;
             }
-            // Allow interactive UI controls (tabs, accordions, details, password eye toggles, back button)
+            // Allow interactive UI controls (tabs, accordions, details, password eye toggles, back button, switches/billing toggle, FAQ)
             if (
               clickable.classList.contains("toggle-password") ||
               clickable.closest(".toggle-password") ||
@@ -2057,6 +2081,13 @@
               clickable.closest("details") ||
               clickable.classList.contains("accordion-header") ||
               clickable.closest(".accordion-header") ||
+              clickable.id === "billing-toggle" ||
+              clickable.classList.contains("toggle-switch-btn") ||
+              clickable.closest(".billing-toggle-wrap, .toggle-switch-btn") ||
+              clickable.getAttribute("role") === "switch" ||
+              clickable.closest("[role='switch']") ||
+              clickable.classList.contains("faq-question-btn") ||
+              clickable.closest(".faq-question-btn, .faq-item") ||
               (clickable.getAttribute("onclick") &&
                 clickable.getAttribute("onclick").includes("history.back"))
             ) {

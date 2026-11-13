@@ -829,12 +829,48 @@
     @media (max-width: 900px) {
       .signup-split-layout {
         flex-direction: column;
+        min-height: auto;
       }
       .signup-brand-sidebar {
-        display: none; /* Mobile hides side banner for optimal form ergonomics */
+        display: flex !important;
+        flex: none !important;
+        width: 100% !important;
+        min-height: auto !important;
+        padding: 2.5rem 1.75rem 2.5rem !important;
+        position: relative !important;
+        overflow: visible !important;
+      }
+      .auth-banner-topbar {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        padding: 0 !important;
+        margin-bottom: 2rem !important;
+      }
+      .signup-brand-content {
+        padding-top: 0 !important;
+        max-width: 100% !important;
+      }
+      .brand-headline {
+        font-size: clamp(1.85rem, 5vw, 2.25rem);
+      }
+      .brand-description {
+        font-size: 0.98rem;
+        margin-bottom: 1.5rem;
+      }
+      .brand-feature-checklist {
+        margin-bottom: 2rem;
+      }
+      .student-highlight-card {
+        max-width: 100% !important;
+        margin-top: 1.5rem !important;
+        padding: 1.25rem !important;
       }
       .signup-form-section {
-        padding: 2rem 1.25rem;
+        padding: 2.5rem 1.75rem !important;
+        width: 100% !important;
+        flex: none !important;
       }
       .auth-header-signin-cta span.auth-signin-text {
         display: none;
@@ -849,17 +885,46 @@
     }
 
     @media (max-width: 480px) {
+      .signup-brand-sidebar {
+        padding: 1.75rem 1.25rem 2rem !important;
+      }
+      .auth-banner-topbar {
+        margin-bottom: 1.5rem !important;
+      }
+      .auth-banner-brand-logo {
+        padding: 4px 10px !important;
+      }
+      .auth-banner-logo-img {
+        height: 30px !important;
+      }
+      .auth-banner-topbar .btn-back-home {
+        padding: 0.35rem 0.75rem !important;
+        font-size: 0.78rem !important;
+      }
       .auth-header-container {
         padding: 0 1rem;
       }
       .btn-back-home span {
-        display: none;
+        display: inline-block !important;
       }
-      .btn-back-home {
-        padding: 0.5rem;
+      .student-card-header {
+        flex-wrap: wrap;
+        gap: 0.65rem;
+      }
+      .student-badge-hired {
+        margin-left: 0;
       }
       .signup-title {
         font-size: 1.65rem;
+      }
+      .signup-form-section {
+        padding: 2rem 1.25rem !important;
+      }
+      .phone-split-container {
+        flex-direction: column;
+      }
+      .phone-code-select {
+        width: 100%;
       }
     }
   
@@ -938,19 +1003,20 @@
            SIDE A: BRAND MESSAGING, STUDENT HIGHLIGHT & FEATURE CHECKLIST
            -------------------------------------------------------------------- -->
       <section class="signup-brand-sidebar" aria-label="Why Join Stackly Education">
-        <!-- Fixed Brand Logo at Top-Left of Left Part -->
-        <a href="../index.html" class="auth-banner-brand-logo" aria-label="Stackly Homepage" title="Return to Stackly Homepage" onclick="event.stopPropagation(); window.location.href='../index.html';" data-no-intercept="true">
-          <img src="../assets/images/logoStackly.webp" alt="Stackly Education & Online Course Platform" class="auth-banner-logo-img">
-        </a>
+        <!-- Fixed Brand Logo & Back to Home Header Bar -->
+        <div class="auth-banner-topbar">
+          <a href="../index.html" class="auth-banner-brand-logo" aria-label="Stackly Homepage" title="Return to Stackly Homepage" onclick="event.stopPropagation(); window.location.href='../index.html';" data-no-intercept="true">
+            <img src="../assets/images/logoStackly.webp" alt="Stackly Education & Online Course Platform" class="auth-banner-logo-img">
+          </a>
 
-        <!-- Moved Back to Home Button at Top-Right of Left Part -->
-        <a href="../index.html" class="btn btn-outline btn-back-home" aria-label="Return to Stackly Home" title="Return to Stackly Home" onclick="event.stopPropagation(); window.location.href='../index.html';" data-no-intercept="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          <span>Back to Home</span>
-        </a>
+          <a href="../index.html" class="btn btn-outline btn-back-home" aria-label="Return to Stackly Home" title="Return to Stackly Home" onclick="event.stopPropagation(); window.location.href='../index.html';" data-no-intercept="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Home</span>
+          </a>
+        </div>
         <div class="brand-glow-orb brand-glow-orb-1"></div>
         <div class="brand-glow-orb brand-glow-orb-2"></div>
 
@@ -1040,16 +1106,6 @@
            -------------------------------------------------------------------- -->
       <section class="signup-form-section" aria-label="Registration Form Section">
         <div class="signup-card-container">
-      <div class="auth-mobile-header">
-        <a href="../index.html" class="brand-logo-link" aria-label="Return to Stackly Homepage">
-          <img src="../assets/images/logoStackly.webp" alt="Stackly Logo" style="height: 40px; width: auto; object-fit: contain;">
-        </a>
-        <a href="../index.html" class="btn btn-outline" style="padding: 0.4rem 0.95rem; font-size: 0.825rem; border-radius: 9999px; display: inline-flex; align-items: center; gap: 0.4rem; border: 1.5px solid #CBD5E1; color: #0F172A; text-decoration: none; font-weight: 600; background: #FFFFFF;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-          <span>Back to Home</span>
-        </a>
-      </div>
-
 
           <!-- Header Box -->
           <div class="signup-header-box">

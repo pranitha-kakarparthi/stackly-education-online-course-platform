@@ -69,6 +69,8 @@
       border: 1.5px solid var(--border-color-medium);
       box-shadow: var(--shadow-sm);
       margin: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .toggle-label {
       font-family: var(--font-heading);
@@ -78,6 +80,8 @@
       cursor: pointer;
       user-select: none;
       transition: color var(--transition-fast);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .toggle-label.active {
       color: var(--color-text-main);
@@ -85,13 +89,19 @@
     .toggle-switch-btn {
       position: relative;
       width: 58px;
+      min-width: 58px;
+      max-width: 58px;
       height: 32px;
+      min-height: 32px;
+      max-height: 32px;
       background-color: var(--color-primary);
       border-radius: var(--radius-full);
       border: none;
       cursor: pointer;
       outline: none;
       padding: 3px;
+      box-sizing: border-box;
+      flex-shrink: 0;
       transition: background-color var(--transition-normal);
     }
     .toggle-switch-btn:focus-visible {
@@ -101,12 +111,16 @@
     .toggle-slider {
       display: block;
       width: 26px;
+      min-width: 26px;
       height: 26px;
+      min-height: 26px;
       background-color: #FFFFFF;
       border-radius: 50%;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       transition: transform var(--transition-smooth);
       transform: translateX(0);
+      box-sizing: border-box;
+      flex-shrink: 0;
     }
     .toggle-switch-btn.annual .toggle-slider {
       transform: translateX(26px);
@@ -123,10 +137,39 @@
       border-radius: var(--radius-full);
       border: 1px solid rgba(234, 179, 8, 0.35);
       animation: badgeBounce 3s ease-in-out infinite;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     @keyframes badgeBounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-3px); }
+    }
+
+    @media (max-width: 640px) {
+      .billing-toggle-wrap {
+        gap: 0.65rem;
+        padding: 0.45rem 0.85rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .toggle-label {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .billing-toggle-wrap {
+        gap: 0.5rem;
+        padding: 0.4rem 0.65rem;
+        border-radius: var(--radius-xl);
+      }
+      .toggle-label {
+        font-size: 0.8rem;
+      }
+      .savings-badge {
+        font-size: 0.72rem;
+        padding: 0.2rem 0.5rem;
+      }
     }
 
     /* Pricing Tier Grid */
@@ -312,7 +355,8 @@
     }
     .comparison-table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       text-align: left;
       min-width: 760px;
     }
@@ -328,12 +372,14 @@
       font-family: var(--font-heading);
       font-weight: 700;
       color: var(--color-text-main);
-      position: sticky;
-      top: var(--header-height);
-      z-index: 5;
+      position: static;
     }
     .comparison-table thead th:first-child {
       width: 36%;
+      border-top-left-radius: calc(var(--radius-2xl) - 2px);
+    }
+    .comparison-table thead th:last-child {
+      border-top-right-radius: calc(var(--radius-2xl) - 2px);
     }
     .comparison-table thead th:not(:first-child) {
       width: 16%;
@@ -341,6 +387,15 @@
     }
     .comparison-table tbody td:not(:first-child) {
       text-align: center;
+    }
+    .comparison-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .comparison-table tbody tr:last-child td:first-child {
+      border-bottom-left-radius: calc(var(--radius-2xl) - 2px);
+    }
+    .comparison-table tbody tr:last-child td:last-child {
+      border-bottom-right-radius: calc(var(--radius-2xl) - 2px);
     }
     .table-category-row td {
       background-color: #F1F5F9;
@@ -456,6 +511,8 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       margin-bottom: 3.5rem;
+      width: 100%;
+      box-sizing: border-box;
     }
     .stat-ribbon-card {
       background-color: var(--color-bg-surface);
@@ -464,6 +521,8 @@
       padding: 1.75rem;
       text-align: center;
       box-shadow: var(--shadow-sm);
+      box-sizing: border-box;
+      overflow: hidden;
     }
     .stat-ribbon-value {
       font-family: var(--font-heading);
@@ -471,11 +530,13 @@
       font-weight: 800;
       color: var(--color-primary);
       margin-bottom: 0.25rem;
+      white-space: nowrap;
     }
     .stat-ribbon-label {
       font-size: 0.875rem;
       font-weight: 600;
       color: var(--color-text-muted);
+      line-height: 1.4;
     }
 
     .testimonials-grid {
@@ -774,6 +835,17 @@
       .pricing-grid {
         grid-template-columns: 1fr;
       }
+      .stats-ribbon {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        margin-bottom: 2.5rem;
+      }
+      .stat-ribbon-card {
+        padding: 1.5rem 1.25rem;
+      }
+      .stat-ribbon-value {
+        font-size: 2rem;
+      }
       .testimonials-grid {
         grid-template-columns: 1fr;
       }
@@ -791,6 +863,14 @@
       .footer-bottom {
         flex-direction: column;
         align-items: flex-start;
+      }
+    }
+    @media (max-width: 480px) {
+      .stat-ribbon-card {
+        padding: 1.25rem 1rem;
+      }
+      .stat-ribbon-value {
+        font-size: 1.75rem;
       }
     }
   </style>
@@ -874,8 +954,6 @@
         <li><a href="courses.html" class="mobile-nav-link">Courses</a></li>
         <li><a href="pricing.html" class="mobile-nav-link active">Pricing</a></li>
         <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
-        <li><a href="sign-in.html" class="mobile-nav-link">Signin</a></li>
-        <li><a href="sign-up.html" class="mobile-nav-link">Register</a></li>
       </ul>
       <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--color-border, #E2E8F0);">
         <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Signin</a>
@@ -934,14 +1012,14 @@
           </div>
 
           <!-- Billing Cycle Toggle Switch -->
-          <div class="billing-toggle-wrap" role="region" aria-label="Billing cycle selector">
-            <span class="toggle-label active" id="monthly-label">Monthly Billing</span>
+          <div class="billing-toggle-wrap" role="region" aria-label="Billing cycle selector" data-no-intercept="true">
+            <span class="toggle-label active" id="monthly-label" data-no-intercept="true">Monthly Billing</span>
             
-            <button class="toggle-switch-btn" id="billing-toggle" type="button" role="switch" aria-checked="false" aria-labelledby="annual-label">
+            <button class="toggle-switch-btn" id="billing-toggle" type="button" role="switch" aria-checked="false" aria-labelledby="annual-label" data-no-intercept="true">
               <span class="toggle-slider"></span>
             </button>
             
-            <span class="toggle-label" id="annual-label">
+            <span class="toggle-label" id="annual-label" data-no-intercept="true">
               Annual Billing
             </span>
             <span class="savings-badge">
@@ -1957,7 +2035,10 @@
     }
 
     if (billingToggle) {
-      billingToggle.addEventListener('click', function() {
+      billingToggle.addEventListener('click', function(e) {
+        if (e) {
+          e.stopPropagation();
+        }
         updateBillingCycle(!isAnnual);
       });
 
@@ -1965,19 +2046,22 @@
       billingToggle.addEventListener('keydown', function(e) {
         if (e.key === ' ' || e.key === 'Enter') {
           e.preventDefault();
+          if (e.stopPropagation) e.stopPropagation();
           updateBillingCycle(!isAnnual);
         }
       });
     }
 
     if (monthlyLabel) {
-      monthlyLabel.addEventListener('click', function() {
+      monthlyLabel.addEventListener('click', function(e) {
+        if (e && e.stopPropagation) e.stopPropagation();
         updateBillingCycle(false);
       });
     }
 
     if (annualLabel) {
-      annualLabel.addEventListener('click', function() {
+      annualLabel.addEventListener('click', function(e) {
+        if (e && e.stopPropagation) e.stopPropagation();
         updateBillingCycle(true);
       });
     }

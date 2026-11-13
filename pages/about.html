@@ -525,6 +525,11 @@
       transition: transform var(--transition-smooth);
     }
 
+    .mentor-thumb-wrap img.mentor-priya,
+    .mentor-thumb-wrap img[src*="mentor-priya-sharma"] {
+      object-position: center 60% !important;
+    }
+
     .mentor-card:hover .mentor-thumb-wrap img {
       transform: scale(1.05);
     }
@@ -783,6 +788,7 @@
     .footer-brand-col {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
     }
 
     .footer-logo-link {
@@ -990,7 +996,17 @@
         max-width: 600px;
         margin: 0 auto;
       }
+      .mission-vision-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .mv-card.card-mission,
+      .mv-card.card-vision {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
       .values-grid {
+        grid-column: 1 / -1;
         grid-template-columns: repeat(2, 1fr);
       }
       .mentors-grid {
@@ -1011,12 +1027,18 @@
     @media (max-width: 768px) {
       .mission-vision-grid {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
       }
       .mv-card.card-mission,
       .mv-card.card-vision {
-        grid-column: span 1;
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+      .mv-card {
+        padding: 1.5rem 1.25rem;
       }
       .values-grid {
+        grid-column: 1 / -1;
         grid-template-columns: 1fr;
       }
       .stats-highlight-row {
@@ -1136,8 +1158,6 @@
         <li><a href="courses.html" class="mobile-nav-link">Courses</a></li>
         <li><a href="pricing.html" class="mobile-nav-link">Pricing</a></li>
         <li><a href="contact.html" class="mobile-nav-link">Contact</a></li>
-        <li><a href="sign-in.html" class="mobile-nav-link">Signin</a></li>
-        <li><a href="sign-up.html" class="mobile-nav-link">Register</a></li>
       </ul>
       <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--color-border, #E2E8F0);">
         <a href="sign-in.html" class="btn btn-secondary" style="width: 100%; text-align: center;">Signin</a>
@@ -1606,7 +1626,7 @@
           <!-- Mentor 4: Priya Sharma -->
           <article class="mentor-card">
             <div class="mentor-thumb-wrap">
-              <img src="../assets/images/mentor-priya-sharma.webp" alt="Priya Sharma, Head of Product Growth & Strategy" width="350" height="270" loading="lazy">
+              <img src="../assets/images/mentor-priya-sharma.webp" alt="Priya Sharma, Head of Product Growth & Strategy" class="mentor-priya" style="object-position: center 60%;" width="350" height="270" loading="lazy">
               <span class="mentor-exp-chip">Growth Leader &bull; 9+ Yrs</span>
             </div>
             <div class="mentor-details">
@@ -1782,7 +1802,7 @@
       <div class="unified-footer-grid">
         <!-- Col 1: Brand & Bio -->
         <div class="footer-brand-col">
-          <a href="../index.html" class="brand-logo" aria-label="Stackly Homepage" style="margin-bottom: 1.25rem;">
+          <a href="../index.html" class="brand-logo" aria-label="Stackly Homepage" style="margin-bottom: 1.25rem; width: fit-content; align-self: flex-start;">
             <img src="../assets/images/logoStackly.webp" alt="Stackly Logo" width="125" height="32">
           </a>
           <p style="font-size: 0.925rem; line-height: 1.65; color: #94A3B8; margin-bottom: 1.5rem; max-width: 340px;">
