@@ -927,11 +927,29 @@ footer .brand-logo-link,
   background-color: #0F172A;
   border-radius: 2px;
   transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(1),
+.hamburger-btn.open .hamburger-line:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(2),
+.hamburger-btn.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(3),
+.hamburger-btn.open .hamburger-line:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
 }
 
 /* Body lock on mobile menu open */
 html.mobile-nav-open,
-body.mobile-nav-open {
+body.mobile-nav-open,
+html.mobile-menu-open,
+body.mobile-menu-open {
   overflow: hidden !important;
   height: 100vh !important;
   height: 100dvh !important;
@@ -942,6 +960,9 @@ body.mobile-nav-open {
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -954,10 +975,15 @@ body.mobile-nav-open {
   justify-content: flex-end;
 }
 
-.mobile-nav-overlay.is-active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+.mobile-nav-overlay.is-active,
+.mobile-nav-overlay.open,
+.mobile-nav-overlay.show,
+body.mobile-nav-open .mobile-nav-overlay,
+body.mobile-menu-open .mobile-nav-overlay {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
 .mobile-nav-drawer {
@@ -984,8 +1010,16 @@ body.mobile-nav-open {
   box-shadow: -4px 0 25px rgba(0, 0, 0, 0.15);
 }
 
-.mobile-nav-overlay.is-active .mobile-nav-drawer {
-  transform: translateX(0);
+.mobile-nav-overlay.is-active .mobile-nav-drawer,
+.mobile-nav-overlay.open .mobile-nav-drawer,
+.mobile-nav-overlay.show .mobile-nav-drawer,
+.mobile-nav-drawer.is-active,
+.mobile-nav-drawer.open,
+.mobile-nav-drawer.show,
+body.mobile-nav-open .mobile-nav-drawer,
+body.mobile-menu-open .mobile-nav-drawer {
+  transform: translateX(0) !important;
+  visibility: visible !important;
 }
 
 .mobile-nav-header {
@@ -2653,8 +2687,13 @@ body.mobile-nav-open {
 
   .mobile-nav-overlay.open,
   .mobile-nav-overlay.is-active,
-  .mobile-nav-overlay.show {
+  .mobile-nav-overlay.show,
+  body.mobile-nav-open .mobile-nav-overlay,
+  body.mobile-menu-open .mobile-nav-overlay {
     display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
   }
 
   .mobile-nav-drawer {
@@ -2666,6 +2705,18 @@ body.mobile-nav-open {
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
     overscroll-behavior: contain !important;
+  }
+
+  .mobile-nav-overlay.is-active .mobile-nav-drawer,
+  .mobile-nav-overlay.open .mobile-nav-drawer,
+  .mobile-nav-overlay.show .mobile-nav-drawer,
+  .mobile-nav-drawer.is-active,
+  .mobile-nav-drawer.open,
+  .mobile-nav-drawer.show,
+  body.mobile-nav-open .mobile-nav-drawer,
+  body.mobile-menu-open .mobile-nav-drawer {
+    transform: translateX(0) !important;
+    visibility: visible !important;
   }
 }
 

@@ -23,7 +23,6 @@
   const getPageUrl = (page) => (isInPages ? page : "pages/" + page);
   const getHomeUrl = () => (isInPages ? "../index.html" : "index.html");
 
-
   // =========================================================================
   // CONSTANTS & CONFIGURATION
   // =========================================================================
@@ -455,13 +454,21 @@
       if (!localStorage.getItem(CONFIG.STORAGE_KEYS.PREFERENCES)) {
         localStorage.setItem(
           CONFIG.STORAGE_KEYS.PREFERENCES,
-          JSON.stringify({ emailAlerts: true, weeklyDigest: true, language: "en" })
+          JSON.stringify({
+            emailAlerts: true,
+            weeklyDigest: true,
+            language: "en",
+          })
         );
       }
       if (!localStorage.getItem(CONFIG.STORAGE_KEYS.THEME_SETTINGS)) {
         localStorage.setItem(
           CONFIG.STORAGE_KEYS.THEME_SETTINGS,
-          JSON.stringify({ theme: "light", fontSize: "default", highContrast: false })
+          JSON.stringify({
+            theme: "light",
+            fontSize: "default",
+            highContrast: false,
+          })
         );
       }
       if (!localStorage.getItem(CONFIG.STORAGE_KEYS.NOTIFICATIONS)) {
@@ -479,7 +486,10 @@
         );
       }
       if (!localStorage.getItem(CONFIG.STORAGE_KEYS.SAVED_FORMS)) {
-        localStorage.setItem(CONFIG.STORAGE_KEYS.SAVED_FORMS, JSON.stringify({}));
+        localStorage.setItem(
+          CONFIG.STORAGE_KEYS.SAVED_FORMS,
+          JSON.stringify({})
+        );
       }
     },
 
@@ -700,6 +710,11 @@
     },
 
     handleMobileMenu() {
+      if (this._mobileMenuInitialized) return;
+      this._mobileMenuInitialized = true;
+
+      const isDashboard = window.location.pathname.includes("dashboard");
+
       const toggleButtons = document.querySelectorAll(
         "#mobileMenuToggle, .hamburger-btn, .mobile-toggle, #mobile-toggle, #mobile-toggle-btn, #mobile-menu-toggle, [data-nav-toggle], .hamburger, #hamburger-btn, .mobile-menu-toggle"
       );
@@ -775,12 +790,19 @@
         const isOpen =
           document.body.classList.contains("mobile-nav-open") ||
           document.body.classList.contains("mobile-menu-open") ||
-          document.body.classList.contains("sidebar-open") ||
-          Array.from(overlays).some(
-            (ov) =>
-              ov.classList.contains("is-active") ||
-              ov.classList.contains("open")
-          );
+          (!isDashboard &&
+            Array.from(overlays).some(
+              (ov) =>
+                ov.classList.contains("is-active") ||
+                ov.classList.contains("open") ||
+                ov.getAttribute("aria-hidden") === "false"
+            )) ||
+          (isDashboard &&
+            (document.body.classList.contains("sidebar-open") ||
+              Array.from(drawers).some((dr) =>
+                dr.classList.contains("sidebar-mobile-open")
+              )));
+
         if (isOpen) {
           closeAll();
         } else {
@@ -819,7 +841,7 @@
 
       document
         .querySelectorAll(
-          ".mobile-nav-link, .mobile-nav-links a, #mobileNavMenu a, .sidebar-link"
+          ".mobile-nav-link, .mobile-nav-links a, #mobileNavMenu a, .sidebar-link, .mobile-nav-drawer a"
         )
         .forEach((link) => {
           link.addEventListener("click", () => {
@@ -1940,7 +1962,11 @@
         );
         if (logoTarget) {
           const anchor = logoTarget.closest("a");
-          if (anchor && (anchor.getAttribute("href") === "index.html" || anchor.getAttribute("href") === "../index.html")) {
+          if (
+            anchor &&
+            (anchor.getAttribute("href") === "index.html" ||
+              anchor.getAttribute("href") === "../index.html")
+          ) {
             return; // allow normal navigation
           }
           e.preventDefault();
@@ -1973,9 +1999,13 @@
 
         // 1d. In dashboard pages content, redirect every button to 404 page
         if (isDashboard && !is404Page) {
-          const dashContent = e.target.closest("#dashboardContent, .dashboard-content");
+          const dashContent = e.target.closest(
+            "#dashboardContent, .dashboard-content"
+          );
           if (dashContent) {
-            const clickable = e.target.closest("button, a, .btn, [role='button']");
+            const clickable = e.target.closest(
+              "button, a, .btn, [role='button']"
+            );
             if (clickable) {
               e.preventDefault();
               e.stopPropagation();
@@ -1994,7 +2024,9 @@
             if (
               clickable.id === "back-to-top" ||
               clickable.classList.contains("back-to-top-btn") ||
-              clickable.closest("#back-to-top, .back-to-top-btn, [data-back-to-top]") ||
+              clickable.closest(
+                "#back-to-top, .back-to-top-btn, [data-back-to-top]"
+              ) ||
               clickable.getAttribute("data-no-intercept") === "true"
             ) {
               return;
@@ -2046,7 +2078,9 @@
           if (
             actionTarget.id === "back-to-top" ||
             actionTarget.classList.contains("back-to-top-btn") ||
-            actionTarget.closest("#back-to-top, .back-to-top-btn, [data-back-to-top]") ||
+            actionTarget.closest(
+              "#back-to-top, .back-to-top-btn, [data-back-to-top]"
+            ) ||
             actionTarget.getAttribute("data-no-intercept") === "true" ||
             actionTarget.hasAttribute("data-bs-toggle") ||
             actionTarget.hasAttribute("data-bs-target") ||
@@ -2060,6 +2094,77 @@
           window.location.href = getPageUrl("404.html");
         }
       });
+
+      // Synchronize all buttons & links redirecting to 404 to consistently display the exact 404 anchor link
+      const sync404AnchorLinks = () => {
+        const target404 = getPageUrl("404.html");
+
+        if (isDashboard && !is404Page) {
+          const dashContent =
+            document.getElementById("dashboardContent") ||
+            document.querySelector(".dashboard-content");
+          if (dashContent) {
+            dashContent.querySelectorAll("a").forEach((a) => {
+              if (a.getAttribute("href") !== target404) {
+                a.setAttribute("href", target404);
+              }
+            });
+            dashContent.querySelectorAll("button").forEach((btn) => {
+              if (
+                btn.id === "back-to-top" ||
+                btn.classList.contains("back-to-top-btn") ||
+                btn.hasAttribute("data-no-intercept")
+              ) {
+                return;
+              }
+              const a = document.createElement("a");
+              a.href = target404;
+              a.className = btn.className;
+              if (btn.id) a.id = btn.id;
+              if (btn.getAttribute("style"))
+                a.setAttribute("style", btn.getAttribute("style"));
+              if (btn.getAttribute("title"))
+                a.setAttribute("title", btn.getAttribute("title"));
+              if (btn.getAttribute("aria-label"))
+                a.setAttribute("aria-label", btn.getAttribute("aria-label"));
+              a.innerHTML = btn.innerHTML;
+              btn.parentNode.replaceChild(a, btn);
+            });
+          }
+        }
+
+        if (!isDashboard && !is404Page && !isAuthPage) {
+          const bodyLinks = document.querySelectorAll(
+            "main a, #main-content a, [data-404='true']"
+          );
+          bodyLinks.forEach((a) => {
+            if (
+              a.closest(
+                "header, nav, #mobile-nav, .mobile-nav-overlay, footer, .site-footer"
+              ) ||
+              a.id === "back-to-top" ||
+              a.classList.contains("back-to-top-btn") ||
+              a.hasAttribute("data-no-intercept") ||
+              a.getAttribute("href")?.endsWith("sign-in.html") ||
+              a.getAttribute("href")?.endsWith("sign-up.html") ||
+              a.getAttribute("href")?.endsWith("index.html")
+            ) {
+              return;
+            }
+            if (a.getAttribute("href") !== target404) {
+              a.setAttribute("href", target404);
+            }
+          });
+        }
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", sync404AnchorLinks);
+      } else {
+        sync404AnchorLinks();
+      }
+
+      window.addEventListener("pageshow", sync404AnchorLinks);
     },
   };
 
@@ -2112,19 +2217,24 @@
   // GLOBAL FORM INITIALIZER: Ensure all forms across the website are empty by default
   // =========================================================================
   function resetAllFormsToEmpty() {
-    document.querySelectorAll('form').forEach(form => {
+    document.querySelectorAll("form").forEach((form) => {
       try {
         form.reset();
-        const fields = form.querySelectorAll('input:not([type="hidden"]):not([type="submit"]):not([type="button"]), select, textarea');
-        fields.forEach(field => {
-          if (field.type === 'checkbox' || field.type === 'radio') {
+        const fields = form.querySelectorAll(
+          'input:not([type="hidden"]):not([type="submit"]):not([type="button"]), select, textarea'
+        );
+        fields.forEach((field) => {
+          if (field.type === "checkbox" || field.type === "radio") {
             field.checked = false;
-          } else if (field.tagName === 'SELECT') {
-            if (field.id !== 'signupPhoneCode' && field.id !== 'countryCodeSelect') {
+          } else if (field.tagName === "SELECT") {
+            if (
+              field.id !== "signupPhoneCode" &&
+              field.id !== "countryCodeSelect"
+            ) {
               field.selectedIndex = 0;
             }
           } else {
-            field.value = '';
+            field.value = "";
           }
         });
       } catch (e) {
@@ -2133,12 +2243,11 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', resetAllFormsToEmpty);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", resetAllFormsToEmpty);
   } else {
     resetAllFormsToEmpty();
   }
 
-  window.addEventListener('pageshow', resetAllFormsToEmpty);
-
+  window.addEventListener("pageshow", resetAllFormsToEmpty);
 })(window, document);
